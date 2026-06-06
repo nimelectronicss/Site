@@ -3,129 +3,294 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NimaElectronician</title>
+    <title>Nima | Electronics & Programmer</title>
+    <!-- اضافه کردن فونت برای ظاهر بهتر -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* تمام کدهای CSS اینجا قرار گرفته‌اند */
-        body {
-            margin: 0;
-            padding: 20px;
-            font-family: sans-serif;
-            background-color: #f0f2f5;
-            display: flex;
-            justify-content: center;
+        :root {
+            --primary-color: #0288d1;
+            --secondary-color: #00acc1;
+            --bg-color: #f8f9fa;
+            --text-main: #333;
+            --text-muted: #666;
+            --white: #ffffff;
+            --shadow: 0 8px 30px rgba(0,0,0,0.08);
         }
 
-        .container {
-            max-width: 500px;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth; 
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            direction: ltr;
+        }
+
+        /* --- Navigation Bar --- */
+        nav {
+            position: fixed;
+            top: 0;
             width: 100%;
-            background: white;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 15px 0;
+        }
+
+        .nav-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            background: linear-gradient(135deg, #e1f5fe 0%, #ffffff 100%);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #0288d1, #00acc1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .btn-primary {
+            padding: 12px 30px;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(2, 136, 209, 0.4);
+        }
+
+        /* --- Main Content Container --- */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        section {
+            margin-bottom: 60px;
+            padding-top: 80px; 
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .card {
+            background: var(--white);
             padding: 30px;
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            /* چون سایت انگلیسی است، اینجا را به ltr تغییر دادم */
-            direction: ltr; 
-        }
-
-        h1, h2 {
-            color: #333;
-        }
-
-        p {
-            line-height: 1.6;
-            color: #555;
-        }
-
-        .subtitle {
-            color: #666;
-            font-style: italic;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
         }
 
         .skill-tags {
-            margin-top: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .tag {
             background: #e1f5fe;
             color: #0288d1;
-            padding: 8px 15px;
-            margin: 5px;
-            border-radius: 20px;
+            padding: 8px 18px;
+            border-radius: 50px;
             font-size: 0.85rem;
-            display: inline-block;
+            font-weight: 500;
         }
 
         ul {
-            padding-left: 20px;
-            color: #555;
+            list-style: none;
         }
 
-        li {
-            margin-bottom: 10px;
+        ul li {
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
         }
+
+        ul li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
         .project-img {
-    width: 100%;          /* عکس تمام عرض کانتینر را می‌گیرد */
-    max-width: 400px;     /* اما از ۴۰۰ پیکسل بزرگتر نمی‌شود تا خیلی غول‌آسا نباشد */
-    height: auto;         /* ارتفاع را خودکار تنظیم می‌کند تا عکس دفرمه نشود */
-    border-radius: 10px;  /* لبه‌های عکس را کمی گرد می‌کند تا شیک شود */
-    margin: 20px 0;       /* کمی فاصله از بالا و پایین ایجاد می‌کند */
-    display: block;       /* باعث می‌شود عکس در وسط قرار بگیرد */
-    margin-left: auto;
-    margin-right: auto;
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: var(--shadow);
         }
-        
 
         footer {
+            text-align: center;
+            padding: 40px 0;
             color: #aaa;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 2.2rem; }
+            .nav-links { display: none; } 
+            .container { padding: 20px; }
+            h2 { font-size: 1.6rem; }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-  <header>
-    <h1 style="text-align: center;">Hi, Here is Nima! 👋</h1>
-    <p class="subtitle" style="text-align: center;">Electronics student and interested in programming</p>
-  </header>
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">Nima.Dev</a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#learning">Learning</a></li>
+                <li><a href="#projects">Projects</a></li>
+            </ul>
+        </div>
+    </nav>
 
-  <section class="about">
-    <h2>About Me</h2>
-    <p>I'm a 17 years old student who fell in love with electronics!</p>
-    <p>Learning electronics, despite its difficulty, is always so sweet for me. This loveable science, even made mathematics interesting for me!</p>
-  </section>
-  
-  <section class="skills">
-    <h2>My skills</h2>
-    <div class="skill-tags">
-      <span class="tag">Basic Electronics</span>
-      <span class="tag">C Programming</span>
-      <span class="tag">Fixing devices</span>
-      <span class="tag">Digital Electronics</span>
-      <span class="tag">English, French, Persian, Arabic speaker</span>
-    </div>
-  </section>
+    <header class="hero">
+        <h1>Hi, I'm Nima 👋</h1>
+        <p>Electronics Student & Aspiring Programmer</p>
+        <a href="#about" class="btn-primary">Explore My Work</a>
+    </header>
 
-  <section class="learning-path" style="margin-top: 30px; border-top: 2px solid #eee; padding-top: 20px;">
-    <h2>My Learning Path</h2>
-    <p>Currently, I am diving deep into the world of electronics and coding!</p>
-    <ul>
-        
-        <li>Building my first Web Portfolio</li>
-        <li>Mastering C Programming</li>
-        <li>Exploring Digital Electronics</li>
-        <li>Getting familiar witl all kinds of components</li>
-        <li>Start to learn Arduino </li>
-        <li>Learning calculus!</li>
-        <li>Learning sensors!</li>
-      
-    </ul>
-  </section>
+    <div class="container">
+               <!-- About Section -->
+        <section id="about">
+            <h2>About Me</h2>
+            <div class="card">
+                <p>I'm a 17-year-old student who fell in love with electronics!</p>
+                <p style="margin-top: 15px;">Learning electronics, despite its complexity, is a rewarding journey for me. This fascination has even transformed mathematics into one of my favorite subjects!</p>
+            </div>
+        </section>
 
-    <img src="IMG_20260419_111608.jpg" alt="Blinking Circuit" class="project-img">.
-    <p>other features will be added soon</p>
-  <footer>
-    <p style="text-align: center; margin-top: 20px; font-size: 0.8rem;">generated with AI (and a little Nima) ✨</p>
-  </footer>
-</div>
+        <!-- Skills Section -->
+        <section id="skills">
+            <h2>My Skills</h2>
+            <div class="card">
+                <div class="skill-tags">
+                    <span class="tag">Basic Electronics</span>
+                    <span class="tag">C Programming</span>
+                    <span class="tag">Fixing devices</span>
+                    <span class="tag">Digital Electronics</span>
+                    <span class="tag">English, French, Persian, Arabic</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Learning Path Section -->
+        <section id="learning">
+            <h2>My Learning Path</h2>
+            <div class="card">
+                <p>Currently, I am diving deep into the world of electronics and coding!</p>
+                <ul style="margin-top: 20px;">
+                    <li>Building my first Web Portfolio</li>
+                    <li>Mastering C Programming</li>
+                    <li>Exploring Digital Electronics</li>
+                    <li>Getting familiar with all kinds of components</li>
+                    <li>Learning Arduino</li>
+                    <li>Learning Calculus!</li>
+                    <li>Learning Sensors!</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects">
+            <h2>Projects</h2>
+            <div class="card">
+                <img src="IMG_20260419_111608.jpg" alt="Blinking Circuit" class="project-img">
+                <p><strong>Blinking Circuit</strong></p>
+                <p style="font-size: 0.9rem; color: #666;">A simple but exciting project exploring digital logic and timing.</p>
+            </div>
+            <p style="text-align: center; color: #888;">More projects coming soon...</p>
+        </section>
+
+    </div> <!-- end container -->
+
+    <footer>
+        <p>generated with AI (and a little Nima) ✨</p>
+    </footer>
 
 </body>
 </html>
