@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nima | Electronics Portfolio</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -46,17 +47,18 @@
 
     .bg-orb{
       position:fixed;
-      inset:auto;
       width:420px;height:420px;
       border-radius:50%;
       filter:blur(70px);
       opacity:.18;
       z-index:-1;
       animation: drift 12s ease-in-out infinite;
+      pointer-events:none;
     }
     .o1{top:-120px;left:-120px;background:var(--accent)}
     .o2{top:25%;right:-140px;background:var(--accent-2);animation-delay:-4s}
     .o3{bottom:-140px;left:20%;background:var(--accent-3);animation-delay:-8s}
+
     @keyframes drift{
       0%,100%{transform:translate(0,0) scale(1)}
       50%{transform:translate(30px,20px) scale(1.08)}
@@ -126,6 +128,17 @@
       cursor:pointer;
     }
 
+    .lang-btn{
+      margin-left:10px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.04);
+      color:#fff;
+      padding:10px 14px;
+      border-radius:14px;
+      cursor:pointer;
+      font-weight:700;
+    }
+
     .container{max-width:1180px;margin:0 auto;padding:0 20px}
     .hero{
       min-height:100vh;
@@ -183,6 +196,7 @@
       line-height:1.02;
       letter-spacing:-.08em;
       margin-bottom:18px;
+      min-height:2.3em;
     }
     .grad{
       background:linear-gradient(90deg,#fff 10%, var(--accent-2) 45%, var(--accent) 85%);
@@ -260,7 +274,7 @@
       transform:translateY(18px);
       transition:.7s ease;
     }
-    .section-head.visible,.grid.visible,.section-card.visible{opacity:1;transform:translateY(0)}
+    .section-head.visible,.grid.visible,.section-card.visible,.timeline.visible{opacity:1;transform:translateY(0)}
     .section-head h2{font-size:clamp(1.8rem,4vw,3rem);letter-spacing:-.05em}
     .section-head p{color:var(--muted);max-width:68ch;margin-top:8px}
 
@@ -293,10 +307,7 @@
     .section-card p,.section-card li{color:var(--muted)}
     .section-card ul{padding-left:18px}
 
-    .timeline{
-      display:grid;
-      gap:16px;
-    }
+    .timeline{display:grid;gap:16px;opacity:0;transform:translateY(18px);transition:.7s ease}
     .timeline-item{
       padding:20px 22px;
       border-radius:20px;
@@ -305,9 +316,18 @@
     }
     .timeline-item b{display:block;margin-bottom:6px}
 
-    @keyframes enter{
-      to{opacity:1;transform:translateY(0)}
+    .contact-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:18px;
     }
+    .contact-link{
+      color:#fff;
+      text-decoration:none;
+      font-weight:800;
+    }
+
+    @keyframes enter{to{opacity:1;transform:translateY(0)}}
 
     @media (max-width: 860px){
       .hero-grid{grid-template-columns:1fr}
@@ -331,6 +351,7 @@
         transform:translateY(0);
       }
       .menu-btn{display:inline-flex;align-items:center;justify-content:center}
+      .lang-btn{display:none}
     }
   </style>
 </head>
@@ -343,12 +364,13 @@
     <div class="nav-inner">
       <div class="logo">NIMA.DEV</div>
       <ul class="nav-links" id="navLinks">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#learning">Learning</a></li>
+        <li><a href="#home" data-en="Home" data-fa="خانه">Home</a></li>
+        <li><a href="#about" data-en="About" data-fa="درباره">About</a></li>
+        <li><a href="#skills" data-en="Skills" data-fa="مهارت‌ها">Skills</a></li>
+        <li><a href="#projects" data-en="Projects" data-fa="پروژه‌ها">Projects</a></li>
+        <li><a href="#contact" data-en="Contact" data-fa="تماس">Contact</a></li>
       </ul>
+      <button class="lang-btn" id="langBtn">FA</button>
       <button class="menu-btn" id="menuBtn">☰</button>
     </div>
   </nav>
@@ -358,24 +380,24 @@
       <div class="hero-grid">
         <div class="hero-card">
           <div class="badge">⚡ Electronics Student • Developer • Designer</div>
-          <h1>Building ideas with <span class="grad">circuits, code, and creativity.</span></h1>
-          <p>
+          <h1 id="typedTitle"></h1>
+          <p id="heroText">
             Hi, I'm Nima — a 17-year-old electronics student passionate about embedded systems,
             programming, and making things look and feel professional.
           </p>
           <div class="actions">
-            <a class="btn btn-primary" href="#projects">See Projects</a>
-            <a class="btn btn-secondary" href="#about">About Me</a>
+            <a class="btn btn-primary" href="#projects" id="btn1">See Projects</a>
+            <a class="btn btn-secondary" href="#about" id="btn2">About Me</a>
           </div>
         </div>
 
-        <div class="glass profile">
+        <div class="glass profile" data-parallax>
           <img src="IMG_20260419_111608.jpg" alt="Nima profile photo">
           <div class="mini-stats">
-            <div class="stat"><b>17</b><span>Years old</span></div>
-            <div class="stat"><b>Electronics</b><span>Study focus</span></div>
-            <div class="stat"><b>GitHub Pages</b><span>Hosting</span></div>
-            <div class="stat"><b>HTML/CSS/JS</b><span>Core web stack</span></div>
+            <div class="stat"><b>17</b><span id="s1">Years old</span></div>
+            <div class="stat"><b>Electronics</b><span id="s2">Study focus</span></div>
+            <div class="stat"><b>GitHub Pages</b><span id="s3">Hosting</span></div>
+            <div class="stat"><b>HTML/CSS/JS</b><span id="s4">Core web stack</span></div>
           </div>
         </div>
       </div>
@@ -383,11 +405,11 @@
 
     <section id="about">
       <div class="section-head">
-        <h2>About Me</h2>
-        <p>I like combining technology, aesthetics, and problem-solving to build useful and beautiful projects.</p>
+        <h2 id="aboutTitle">About Me</h2>
+        <p id="aboutSub">I like combining technology, aesthetics, and problem-solving to build useful and beautiful projects.</p>
       </div>
       <div class="section-card">
-        <p>
+        <p id="aboutText">
           I'm a student of electronics who enjoys learning programming, especially C, and I also care
           a lot about clean design, writing, music, and continuous improvement.
         </p>
@@ -396,38 +418,50 @@
 
     <section id="skills">
       <div class="section-head">
-        <h2>Skills</h2>
-        <p>Some areas I'm actively learning and improving.</p>
+        <h2 id="skillsTitle">Skills</h2>
+        <p id="skillsSub">Some areas I'm actively learning and improving.</p>
       </div>
       <div class="grid">
-        <div class="section-card"><h3>Electronics</h3><p>Circuit basics, components, practical troubleshooting.</p></div>
-        <div class="section-card"><h3>Programming</h3><p>C language, logic, problem solving, beginner projects.</p></div>
-        <div class="section-card"><h3>Web Design</h3><p>HTML, CSS, responsive layouts, modern UI styling.</p></div>
-        <div class="section-card"><h3>Languages</h3><p>English and French learning path.</p></div>
+        <div class="section-card" data-parallax><h3 id="sk1">Electronics</h3><p id="sk1p">Circuit basics, components, practical troubleshooting.</p></div>
+        <div class="section-card" data-parallax><h3 id="sk2">Programming</h3><p id="sk2p">C language, logic, problem solving, beginner projects.</p></div>
+        <div class="section-card" data-parallax><h3 id="sk3">Web Design</h3><p id="sk3p">HTML, CSS, responsive layouts, modern UI styling.</p></div>
+        <div class="section-card" data-parallax><h3 id="sk4">Languages</h3><p id="sk4p">English and French learning path.</p></div>
       </div>
     </section>
 
     <section id="projects">
       <div class="section-head">
-        <h2>Projects</h2>
-        <p>Placeholder cards for now — you can replace these with your real projects anytime.</p>
+        <h2 id="projectsTitle">Projects</h2>
+        <p id="projectsSub">Real or planned projects can go here, with links to GitHub.</p>
       </div>
       <div class="grid">
-        <div class="section-card"><h3>Portfolio Website</h3><p>A modern personal site on GitHub Pages.</p></div>
-        <div class="section-card"><h3>Electronics Notes</h3><p>Study notes and mini references for components and circuits.</p></div>
-        <div class="section-card"><h3>Future Project</h3><p>Add Arduino, embedded, or C programming work here.</p></div>
+        <div class="section-card">
+          <h3>Portfolio Website</h3>
+          <p>Modern personal site on GitHub Pages.</p>
+          <a class="contact-link" href="#" target="_blank">GitHub →</a>
+        </div>
+        <div class="section-card">
+          <h3>Electronics Notes</h3>
+          <p>Study notes and references for components and circuits.</p>
+          <a class="contact-link" href="#" target="_blank">GitHub →</a>
+        </div>
+        <div class="section-card">
+          <h3>Future Project</h3>
+          <p>Add Arduino, embedded, or C programming work here.</p>
+          <a class="contact-link" href="#" target="_blank">GitHub →</a>
+        </div>
       </div>
     </section>
 
-    <section id="learning">
+    <section id="contact">
       <div class="section-head">
-        <h2>Learning Path</h2>
-        <p>A simple roadmap for where your growth is heading.</p>
+        <h2 id="contactTitle">Contact</h2>
+        <p id="contactSub">A clean contact area so people can reach you easily.</p>
       </div>
-      <div class="timeline">
-        <div class="timeline-item"><b>Phase 1</b><span>Build a polished personal site.</span></div>
-        <div class="timeline-item"><b>Phase 2</b><span>Add real projects and contact options.</span></div>
-        <div class="timeline-item"><b>Phase 3</b><span>Expand into electronics + programming portfolio.</span></div>
+      <div class="contact-grid">
+        <div class="section-card"><h3>Email</h3><p><a class="contact-link" href="mailto:you@example.com">you@example.com</a></p></div>
+        <div class="section-card"><h3>GitHub</h3><p><a class="contact-link" href="#" target="_blank">github.com/yourname</a></p></div>
+        <div class="section-card"><h3>Location</h3><p>Iran</p></div>
       </div>
     </section>
   </main>
@@ -436,18 +470,14 @@
     const navbar = document.getElementById('navbar');
     const menuBtn = document.getElementById('menuBtn');
     const navLinks = document.getElementById('navLinks');
+    const langBtn = document.getElementById('langBtn');
 
     window.addEventListener('scroll', () => {
       navbar.classList.toggle('scrolled', window.scrollY > 20);
     });
 
-    menuBtn.addEventListener('click', () => {
-      navLinks.classList.toggle('open');
-    });
-
-    navLinks.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', () => navLinks.classList.remove('open'));
-    });
+    menuBtn.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -455,7 +485,75 @@
       });
     }, { threshold: 0.15 });
 
-    document.querySelectorAll('.section-head, .grid, .section-card').forEach(el => observer.observe(el));
+    document.querySelectorAll('.section-head, .grid, .section-card, .timeline').forEach(el => observer.observe(el));
+
+    const titleEl = document.getElementById('typedTitle');
+    const enTitle = "Building ideas with circuits, code, and creativity.";
+    const faTitle = "ایده‌ها را با مدار، کد و خلاقیت می‌سازم.";
+    let isFa = false;
+    let typingTimer;
+
+    function typeText(text) {
+      clearInterval(typingTimer);
+      titleEl.textContent = '';
+      let i = 0;
+      typingTimer = setInterval(() => {
+        titleEl.textContent += text[i++];
+        if (i >= text.length) clearInterval(typingTimer);
+      }, 35);
+    }
+
+    typeText(enTitle);
+
+    langBtn.addEventListener('click', () => {
+      isFa = !isFa;
+      document.documentElement.lang = isFa ? 'fa' : 'en';
+      langBtn.textContent = isFa ? 'EN' : 'FA';
+
+      document.getElementById('heroText').textContent = isFa
+        ? 'سلام، من نیما هستم؛ هنرجوی ۱۷ ساله‌ی الکترونیک که به سیستم‌های نهفته، برنامه‌نویسی و طراحی حرفه‌ای علاقه دارد.'
+        : "Hi, I'm Nima — a 17-year-old electronics student passionate about embedded systems, programming, and making things look and feel professional.";
+
+      document.getElementById('btn1').textContent = isFa ? 'پروژه‌ها' : 'See Projects';
+      document.getElementById('btn2').textContent = isFa ? 'درباره من' : 'About Me';
+
+      document.getElementById('aboutTitle').textContent = isFa ? 'درباره من' : 'About Me';
+      document.getElementById('aboutSub').textContent = isFa
+        ? 'من دوست دارم تکنولوژی، زیبایی و حل مسئله را با هم ترکیب کنم.'
+        : 'I like combining technology, aesthetics, and problem-solving to build useful and beautiful projects.';
+      document.getElementById('aboutText').textContent = isFa
+        ? 'من هنرجوی الکترونیک هستم و در کنار آن برنامه‌نویسی، مخصوصاً C، طراحی تمیز، نویسندگی و موسیقی را هم دنبال می‌کنم.'
+        : "I'm a student of electronics who enjoys learning programming, especially C, and I also care a lot about clean design, writing, music, and continuous improvement.";
+
+      document.getElementById('skillsTitle').textContent = isFa ? 'مهارت‌ها' : 'Skills';
+      document.getElementById('skillsSub').textContent = isFa ? 'بخش‌هایی که در حال یادگیری و تقویت آن‌ها هستم.' : 'Some areas I'm actively learning and improving.';
+
+      document.getElementById('sk1').textContent = isFa ? 'الکترونیک' : 'Electronics';
+      document.getElementById('sk1p').textContent = isFa ? 'مبانی مدار، قطعات و عیب‌یابی عملی.' : 'Circuit basics, components, practical troubleshooting.';
+      document.getElementById('sk2').textContent = isFa ? 'برنامه‌نویسی' : 'Programming';
+      document.getElementById('sk2p').textContent = isFa ? 'زبان C، منطق، حل مسئله و پروژه‌های ساده.' : 'C language, logic, problem solving, beginner projects.';
+      document.getElementById('sk3').textContent = isFa ? 'طراحی وب' : 'Web Design';
+      document.getElementById('sk3p').textContent = isFa ? 'HTML، CSS، صفحات واکنش‌گرا و سبک‌های مدرن UI.' : 'HTML, CSS, responsive layouts, modern UI styling.';
+      document.getElementById('sk4').textContent = isFa ? 'زبان‌ها' : 'Languages';
+      document.getElementById('sk4p').textContent = isFa ? 'مسیر یادگیری انگلیسی و فرانسوی.' : 'English and French learning path.';
+
+      document.getElementById('projectsTitle').textContent = isFa ? 'پروژه‌ها' : 'Projects';
+      document.getElementById('projectsSub').textContent = isFa ? 'پروژه‌های واقعی یا برنامه‌ریزی‌شده را اینجا قرار می‌دهیم.' : 'Real or planned projects can go here, with links to GitHub.';
+      document.getElementById('contactTitle').textContent = isFa ? 'تماس' : 'Contact';
+      document.getElementById('contactSub').textContent = isFa ? 'بخشی مرتب برای اینکه ارتباط با تو راحت باشد.' : 'A clean contact area so people can reach you easily.';
+
+      typeText(isFa ? faTitle : enTitle);
+    });
+
+    const parallaxEls = document.querySelectorAll('[data-parallax]');
+    window.addEventListener('mousemove', (e) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 12;
+      const y = (e.clientY / window.innerHeight - 0.5) * 12;
+      parallaxEls.forEach(el => {
+        el.style.transform = `translate(${x}px, ${y}px)`;
+      });
+    });
   </script>
 </body>
-</html>
+  </html>
+  
