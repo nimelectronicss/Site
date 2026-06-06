@@ -62,6 +62,17 @@
         li {
             margin-bottom: 10px;
         }
+        .project-img {
+    width: 100%;          /* عکس تمام عرض کانتینر را می‌گیرد */
+    max-width: 400px;     /* اما از ۴۰۰ پیکسل بزرگتر نمی‌شود تا خیلی غول‌آسا نباشد */
+    height: auto;         /* ارتفاع را خودکار تنظیم می‌کند تا عکس دفرمه نشود */
+    border-radius: 10px;  /* لبه‌های عکس را کمی گرد می‌کند تا شیک شود */
+    margin: 20px 0;       /* کمی فاصله از بالا و پایین ایجاد می‌کند */
+    display: block;       /* باعث می‌شود عکس در وسط قرار بگیرد */
+    margin-left: auto;
+    margin-right: auto;
+        }
+        
 
         footer {
             color: #aaa;
@@ -108,7 +119,10 @@
       
     </ul>
   </section>
-  
+
+    <img src="IMG_20260419_111608.jpg" alt="Blinking Circuit" class="project-img">
+
+    
   <footer>
     <p style="text-align: center; margin-top: 20px; font-size: 0.8rem;">generated with AI (and a little Nima) ✨</p>
   </footer>
