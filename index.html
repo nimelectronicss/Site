@@ -3,318 +3,459 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nima | Electronics & Dev Portfolio</title>
-
-  <!-- Fonts -->
+  <title>Nima | Electronics Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
-    :root {
-      --primary: #6366f1;
-      --secondary: #a855f7;
-      --accent: #22d3ee;
-      --bg-dark: #030712;
-      --card-bg: rgba(17, 24, 39, 0.7);
-      --card-border: rgba(255, 255, 255, 0.1);
-      --text-main: #f3f4f6;
-      --text-dim: #9ca3af;
-      --glow: rgba(99, 102, 241, 0.5);
+    :root{
+      --bg:#050816;
+      --panel:rgba(15,23,42,.62);
+      --panel-2:rgba(15,23,42,.8);
+      --border:rgba(255,255,255,.10);
+      --text:#e5e7eb;
+      --muted:#9ca3af;
+      --accent:#7c3aed;
+      --accent-2:#22d3ee;
+      --accent-3:#f472b6;
+      --shadow:0 20px 60px rgba(0,0,0,.35);
     }
 
-    /* Reset & Base */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:Inter,system-ui,sans-serif;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(124,58,237,.16), transparent 30%),
+        radial-gradient(circle at 80% 30%, rgba(34,211,238,.12), transparent 28%),
+        radial-gradient(circle at 50% 80%, rgba(244,114,182,.10), transparent 26%),
+        var(--bg);
+      color:var(--text);
+      overflow-x:hidden;
+      line-height:1.7;
     }
 
-    html {
-      scroll-behavior: smooth;
-      font-size: 16px;
+    ::selection{background:rgba(124,58,237,.35)}
+    ::-webkit-scrollbar{width:10px}
+    ::-webkit-scrollbar-track{background:#020617}
+    ::-webkit-scrollbar-thumb{
+      background:linear-gradient(180deg,var(--accent),var(--accent-2));
+      border-radius:999px;
     }
 
-    body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: var(--bg-dark);
-      color: var(--text-main);
-      line-height: 1.6;
-      overflow-x: hidden;
+    .bg-orb{
+      position:fixed;
+      inset:auto;
+      width:420px;height:420px;
+      border-radius:50%;
+      filter:blur(70px);
+      opacity:.18;
+      z-index:-1;
+      animation: drift 12s ease-in-out infinite;
+    }
+    .o1{top:-120px;left:-120px;background:var(--accent)}
+    .o2{top:25%;right:-140px;background:var(--accent-2);animation-delay:-4s}
+    .o3{bottom:-140px;left:20%;background:var(--accent-3);animation-delay:-8s}
+    @keyframes drift{
+      0%,100%{transform:translate(0,0) scale(1)}
+      50%{transform:translate(30px,20px) scale(1.08)}
     }
 
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: var(--bg-dark); }
-    ::-webkit-scrollbar-thumb { 
-      background: linear-gradient(var(--primary), var(--secondary)); 
-      border-radius: 10px; 
+    .navbar{
+      position:fixed;top:0;left:0;right:0;
+      z-index:1000;
+      padding:18px 0;
+      transition:.35s ease;
+    }
+    .navbar.scrolled{
+      padding:12px 0;
+      background:rgba(2,6,23,.72);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid var(--border);
+    }
+    .nav-inner{
+      max-width:1180px;
+      margin:0 auto;
+      padding:0 20px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .logo{
+      font-weight:900;
+      letter-spacing:-.06em;
+      font-size:1.15rem;
+      background:linear-gradient(90deg,var(--accent-2),#fff,var(--accent));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+    .nav-links{
+      display:flex;
+      gap:28px;
+      list-style:none;
+      align-items:center;
+    }
+    .nav-links a{
+      color:var(--muted);
+      text-decoration:none;
+      font-weight:600;
+      transition:.25s ease;
+      position:relative;
+    }
+    .nav-links a::after{
+      content:"";
+      position:absolute;
+      left:0;bottom:-6px;
+      width:100%;height:2px;
+      background:linear-gradient(90deg,var(--accent),var(--accent-2));
+      transform:scaleX(0);
+      transform-origin:right;
+      transition:transform .25s ease;
+    }
+    .nav-links a:hover{color:#fff}
+    .nav-links a:hover::after{transform:scaleX(1);transform-origin:left}
+
+    .menu-btn{
+      display:none;
+      border:1px solid var(--border);
+      background:var(--panel);
+      color:#fff;
+      width:44px;height:44px;
+      border-radius:14px;
+      cursor:pointer;
     }
 
-    /* Animated Mesh Background */
-    .mesh-bg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      background: 
-        radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.15), transparent 40%),
-        radial-gradient(circle at 80% 70%, rgba(168, 85, 247, 0.15), transparent 40%);
-      filter: blur(80px);
+    .container{max-width:1180px;margin:0 auto;padding:0 20px}
+    .hero{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      padding:110px 0 40px;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.3fr .9fr;
+      gap:34px;
+      align-items:center;
+      width:100%;
     }
 
-    /* Navbar */
-    .navbar {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      padding: 20px 0;
-      z-index: 1000;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    .hero-card, .glass{
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(16px);
+      border-radius:28px;
     }
 
-    .navbar.scrolled {
-      padding: 12px 0;
-      background: rgba(3, 7, 18, 0.8);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--card-border);
+    .hero-card{
+      padding:38px;
+      position:relative;
+      overflow:hidden;
+      transform:translateY(18px);
+      opacity:0;
+      animation: enter .9s ease forwards .1s;
+    }
+    .hero-card::before{
+      content:"";
+      position:absolute;inset:-2px;
+      background:linear-gradient(135deg, rgba(34,211,238,.18), rgba(124,58,237,.18), transparent 60%);
+      pointer-events:none;
+      mask:linear-gradient(#000, transparent 70%);
     }
 
-    .nav-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 14px;
+      border-radius:999px;
+      border:1px solid rgba(34,211,238,.25);
+      background:rgba(34,211,238,.08);
+      color:#c8fbff;
+      font-size:.9rem;
+      font-weight:700;
+      margin-bottom:18px;
+    }
+    .hero h1{
+      font-size:clamp(2.8rem, 7vw, 5.4rem);
+      line-height:1.02;
+      letter-spacing:-.08em;
+      margin-bottom:18px;
+    }
+    .grad{
+      background:linear-gradient(90deg,#fff 10%, var(--accent-2) 45%, var(--accent) 85%);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+    .hero p{
+      font-size:1.08rem;
+      color:var(--muted);
+      max-width:62ch;
+      margin-bottom:28px;
     }
 
-    .logo {
-      font-size: 1.5rem;
-      font-weight: 800;
-      background: linear-gradient(to right, var(--accent), var(--primary));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      letter-spacing: -1px;
+    .actions{display:flex;gap:14px;flex-wrap:wrap}
+    .btn{
+      text-decoration:none;
+      font-weight:800;
+      padding:14px 20px;
+      border-radius:16px;
+      transition:.25s ease;
+      border:1px solid transparent;
+    }
+    .btn-primary{
+      color:#fff;
+      background:linear-gradient(90deg,var(--accent),#2563eb);
+      box-shadow:0 14px 34px rgba(124,58,237,.28);
+    }
+    .btn-primary:hover{transform:translateY(-2px) scale(1.02)}
+    .btn-secondary{
+      color:var(--text);
+      background:rgba(255,255,255,.04);
+      border-color:var(--border);
+    }
+    .btn-secondary:hover{background:rgba(255,255,255,.08)}
+
+    .profile{
+      padding:22px;
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+      align-items:center;
+      text-align:center;
+      transform:translateY(18px);
+      opacity:0;
+      animation: enter .9s ease forwards .25s;
+    }
+    .profile img{
+      width:100%;
+      max-width:320px;
+      border-radius:22px;
+      aspect-ratio:1/1.1;
+      object-fit:cover;
+      border:1px solid var(--border);
+      box-shadow:0 18px 50px rgba(0,0,0,.35);
+    }
+    .mini-stats{
+      width:100%;
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:12px;
+    }
+    .stat{
+      padding:14px;
+      border-radius:18px;
+      background:rgba(255,255,255,.04);
+      border:1px solid var(--border);
+    }
+    .stat b{display:block;font-size:1.1rem}
+    .stat span{color:var(--muted);font-size:.9rem}
+
+    section{padding:90px 0}
+    .section-head{
+      margin-bottom:28px;
+      opacity:0;
+      transform:translateY(18px);
+      transition:.7s ease;
+    }
+    .section-head.visible,.grid.visible,.section-card.visible{opacity:1;transform:translateY(0)}
+    .section-head h2{font-size:clamp(1.8rem,4vw,3rem);letter-spacing:-.05em}
+    .section-head p{color:var(--muted);max-width:68ch;margin-top:8px}
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:18px;
+      opacity:0;
+      transform:translateY(18px);
+      transition:.7s ease;
+    }
+    .section-card{
+      padding:24px;
+      border-radius:24px;
+      background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      transition:.28s ease;
+      opacity:0;
+      transform:translateY(18px);
+      transition-property:transform,opacity,box-shadow,border-color,background;
+      transition-duration:.7s;
+    }
+    .section-card:hover{
+      transform:translateY(-8px);
+      border-color:rgba(34,211,238,.35);
+      box-shadow:0 22px 60px rgba(0,0,0,.42);
+    }
+    .section-card h3{margin-bottom:10px}
+    .section-card p,.section-card li{color:var(--muted)}
+    .section-card ul{padding-left:18px}
+
+    .timeline{
+      display:grid;
+      gap:16px;
+    }
+    .timeline-item{
+      padding:20px 22px;
+      border-radius:20px;
+      background:rgba(255,255,255,.04);
+      border:1px solid var(--border);
+    }
+    .timeline-item b{display:block;margin-bottom:6px}
+
+    @keyframes enter{
+      to{opacity:1;transform:translateY(0)}
     }
 
-    .nav-links {
-      display: flex;
-      gap: 32px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      text-decoration: none;
-      color: var(--text-dim);
-      font-weight: 500;
-      font-size: 0.95rem;
-      transition: 0.3s;
-    }
-
-    .nav-links a:hover {
-      color: var(--text-main);
-      text-shadow: 0 0 10px var(--primary);
-    }
-
-    .menu-toggle {
-      display: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-      color: var(--text-main);
-    }
-
-    /* Hero Section */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 100px 24px 0;
-      text-align: center;
-    }
-
-    .hero-content {
-      max-width: 900px;
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeInUp 1s forwards 0.2s;
-    }
-
-    @keyframes fadeInUp {
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .badge {
-      display: inline-block;
-      padding: 6px 16px;
-      border-radius: 100px;
-      background: rgba(99, 102, 241, 0.1);
-      border: 1px solid rgba(99, 102, 241, 0.3);
-      color: var(--accent);
-      font-size: 0.85rem;
-      font-weight: 600;
-      margin-bottom: 24px;
-    }
-
-    .hero h1 {
-      font-size: clamp(3rem, 8vw, 5.5rem);
-      font-weight: 800;
-      line-height: 1.1;
-      margin-bottom: 24px;
-      letter-spacing: -2px;
-    }
-
-    .text-gradient {
-      background: linear-gradient(to right, #fff, var(--primary), var(--secondary));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .hero p {
-      font-size: clamp(1.1rem, 2vw, 1.4rem);
-      color: var(--text-dim);
-      margin-bottom: 40px;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .cta-group {
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-    }
-
-    .btn {
-      padding: 16px 32px;
-      border-radius: 14px;
-      font-weight: 700;
-      text-decoration: none;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      font-size: 1rem;
-    }
-
-    .btn-primary {
-      background: var(--primary);
-      color: white;
-      box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.5);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 20px 35px -5px rgba(99, 102, 241, 0.6);
-    }
-
-    .btn-outline {
-      border: 1px solid var(--card-border);
-      color: var(--text-main);
-      background: rgba(255, 255, 255, 0.03);
-    }
-
-    .btn-outline:hover {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: var(--text-dim);
-    }
-
-    /* Container & Sections */
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    section {
-      padding: 120px 0;
-      opacity: 0; /* For scroll animation */
-      transform:
-                        transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    section.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    h2 {
-      font-size: 2.5rem;
-      margin-bottom: 48px;
-      text-align: center;
-    }
-
-    /* Skills Grid */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-    }
-
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      padding: 32px;
-      border-radius: 24px;
-      backdrop-filter: blur(10px);
-      transition: 0.4s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-10px);
-      border-color: var(--primary);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-    }
-
-    /* Mobile */
-    @media (max-width: 768px) {
-      .nav-links { display: none; }
-      .menu-toggle { display: block; }
+    @media (max-width: 860px){
+      .hero-grid{grid-template-columns:1fr}
+      .nav-links{
+        position:fixed;
+        top:76px;left:20px;right:20px;
+        flex-direction:column;
+        padding:16px;
+        border-radius:20px;
+        background:rgba(2,6,23,.92);
+        border:1px solid var(--border);
+        backdrop-filter:blur(14px);
+        transform:translateY(-12px);
+        opacity:0;
+        pointer-events:none;
+        transition:.25s ease;
+      }
+      .nav-links.open{
+        opacity:1;
+        pointer-events:auto;
+        transform:translateY(0);
+      }
+      .menu-btn{display:inline-flex;align-items:center;justify-content:center}
     }
   </style>
 </head>
 <body>
-  <div class="mesh-bg"></div>
+  <div class="bg-orb o1"></div>
+  <div class="bg-orb o2"></div>
+  <div class="bg-orb o3"></div>
 
   <nav class="navbar" id="navbar">
-    <div class="nav-container">
+    <div class="nav-inner">
       <div class="logo">NIMA.DEV</div>
-      <ul class="nav-links">
+      <ul class="nav-links" id="navLinks">
         <li><a href="#home">Home</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#learning">Learning</a></li>
       </ul>
-      <div class="menu-toggle">☰</div>
+      <button class="menu-btn" id="menuBtn">☰</button>
     </div>
   </nav>
 
-  <section class="hero" id="home">
-    <div class="hero-content">
-      <div class="badge">Electronics Student & Developer</div>
-      <h1>Building the future, <br><span class="text-gradient">one circuit at a time.</span></h1>
-      <p>I'm Nima, a 17-year-old passionate about electronics and software engineering.</p>
-      <div class="cta-group">
-        <a href="#about" class="btn btn-primary">About Me</a>
-        <a href="#" class="btn btn-outline">My Projects</a>
+  <main class="container">
+    <section class="hero" id="home">
+      <div class="hero-grid">
+        <div class="hero-card">
+          <div class="badge">⚡ Electronics Student • Developer • Designer</div>
+          <h1>Building ideas with <span class="grad">circuits, code, and creativity.</span></h1>
+          <p>
+            Hi, I'm Nima — a 17-year-old electronics student passionate about embedded systems,
+            programming, and making things look and feel professional.
+          </p>
+          <div class="actions">
+            <a class="btn btn-primary" href="#projects">See Projects</a>
+            <a class="btn btn-secondary" href="#about">About Me</a>
+          </div>
+        </div>
+
+        <div class="glass profile">
+          <img src="IMG_20260419_111608.jpg" alt="Nima profile photo">
+          <div class="mini-stats">
+            <div class="stat"><b>17</b><span>Years old</span></div>
+            <div class="stat"><b>Electronics</b><span>Study focus</span></div>
+            <div class="stat"><b>GitHub Pages</b><span>Hosting</span></div>
+            <div class="stat"><b>HTML/CSS/JS</b><span>Core web stack</span></div>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+
+    <section id="about">
+      <div class="section-head">
+        <h2>About Me</h2>
+        <p>I like combining technology, aesthetics, and problem-solving to build useful and beautiful projects.</p>
+      </div>
+      <div class="section-card">
+        <p>
+          I'm a student of electronics who enjoys learning programming, especially C, and I also care
+          a lot about clean design, writing, music, and continuous improvement.
+        </p>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="section-head">
+        <h2>Skills</h2>
+        <p>Some areas I'm actively learning and improving.</p>
+      </div>
+      <div class="grid">
+        <div class="section-card"><h3>Electronics</h3><p>Circuit basics, components, practical troubleshooting.</p></div>
+        <div class="section-card"><h3>Programming</h3><p>C language, logic, problem solving, beginner projects.</p></div>
+        <div class="section-card"><h3>Web Design</h3><p>HTML, CSS, responsive layouts, modern UI styling.</p></div>
+        <div class="section-card"><h3>Languages</h3><p>English and French learning path.</p></div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="section-head">
+        <h2>Projects</h2>
+        <p>Placeholder cards for now — you can replace these with your real projects anytime.</p>
+      </div>
+      <div class="grid">
+        <div class="section-card"><h3>Portfolio Website</h3><p>A modern personal site on GitHub Pages.</p></div>
+        <div class="section-card"><h3>Electronics Notes</h3><p>Study notes and mini references for components and circuits.</p></div>
+        <div class="section-card"><h3>Future Project</h3><p>Add Arduino, embedded, or C programming work here.</p></div>
+      </div>
+    </section>
+
+    <section id="learning">
+      <div class="section-head">
+        <h2>Learning Path</h2>
+        <p>A simple roadmap for where your growth is heading.</p>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item"><b>Phase 1</b><span>Build a polished personal site.</span></div>
+        <div class="timeline-item"><b>Phase 2</b><span>Add real projects and contact options.</span></div>
+        <div class="timeline-item"><b>Phase 3</b><span>Expand into electronics + programming portfolio.</span></div>
+      </div>
+    </section>
+  </main>
 
   <script>
-    // Scroll Animation
+    const navbar = document.getElementById('navbar');
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    menuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+
+    navLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) entry.target.classList.add('visible');
       });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.15 });
 
-    document.querySelectorAll('section').forEach(sec => observer.observe(sec));
-
-    // Navbar Scroll Effect
-    window.addEventListener('scroll', () => {
-      const nav = document.getElementById('navbar');
-      nav.classList.toggle('scrolled', window.scrollY > 50);
-    });
+    document.querySelectorAll('.section-head, .grid, .section-card').forEach(el => observer.observe(el));
   </script>
 </body>
 </html>
