@@ -20,23 +20,26 @@
         
         /* افکت 0 و 1 در پس‌زمینه */
         body::after {
-            content: "0 1 1 0 1 0 0 1 1 0 1 0 0 1 0 1 1 0 1 0"; /* می‌توانی تعداد بیشتری بنویسی */
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            color: rgba(255, 255, 255, 0.03); /* بسیار محو */
-            font-family: 'Courier New', monospace;
-            font-size: 2rem;
-            word-break: break-all;
-            z-index: -1; /* پشت همه چیز باشد */
-            pointer-events: none;
-            overflow: hidden;
-            padding: 20px;
-            letter-spacing: 10px;
-            line-height: 2;
-}
+    content: "0 1 1 0 1 0 0 1 1 0 1 0 0 1 0 1 1 0 1 0";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: rgba(255, 255, 255, 0.03); /* شفافیت بسیار کم */
+    font-family: 'Courier New', monospace;
+    font-size: 2rem;
+    word-break: break-all;
+    
+    /* تغییرات اصلی برای حل مشکل: */
+    z-index: 0; 
+    pointer-events: none; /* باعث می‌شود کلیک‌ها از روی این لایه رد شوند */
+    overflow: hidden;
+    padding: 20px;
+    letter-spacing: 10px;
+    line-height: 2;
+        }
+        
         
 
         nav { 
