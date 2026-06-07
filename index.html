@@ -2,60 +2,62 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Nima | Home</title>
+    <title>Nima | Portfolio</title>
     <style>
         :root { --bg: #0a0a0a; --accent: #6366f1; }
-        body { background: var(--bg); color: white; font-family: sans-serif; margin: 0; }
+        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; }
         
-        /* استایل منو */
-    <style>
-    :root { --bg: #0a0a0a; --accent: #6366f1; }
-    body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; height: 100vh; overflow: hidden; }
-    
-    /* منوی شیشه‌ایِ پهن‌تر و بزرگ‌تر */
-    nav { 
-        position: fixed; top: 30px; left: 50%; transform: translateX(-50%);
-        background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(25px);
-        padding: 20px 40px; /* افزایش پدینگ برای بزرگتر شدن */
-        border-radius: 60px; border: 1px solid rgba(255, 255, 255, 0.1);
-        display: flex; align-items: center; justify-content: space-between;
-        width: 85%; max-width: 800px; z-index: 1000;
-    }
-    .menu-items { display: flex; gap: 40px; font-size: 1.1rem; }
-    .menu-items a { color: white; text-decoration: none; transition: 0.3s; }
-    .menu-items a:hover { color: var(--accent); }
-    .hamburger { display: none; font-size: 1.8rem; cursor: pointer; }
-
-    /* وسط‌چین کردن کاملِ تایتل */
-    #hero { 
-        height: 100vh; 
-        display: flex; 
-        flex-direction: column; 
-        justify-content: center; /* کاملاً وسط صفحه */
-        align-items: center; 
-        text-align: center;
-    }
-    
-    #hero h1 { 
-        font-size: 4rem; /* بزرگتر کردن تایتل */
-        margin: 0; 
-        letter-spacing: -2px;
-    }
-
-    @media (max-width: 768px) {
-        nav { width: 92%; padding: 15px 25px; }
-        #hero h1 { font-size: 2.5rem; } /* کمی کوچک‌تر برای موبایل که نشکند */
-        .menu-items { 
-            display: none; position: absolute; top: 80px; left: 50%; 
-            transform: translateX(-50%); width: 90%;
-            background: rgba(20, 20, 20, 0.95); flex-direction: column;
-            padding: 30px 0; border-radius: 30px; border: 1px solid #333;
+        /* منوی شیشه‌ای */
+        nav { 
+            position: fixed; top: 30px; left: 50%; transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(25px);
+            padding: 20px 40px; border-radius: 60px; border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex; align-items: center; justify-content: space-between;
+            width: 85%; max-width: 800px; z-index: 1000;
         }
-        .menu-items.active { display: flex; }
-        .hamburger { display: block; }
-    }
-</style>
-    
+        .menu-items { display: flex; gap: 40px; font-size: 1.1rem; }
+        .menu-items a { color: white; text-decoration: none; transition: 0.3s; }
+        .menu-items a:hover { color: var(--accent); }
+        .hamburger { display: none; font-size: 1.8rem; cursor: pointer; }
+
+        /* بخش هیرو */
+        #hero { 
+            height: 100vh; display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; text-align: center;
+        }
+        #hero h1 { font-size: 4rem; margin: 0; letter-spacing: -2px; }
+
+        /* بخش پروژه‌ها (گرید شیشه‌ای) */
+        #projects { padding: 80px 20px; max-width: 1000px; margin: 0 auto; }
+        .grid-container { 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 30px; margin-top: 40px; 
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 30px; border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.4s;
+        }
+        .card:hover {
+            background: rgba(99, 102, 241, 0.1);
+            border-color: var(--accent);
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
+            transform: translateY(-10px);
+        }
+
+        @media (max-width: 768px) {
+            nav { width: 92%; padding: 15px 25px; }
+            #hero h1 { font-size: 2.5rem; }
+            .menu-items { 
+                display: none; position: absolute; top: 80px; left: 50%; 
+                transform: translateX(-50%); width: 90%;
+                background: rgba(20, 20, 20, 0.95); flex-direction: column;
+                padding: 30px 0; border-radius: 30px; border: 1px solid #333;
+            }
+            .menu-items.active { display: flex; }
+            .hamburger { display: block; }
+        }
     </style>
 </head>
 <body>
@@ -63,10 +65,10 @@
     <nav>
         <div class="logo">NIMA.DEV</div>
         <div class="menu-items" id="menu">
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="projects.html">Projects</a>
-            <a href="contact.html">Contact</a>
+            <a href="#hero">Home</a>
+            <a href="#projects">Projects</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
         </div>
         <div class="hamburger" onclick="toggleMenu()">☰</div>
     </nav>
@@ -75,13 +77,20 @@
         <h1>Hi, I'm <span id="typed"></span></h1>
     </section>
 
+    <section id="projects">
+        <h2 style="text-align: center; font-size: 2.5rem;">My Projects</h2>
+        <div class="grid-container">
+            <div class="card"><h3>Project One</h3><p>Electronic Circuit Design</p></div>
+            <div class="card"><h3>Project Two</h3><p>C++ Robotics Controller</p></div>
+            <div class="card"><h3>Project Three</h3><p>Web Development</p></div>
+        </div>
+    </section>
+
     <script>
-        // تابع منوی همبرگری
         function toggleMenu() {
             document.getElementById('menu').classList.toggle('active');
         }
 
-        // تابع تایپ‌انیمیشن
         const typedText = document.getElementById('typed');
         const phrases = ["Nima", "Electronics Enthusiast"];
         let i = 0, j = 0;
