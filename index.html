@@ -6,20 +6,26 @@
   <title>Nima | Portfolio</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/scrollmagic/scrollmagic/minified/ScrollMagic.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <style>
-    /* اضافه کردن انیمیشن‌های سفارشی */
-    .fade-in { opacity: 0; }
+    /* اطمینان از اینکه متن‌ها روی پس‌زمینه هستند */
+    body {
+      position: relative;
+      z-index: 10;
+    }
+    /* انیمیشن‌های سفارشی */
+    .fade-in { opacity: 0; transform: translateY(20px); }
   </style>
 </head>
-<body class="bg-gray-900 text-white font-sans overflow-x-hidden">
+<body class="bg-gray-900 text-white font-sans overflow-x-hidden relative z-10">
 
   <!-- پس‌زمینه ذرات -->
-  <div id="particles-js" class="fixed inset-0 z-0"></div>
+  <div id="particles-js" class="fixed inset-0 -z-10"></div>
 
   <!-- هدر -->
   <header class="fixed top-4 inset-x-0 flex justify-center z-50">
-    <div class="bg-white bg-opacity-10 backdrop-blur-md rounded-full px-6 py-3 flex items-center space-x-6 shadow-lg">
+    <div class="bg-white bg-opacity-10 backdrop-blur-md rounded-full px-6 py-3 flex items-center space-x-6 shadow-lg max-w-7xl w-full mx-4">
       <div class="text-xl font-bold tracking-wide">NIMA.DEV</div>
       <nav class="hidden md:flex space-x-8 text-gray-300 font-medium">
         <a href="#hero" class="hover:text-indigo-400 transition">Home</a>
@@ -49,25 +55,25 @@
 
   <!-- بخش قهرمان (Hero) -->
   <section id="hero" class="relative flex items-center justify-center min-h-screen px-6 text-center z-10">
-    <div class="max-w-2xl">
-      <h1 class="text-5xl md:text-6xl font-bold mb-4 fade-in">Hi, I'm Nima</h1>
-      <div class="text-2xl md:text-3xl mb-6 text-indigo-400 font-semibold relative fade-in" id="typed"></div>
+    <div class="max-w-2xl text-white">
+      <h1 class="text-5xl md:text-6xl font-bold mb-4 fade-in" style="z-index: 20;">Hi, I'm Nima</h1>
+      <div class="text-2xl md:text-3xl mb-6 text-indigo-400 font-semibold relative fade-in" id="typed" style="z-index: 20;"></div>
       <p class="text-gray-400 mb-8">Bridging Hardware & Software with Innovation</p>
-      <a href="#projects" class="bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition duration-300 fade-in">Explore My Work</a>
+      <a href="#projects" class="bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition duration-300 fade-in" style="z-index: 20;">Explore My Work</a>
     </div>
   </section>
 
   <!-- درباره (About) -->
-  <section id="about" class="py-20 px-6 max-w-4xl mx-auto text-center">
+  <section id="about" class="py-20 px-6 max-w-4xl mx-auto text-center text-white z-10 relative">
     <h2 class="text-4xl font-bold mb-6">About Me</h2>
     <p class="text-gray-300 mb-4">I'm Nima, passionate about electronics, programming, and solving complex problems. I love creating innovative solutions that bridge hardware and software. With a background in embedded systems and web development, I aim to build projects that make a difference.</p>
-    <img src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d" alt="Nima" class="mx-auto rounded-full w-40 h-40 object-cover shadow-lg mb-4"/>
+    <img src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d" alt="Nima" class="mx-auto rounded-full w-40 h-40 object-cover shadow-lg mb-4 border-4 border-white"/>
     <p class="text-gray-400">Let's connect and create something amazing together!</p>
   </section>
 
   <!-- مهارت‌ها (Skills) -->
   <section id="skills" class="py-20 bg-gray-800" >
-    <h2 class="text-4xl font-bold text-center mb-12">My Skills</h2>
+    <h2 class="text-4xl font-bold mb-12 text-center">My Skills</h2>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-6xl mx-auto text-center">
       <div class="bg-gray-700 p-6 rounded-lg hover:scale-105 transform transition duration-300">
         <svg class="mx-auto mb-4 w-12 h-12 text-indigo-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z"/><path d="M6 20c0-3.31 2.69-6 6-6s6 2.69 6 6H6z"/></svg>
@@ -116,7 +122,7 @@
   </section>
 
   <!-- تماس (Contact) -->
-  <section id="contact" class="py-20 bg-gray-900 px-6 max-w-3xl mx-auto">
+  <section id="contact" class="py-20 bg-gray-900 px-6 max-w-3xl mx-auto relative z-10">
     <h2 class="text-4xl font-bold mb-8 text-center">Get in Touch</h2>
     <form class="flex flex-col space-y-4" onsubmit="event.preventDefault(); alert('Thanks for reaching out!');">
       <input type="text" placeholder="Your Name" class="p-3 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"/>
@@ -126,14 +132,14 @@
     </form>
   </section>
 
-  <!-- اسکریپت‌های انیمیشن و تعامل -->
+  <!-- اسکریپت‌ها -->
   <script>
     // منوی موبایل
     document.getElementById('menu-toggle').addEventListener('click', () => {
       document.getElementById('mobile-menu').classList.toggle('hidden');
     });
 
-    // تایپ‌افکت با Typed.js
+    // تایپ‌افکت
     const typed = new Typed('#typed', {
       strings: ['Electronics Enthusiast', 'C Programmer', 'Problem Solver', 'Web Developer', 'Innovator'],
       typeSpeed: 70,
@@ -142,7 +148,7 @@
       backDelay: 1500,
     });
 
-    // انیمیشن‌های GSAP برای بخش‌ها
+    // انیمیشن‌های اسکرول GSAP
     gsap.utils.toArray('.fade-in').forEach(el => {
       gsap.to(el, {
         opacity: 1,
@@ -161,17 +167,9 @@
       particles: {
         number: { value: 50, density: { enable: true, value_area: 800 } },
         color: { value: '#6366f1' },
-        shape: {
-          type: 'circle',
-        },
-        opacity: {
-          value: 0.3,
-          random: true,
-        },
-        size: {
-          value: 4,
-          random: true,
-        },
+        shape: { type: 'circle' },
+        opacity: { value: 0.3, random: true },
+        size: { value: 4, random: true },
         move: {
           enable: true,
           speed: 1,
