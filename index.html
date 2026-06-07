@@ -5,66 +5,57 @@
     <title>Nima | Home</title>
     <style>
         :root { --bg: #0a0a0a; --accent: #6366f1; }
-        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; }
+        body { background: var(--bg); color: white; font-family: sans-serif; margin: 0; }
         
-        /* منوی شیک و شیشه‌ای */
-        /* این کد رو جایگزین استایل قبلی nav کن */
-nav { 
-    position: fixed; 
-    top: 20px; 
-    left: 50%; 
-    transform: translateX(-50%);
-    background: rgba(255, 255, 255, 0.08); 
-    backdrop-filter: blur(20px); 
-    padding: 12px 25px; /* کمی جمع‌تر برای موبایل */
-    border-radius: 50px; 
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    display: flex; 
-    gap: 20px; 
-    z-index: 1000;
-}
+        /* استایل منو */
+        nav { 
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px);
+            padding: 15px 30px; border-radius: 50px; border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex; align-items: center; justify-content: space-between;
+            width: 90%; max-width: 600px; z-index: 1000;
+        }
+        .menu-items { display: flex; gap: 20px; }
+        .menu-items a { color: white; text-decoration: none; }
+        .hamburger { display: none; font-size: 1.5rem; cursor: pointer; }
 
-nav a { 
-    color: white; 
-    text-decoration: none; 
-    font-size: 0.9rem; /* مناسب برای موبایل */
-    font-weight: 500;
-    transition: 0.3s; 
-}
+        @media (max-width: 768px) {
+            .menu-items { 
+                display: none; position: absolute; top: 70px; left: 0; width: 100%;
+                background: rgba(0,0,0,0.9); flex-direction: column;
+                align-items: center; padding: 20px 0; border-radius: 20px;
+            }
+            .menu-items.active { display: flex; }
+            .hamburger { display: block; }
+        }
 
-/* استایل برای دسکتاپ (صفحه‌های بزرگتر) */
-@media (min-width: 768px) {
-    nav { padding: 18px 45px; gap: 40px; }
-    nav a { font-size: 1.1rem; }
-}
-
-/* فاصله دادن به متن H1 برای اینکه زیر منو نره */
-#hero { 
-    margin-top: 80px; /* فضای خالی در بالا برای دیده شدن متن */
-    height: calc(100vh - 80px);
-    display: flex; 
-    flex-direction: column; 
-    justify-content: center; 
-    align-items: center; 
-}
-    
-        
+        #hero { margin-top: 150px; text-align: center; }
     </style>
 </head>
 <body>
 
     <nav>
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="projects.html">Projects</a>
-        <a href="contact.html">Contact</a>
+        <div class="logo">NIMA.DEV</div>
+        <div class="menu-items" id="menu">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="projects.html">Projects</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
     </nav>
 
     <section id="hero">
-        <h1>Hi, I'm <span class="accent" id="typed"></span></h1>
+        <h1>Hi, I'm <span id="typed"></span></h1>
     </section>
 
     <script>
+        // تابع منوی همبرگری
+        function toggleMenu() {
+            document.getElementById('menu').classList.toggle('active');
+        }
+
+        // تابع تایپ‌انیمیشن
         const typedText = document.getElementById('typed');
         const phrases = ["Nima", "Electronics Enthusiast"];
         let i = 0, j = 0;
