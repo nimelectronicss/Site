@@ -10,27 +10,26 @@
             --glass: rgba(255, 255, 255, 0.05); 
         }
 
-        body { 
-            background: var(--bg); 
-            color: white; 
-            font-family: 'Inter', sans-serif; 
-            margin: 0; 
-            overflow-x: hidden; 
-            position: relative;
+        body {
+    position: relative;
+    background-color: #050505; /* پس‌زمینه اصلی */
+    margin: 0;
+    overflow-x: hidden;
         }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: -10%;
-            left: -10%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.15), transparent 70%);
-            z-index: 0;
-            filter: blur(80px);
-            pointer-events: none;
-        }
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    /* این الگو، اعداد 0 و 1 را به‌صورت محو تکرار می‌کند */
+    background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px; /* فاصله بین اعداد */
+    z-index: -5; /* پشت همه لایه‌ها */
+    pointer-events: none;
+}
+        
         /* افکت 0 و 1 در پس‌زمینه */
         body::after {
             content: "0 1 1 0 1 0 0 1 1 0 1 0 0 1 0 1 1 0 1 0"; /* می‌توانی تعداد بیشتری بنویسی */
