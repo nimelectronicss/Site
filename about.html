@@ -2,57 +2,489 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>About Me | Nima</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Nima | Electronics Engineer</title>
     <style>
-        :root { --bg: #0a0a0a; --accent: #6366f1; }
-        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; line-height: 1.6; }
-        
-        /* همان منوی شیشه‌ای برای یکپارچگی */
-        nav { 
-            position: fixed; top: 30px; left: 50%; transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(25px);
-            padding: 20px 40px; border-radius: 60px; border: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex; align-items: center; justify-content: space-between;
-            width: 85%; max-width: 800px; z-index: 1000;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .menu-items a { color: white; text-decoration: none; margin-left: 20px; }
 
-        /* محتوای صفحه About */
-        #about-container { 
-            padding: 150px 20px; max-width: 800px; margin: 0 auto; 
+        :root {
+            --bg: #0a0a0a;
+            --accent: #6366f1;
+            --accent-glow: rgba(99, 102, 241, 0.3);
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text: #ffffff;
+            --text-dim: rgba(255, 255, 255, 0.6);
+            --card-bg: rgba(255, 255, 255, 0.03);
         }
-        .glass-box {
-            background: rgba(255, 255, 255, 0.03);
-            padding: 40px; border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
         }
-        h1 { font-size: 3rem; color: var(--accent); }
+
+        /* افکت مدارگونه پشت زمینه */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.03) 0%, transparent 50%),
+                repeating-linear-gradient(45deg, 
+                    rgba(99, 102, 241, 0.02) 0px, 
+                    rgba(99, 102, 241, 0.02) 2px,
+                    transparent 2px,
+                    transparent 8px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* نویز استاتیک ملایم (حس الکترونیک!) */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.03"/></svg>');
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.3;
+        }
+
+        nav {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(25px);
+            padding: 12px 24px;
+            border-radius: 60px;
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 90%;
+            max-width: 800px;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #fff, var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .menu-items {
+            display: flex;
+            gap: 30px;
+        }
+
+        .menu-items a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .menu-items a:hover {
+            color: var(--accent);
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: white;
+        }
+
+        /* محتوای اصلی About */
+        .about-wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 120px 20px 60px;
+        }
+
+        /* هدر با آواتار */
+        .profile-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .avatar {
+            width: 130px;
+            height: 130px;
+            background: linear-gradient(135deg, var(--accent), #a855f7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 3rem;
+            box-shadow: 0 0 30px rgba(99, 102, 241, 0.3);
+            transition: 0.3s;
+        }
+
+        .avatar:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 50px rgba(99, 102, 241, 0.5);
+        }
+
+        .profile-header h1 {
+            font-size: 2.8rem;
+            background: linear-gradient(135deg, #fff, var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(99, 102, 241, 0.2);
+            border: 1px solid var(--accent);
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            margin-top: 15px;
+        }
+
+        /* گرید دو ستونه برای محتوا */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        /* کارت‌های شیشه‌ای */
+        .glass-card {
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        .glass-card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .glass-card h3 {
+            font-size: 1.3rem;
+            margin: 20px 0 10px;
+            color: var(--text);
+        }
+
+        .glass-card p {
+            color: var(--text-dim);
+            margin-bottom: 15px;
+        }
+
+        /* لیست مهارت‌ها با دایره */
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .skill-item {
+            background: rgba(99, 102, 241, 0.15);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .skill-item:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* تایم‌لاین (برای مسیر تحصیلی/شغلی) */
+        .timeline {
+            margin-top: 20px;
+        }
+
+        .timeline-item {
+            border-left: 2px solid var(--accent);
+            padding-left: 20px;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: "⚡";
+            position: absolute;
+            left: -12px;
+            top: 0;
+            background: var(--bg);
+            padding: 0 5px;
+        }
+
+        .timeline-year {
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .timeline-title {
+            font-weight: bold;
+            margin: 5px 0;
+        }
+
+        /* علایق و سرگرمی‌ها */
+        .interests-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .interest-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 16px;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .interest-card:hover {
+            background: rgba(99, 102, 241, 0.15);
+            transform: translateY(-3px);
+        }
+
+        .interest-icon {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        /* نقل قول */
+        .quote-section {
+            margin-top: 40px;
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.05));
+            border-radius: 24px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .quote-text {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--text-dim);
+        }
+
+        .quote-author {
+            margin-top: 10px;
+            color: var(--accent);
+        }
+
+        /* ریسپانسیو */
+        @media (max-width: 768px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .menu-items {
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background: rgba(10, 10, 10, 0.95);
+                flex-direction: column;
+                align-items: center;
+                padding: 30px 0;
+                border-radius: 20px;
+                border: 1px solid var(--glass-border);
+            }
+
+            .menu-items.active {
+                display: flex;
+            }
+
+            .menu-items a {
+                padding: 12px 0;
+            }
+
+            .profile-header h1 {
+                font-size: 2rem;
+            }
+
+            .interests-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
 
     <nav>
         <div class="logo">NIMA.DEV</div>
-        <div class="menu-items">
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="#">Projects</a>
+        <div class="menu-items" id="menu">
+            <a href="index.html">🏠 Home</a>
+            <a href="about.html">👤 About</a>
+            <a href="projects.html">📁 Projects</a>
+            <a href="#">📧 Contact</a>
         </div>
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
     </nav>
 
-    <section id="about-container">
-        <div class="glass-box">
-          <h1>About Me</h1>
-          <p>Hi! I'm Nima, an electronics enthusiast and programmer.</p>
-          <p>I enjoy blending hardware logic with clean code. Beyond engineering, I spend my time exploring literature, practicing yoga, and sketching.</p>
-          <h3>Interests:</h3>
-          <ul>
-              <li>Electronic Circuit Design</li>
-              <li>Embedded Systems & C Programming</li>
-              <li>UI/UX Design & Web Development</li>
-         </ul>
-     </div>  
-   </section>
+    <div class="about-wrapper">
+        <div class="profile-header">
+            <div class="avatar">
+                ⚡
+            </div>
+            <h1>Nima Rezaei</h1>
+            <div class="badge">Electronics Engineering Student</div>
+        </div>
 
+        <div class="about-grid">
+            <!-- ستون چپ: بیوگرافی و داستان -->
+            <div class="glass-card">
+                <h2>📖 My Story</h2>
+                <p>سلام! من نیما هستم، دانشجوی مهندسی الکترونیک با عشق بی‌پایان به دنیای سخت‌افزار و نرم‌افزار. از وقتی یادم میاد همیشه مجذوب این بودم که چطور جریان الکترون می‌تونه باعث بشه یک دستگاه زنده بشه و کار کنه.</p>
+                <p>الان چند سالیه که دارم عمیق‌تر توی <strong>سیستم‌های نهفته (Embedded Systems)</strong> و <strong>برنامه‌نویسی C</strong> غرق میشم. برام جالبه که مرز بین سخت‌افزار و نرم‌افزار هر روز داره کمرنگ‌تر میشه و من عاشق این چالش هستم.</p>
+                <p>هدف من اینه که محصولاتی بسازم که هم از نظر فنی قوی باشن، هم تجربه کاربری خوبی داشته باشن. به همین دلیل تصمیم گرفتم یه پورتفولیوی آنلاین داشته باشم تا بتونم کارهام رو به دنیا نشون بدم.</p>
+                
+                <h3>🎯 What Drives Me</h3>
+                <p>باور دارم که تکنولوژی باید در خدمت انسان باشه. دوست دارم روی پروژه‌هایی کار کنم که واقعاً تفاوتی در زندگی مردم ایجاد کنن - چه یه دستگاه پزشکی باشه، چه یه کنترلر صنعتی هوشمند.</p>
+            </div>
+
+            <!-- ستون راست: مهارت‌ها و مسیر -->
+            <div class="glass-card">
+                <h2>🛠️ Technical Arsenal</h2>
+                
+                <h3>Hardware Skills</h3>
+                <div class="skills-list">
+                    <span class="skill-item">PCB Design (Altium/KiCad)</span>
+                    <span class="skill-item">Circuit Simulation</span>
+                    <span class="skill-item">Oscilloscope</span>
+                    <span class="skill-item">Signal Processing</span>
+                    <span class="skill-item">Microcontrollers</span>
+                </div>
+
+                <h3 style="margin-top: 25px;">Software Skills</h3>
+                <div class="skills-list">
+                    <span class="skill-item">C Programming</span>
+                    <span class="skill-item">Embedded C</span>
+                    <span class="skill-item">Python</span>
+                    <span class="skill-item">MATLAB</span>
+                    <span class="skill-item">HTML/CSS/JS</span>
+                </div>
+
+                <h3 style="margin-top: 25px;">⚡ Education & Path</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-year">2023 - Present</div>
+                        <div class="timeline-title">BSc in Electronics Engineering</div>
+                        <div style="font-size: 0.9rem; color: var(--text-dim);">دانشگاه ... (تمرکز روی Embedded Systems)</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2024</div>
+                        <div class="timeline-title">STM32 Microcontroller Course</div>
+                        <div style="font-size: 0.9rem; color: var(--text-dim);">آموزش حرفه‌ای ARM Cortex-M</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2025</div>
+                        <div class="timeline-title">PCB Design Workshop</div>
+                        <div style="font-size: 0.9rem; color: var(--text-dim);">طراحی بردهای چندلایه</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- بخش دوم: علایق شخصی -->
+        <div class="glass-card" style="margin-top: 30px;">
+            <h2>🌟 Beyond Engineering</h2>
+            <p>زندگی فقط مدار و کد نیست! وقتی پشت میزم نیستم، این کارها رو دوست دارم:</p>
+            <div class="interests-grid">
+                <div class="interest-card">
+                    <span class="interest-icon">📚</span>
+                    <span>Literature & Poetry</span>
+                </div>
+                <div class="interest-card">
+                    <span class="interest-icon">🧘</span>
+                    <span>Yoga & Meditation</span>
+                </div>
+                <div class="interest-card">
+                    <span class="interest-icon">✏️</span>
+                    <span>Sketching</span>
+                </div>
+                <div class="interest-card">
+                    <span class="interest-icon">♟️</span>
+                    <span>Chess</span>
+                </div>
+                <div class="interest-card">
+                    <span class="interest-icon">🔧</span>
+                    <span>DIY Electronics</span>
+                </div>
+                <div class="interest-card">
+                    <span class="interest-icon">🎧</span>
+                    <span>Music & Hi-Fi Audio</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- نقل قول الهام‌بخش -->
+        <div class="quote-section">
+            <div class="quote-text">
+                "The most important thing is to never stop questioning. Curiosity has its own reason for existing."
+            </div>
+            <div class="quote-author">— Albert Einstein</div>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('menu').classList.toggle('active');
+        }
+
+        // بستن منو با کلیک روی لینک
+        document.querySelectorAll('.menu-items a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('menu').classList.remove('active');
+            });
+        });
+
+        // افکت تایپ ملایم برای عنوان (اختیاری)
+        console.log('About page loaded - Ready for electronics!');
+    </script>
 </body>
 </html>
