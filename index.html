@@ -16,19 +16,7 @@
     margin: 0;
     overflow-x: hidden;
         }
-body::after {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    /* این الگو، اعداد 0 و 1 را به‌صورت محو تکرار می‌کند */
-    background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-    background-size: 40px 40px; /* فاصله بین اعداد */
-    z-index: -5; /* پشت همه لایه‌ها */
-    pointer-events: none;
-}
+
         
         /* افکت 0 و 1 در پس‌زمینه */
         body::after {
