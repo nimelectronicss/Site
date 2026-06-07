@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Nima</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0a0a0a;
+            --accent: #6366f1;
+            --text: #ffffff;
+            --text-dim: rgba(255,255,255,0.6);
+            --glass: rgba(255,255,255,0.05);
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: repeating-linear-gradient(45deg, rgba(99,102,241,0.02) 0px, rgba(99,102,241,0.02) 2px, transparent 2px, transparent 8px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        nav {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(10,10,10,0.8);
+            backdrop-filter: blur(25px);
+            padding: 12px 24px;
+            border-radius: 60px;
+            border: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 90%;
+            max-width: 800px;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 1.2rem;
+            background: linear-gradient(135deg, #fff, var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .menu-items {
+            display: flex;
+            gap: 30px;
+        }
+
+        .menu-items a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .menu-items a:hover {
+            color: var(--accent);
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+
+        .projects-wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 120px 20px 60px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fff, var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--text-dim);
+            margin-bottom: 50px;
+        }
+
+        .category {
+            margin: 50px 0 30px;
+        }
+
+        .category h2 {
+            font-size: 2rem;
+            color: var(--accent);
+            border-left: 4px solid var(--accent);
+            padding-left: 20px;
+            margin-bottom: 30px;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: var(--glass);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            background: rgba(99,102,241,0.05);
+        }
+
+        .project-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .project-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .project-card p {
+            color: var(--text-dim);
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tech-tag {
+            background: rgba(99,102,241,0.2);
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 0.75rem;
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            .menu-items {
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background: rgba(10,10,10,0.95);
+                flex-direction: column;
+                align-items: center;
+                padding: 30px 0;
+                border-radius: 20px;
+            }
+            .menu-items.active {
+                display: flex;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">NIMA.DEV</div>
+        <div class="menu-items" id="menu">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="projects.html">Projects</a>
+            <a href="#">Contact</a>
+        </div>
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+    </nav>
+
+    <div class="projects-wrapper">
+        <h1>📁 My Projects</h1>
+        <p class="subtitle">Where hardware meets code — each project has its own story</p>
+
+        <!-- بخش برنامه نویسی -->
+        <div class="category">
+            <h2>💻 Programming (C)</h2>
+            <div class="project-grid">
+                <a href="calculator.html" class="project-card">
+                    <div class="project-icon">🧮</div>
+                    <h3>Simple Calculator</h3>
+                    <p>ماشین حساب خط فرمان با قابلیت جمع، تفریق، ضرب و تقسیم. تمرین عالی برای درک switch-case و ورودی/خروجی.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">C</span>
+                        <span class="tech-tag">CLI</span>
+                    </div>
+                </a>
+                <a href="#" class="project-card">
+                    <div class="project-icon">🔢</div>
+                    <h3>Sorting Algorithms</h3>
+                    <p>پیاده‌سازی Bubble Sort و Quick Sort در C به همراه تحلیل پیچیدگی زمانی (به زودی)</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">C</span>
+                        <span class="tech-tag">Algorithms</span>
+                    </div>
+                </a>
+                <a href="#" class="project-card">
+                    <div class="project-icon">📊</div>
+                    <h3>Student Grade Manager</h3>
+                    <p>مدیریت نمرات دانشجویان با استفاده از struct و فایل‌ها (به زودی)</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">C</span>
+                        <span class="tech-tag">File I/O</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- بخش الکترونیک -->
+        <div class="category">
+            <h2>⚡ Electronics</h2>
+            <div class="project-grid">
+                <a href="#" class="project-card">
+                    <div class="project-icon">🔌</div>
+                    <h3>PCB Design - Power Supply</h3>
+                    <p>طراحی برد منبع تغذیه 5V و 12V با استفاده از Altium Designer. شامل شماتیک و layout نهایی.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Altium</span>
+                        <span class="tech-tag">Power Electronics</span>
+                    </div>
+                </a>
+                <a href="#" class="project-card">
+                    <div class="project-icon">🤖</div>
+                    <h3>Line Follower Robot</h3>
+                    <p>ربات دنبال‌کننده خط با سنسورهای مادون قرمز و کنترلر PID روی STM32 (به زودی)</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">STM32</span>
+                        <span class="tech-tag">PID</span>
+                        <span class="tech-tag">Embedded C</span>
+                    </div>
+                </a>
+                <a href="#" class="project-card">
+                    <div class="project-icon">📡</div>
+                    <h3>ECG Signal Filter</h3>
+                    <p>طراحی فیلتر دیجیتال برای حذف نویز از سیگنال ECG با MATLAB (به زودی)</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">MATLAB</span>
+                        <span class="tech-tag">Signal Processing</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('menu').classList.toggle('active');
+        }
+
+        document.querySelectorAll('.menu-items a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('menu').classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
