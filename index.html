@@ -4,24 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- بسیار مهم برای موبایل -->
     <title>Nima | Portfolio</title>
-    <style>
-        :root {
-            --bg: #0a0a0a; --accent: #6366f1; 
-            --glass: rgba(255, 255, 255, 0.05); 
-        }
-        body::before {
-    content: '';
-    position: fixed;
-    top: -20%;
-    left: -10%;
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, rgba(99, 102, 241, 0.15), transparent 70%);
-    z-index: -1;
-    filter: blur(80px);
-    pointer-events: none;
-        }
-        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
+    <style
+    :root {
+        --bg: #0a0a0a; --accent: #6366f1; 
+        --glass: rgba(255, 255, 255, 0.05); 
+    }
+
+    /* اصلاح اول: برای اینکه Glow همیشه دیده شود */
+    body { 
+        background: var(--bg); 
+        color: white; 
+        font-family: 'Inter', sans-serif; 
+        margin: 0; 
+        overflow-x: hidden; 
+        position: relative; /* مهم: برای اینکه ::before نسبت به body موقعیت بگیرد */
+    }
+body::before {
+        content: '';
+        position: fixed;
+        top: -10%;
+        left: -10%;
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(circle, rgba(99, 102, 241, 0.15), transparent 70%);
+        z-index: 0; /* تغییر از -1 به 0 */
+        filter: blur(80px);
+        pointer-events: none;
+}
         
         /* منوی شیشه‌ای */
         nav { 
@@ -90,11 +99,11 @@
             .menu-items.active { display: flex; }
             .menu-items a { padding: 15px 0; font-size: 1.3rem; width: 100%; text-align: center; }
        #typed {
-    color: var(--accent);
-    display: block;
-    font-size: 0.8em;
-    margin-top: 10px;
-                }
+        color: var(--accent);
+        display: block;
+        font-size: 0.8em;
+        margin-top: 10px;
+       }
             }
     </style>
 </head>
