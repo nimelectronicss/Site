@@ -3,63 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nima | Portfolio</title>
+    <title>Nima | Portfolio - Electronics Engineer</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         :root {
-            --bg: #0a0a0a; --accent: #6366f1; 
-            --glass: rgba(255, 255, 255, 0.05); 
+            --bg: #0a0a0a;
+            --accent: #6366f1;
+            --glass: rgba(255, 255, 255, 0.05);
+            --text: #ffffff;
+            --text-dim: rgba(255, 255, 255, 0.6);
         }
 
         body {
-    position: relative;
-    background-color: #050505;
-    margin: 0;
-    overflow-x: hidden;
-    isolation: isolate;
-}
-
-body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background-image: repeating-linear-gradient(
-        0deg,
-        rgba(255,255,255,0.03) 0,
-        rgba(255,255,255,0.03) 1px,
-        transparent 1px,
-        transparent 24px
-    );
-    pointer-events: none;
-    z-index: -1;
-}
-      
-        nav { 
-            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
-            background: var(--glass); backdrop-filter: blur(25px);
-            padding: 15px 30px; border-radius: 50px; border: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex; align-items: center; justify-content: space-between;
-            width: 90%; max-width: 800px; z-index: 1000;
+            background: #0a0a0a;
+            color: var(--text);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
         }
-        .logo { font-weight: bold; font-size: 1.2rem; letter-spacing: 1px; }
-        .menu-items { display: flex; gap: 30px; font-size: 1rem; }
-        .menu-items a { color: rgba(255,255,255,0.8); text-decoration: none; transition: 0.3s; }
-        .menu-items a:hover { color: var(--accent); }
-        .hamburger { display: none; font-size: 1.8rem; cursor: pointer; color: white; }
 
-        #hero { 
-            height: 100vh; display: flex; flex-direction: column; 
-            justify-content: center; align-items: center; text-align: center;
+        /* گرید خطوط پشت زمینه */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(99, 102, 241, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99, 102, 241, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        nav {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(25px);
+            padding: 15px 30px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 90%;
+            max-width: 800px;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #fff, var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .menu-items {
+            display: flex;
+            gap: 30px;
+            font-size: 1rem;
+        }
+
+        .menu-items a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .menu-items a:hover {
+            color: var(--accent);
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: white;
+        }
+
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
             padding: 0 20px;
             position: relative;
             z-index: 1;
         }
-        #hero h1 { 
-            font-size: clamp(2.5rem, 8vw, 4rem); 
+
+        #hero h1 {
+            font-size: clamp(2.5rem, 8vw, 4rem);
             line-height: 1.2;
-            margin: 0; 
-            letter-spacing: -1px; 
+            margin: 0;
+            letter-spacing: -1px;
         }
-        
+
         #typed {
             color: var(--accent);
             display: block;
@@ -67,43 +119,155 @@ body::after {
             margin-top: 10px;
         }
 
-        #hero p { font-size: 1.2rem; color: rgba(255,255,255,0.6); margin-top: 10px; }
-        
-        .cta-btn {
-            margin-top: 30px; padding: 12px 30px; border-radius: 30px;
-            background: var(--accent); color: white; text-decoration: none;
-            font-weight: bold; transition: 0.3s;
+        #hero p {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            margin-top: 20px;
         }
-        .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(99, 102, 241, 0.4); }
 
-        #projects { padding: 80px 20px; max-width: 1000px; margin: 0 auto; position: relative; z-index: 1; }
-        .grid-container { 
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-            gap: 25px; margin-top: 40px; 
+        .cta-btn {
+            margin-top: 30px;
+            padding: 12px 30px;
+            border-radius: 30px;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+            display: inline-block;
         }
+
+        .cta-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+        }
+
+        #projects {
+            padding: 80px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        #projects h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
         .card {
             background: rgba(255, 255, 255, 0.03);
-            padding: 30px; border-radius: 20px;
+            padding: 30px;
+            border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: 0.4s;
         }
+
         .card:hover {
             background: rgba(99, 102, 241, 0.1);
             border-color: var(--accent);
             transform: translateY(-10px);
         }
 
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+
+        .card p {
+            color: var(--text-dim);
+            line-height: 1.5;
+        }
+
+        /* بخش مهارت‌ها - مخصوص رشته الکترونیک */
+        #skills {
+            padding: 60px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .skill-badge {
+            background: rgba(99, 102, 241, 0.2);
+            border: 1px solid rgba(99, 102, 241, 0.5);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .skill-badge:hover {
+            background: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-dim);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
         @media (max-width: 768px) {
-            nav { padding: 10px 20px; width: 95%; }
-            .hamburger { display: block; }
-            .menu-items { 
-                display: none; position: absolute; top: 70px; left: 0; 
-                width: 100%; background: rgba(10, 10, 10, 0.95); 
-                flex-direction: column; align-items: center;
-                padding: 40px 0; border-radius: 25px; border: 1px solid rgba(255,255,255,0.1);
+            nav {
+                padding: 10px 20px;
+                width: 95%;
             }
-            .menu-items.active { display: flex; }
-            .menu-items a { padding: 15px 0; font-size: 1.3rem; width: 100%; text-align: center; }
+
+            .hamburger {
+                display: block;
+            }
+
+            .menu-items {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: rgba(10, 10, 10, 0.95);
+                flex-direction: column;
+                align-items: center;
+                padding: 40px 0;
+                border-radius: 25px;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .menu-items.active {
+                display: flex;
+            }
+
+            .menu-items a {
+                padding: 15px 0;
+                font-size: 1.3rem;
+                width: 100%;
+                text-align: center;
+            }
+
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -114,6 +278,7 @@ body::after {
         <div class="menu-items" id="menu">
             <a href="#hero">Home</a>
             <a href="#projects">Projects</a>
+            <a href="#skills">Skills</a>
             <a href="about.html">About</a>
             <a href="#">Contact</a>
         </div>
@@ -125,32 +290,69 @@ body::after {
             Hi, I'm Nima<br>
             <span id="typed"></span>
         </h1>
-        <p>Bridging Hardware & Software</p>
+        <p>Bridging Hardware & Software | Electronics Engineering Student</p>
         <a href="#projects" class="cta-btn">Explore My Work</a>
     </section>
 
     <section id="projects">
-        <h2 style="text-align: center; font-size: 2.5rem;">My Projects</h2>
+        <h2>⚡ My Projects</h2>
         <div class="grid-container">
-            <div class="card"><h3>Project One</h3><p>Electronic Circuit Design</p></div>
-            <div class="card"><h3>Project Two</h3><p>C Robotics Controller</p></div>
-            <div class="card"><h3>Project Three</h3><p>Web Development</p></div>
+            <div class="card">
+                <h3>🔌 PCB Design</h3>
+                <p>Custom circuit board design for embedded systems using Altium and KiCad</p>
+            </div>
+            <div class="card">
+                <h3>🤖 Robotics Controller</h3>
+                <p>PID controller implementation for line-following robot using STM32 microcontroller</p>
+            </div>
+            <div class="card">
+                <h3>🌐 Portfolio Website</h3>
+                <p>This responsive website - my first step into web development</p>
+            </div>
+            <div class="card">
+                <h3>📡 Signal Processing</h3>
+                <p>Digital filter design for ECG signal noise reduction using MATLAB</p>
+            </div>
         </div>
     </section>
 
-    <!-- حتماً این بخش را برای کارکردن تایپ‌افکت اضافه کن -->
+    <section id="skills">
+        <h2>🛠️ Technical Skills</h2>
+        <div class="skills-container">
+            <span class="skill-badge">C Programming</span>
+            <span class="skill-badge">Embedded Systems</span>
+            <span class="skill-badge">PCB Design</span>
+            <span class="skill-badge">Arduino</span>
+            <span class="skill-badge">STM32</span>
+            <span class="skill-badge">MATLAB</span>
+            <span class="skill-badge">Circuit Analysis</span>
+            <span class="skill-badge">Digital Logic</span>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 Nima | Electronics Engineering Student</p>
+        <p style="font-size: 0.8rem; margin-top: 10px;">Built with HTML/CSS/JS | Hosted on GitHub Pages</p>
+    </footer>
+
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
     <script>
-        // تابع منو برای موبایل
         function toggleMenu() {
             document.getElementById('menu').classList.toggle('active');
         }
 
-        // اسکریپت تایپ‌افکت
+        // بستن منو هنگام کلیک روی لینک (بهتر برای UX)
+        document.querySelectorAll('.menu-items a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('menu').classList.remove('active');
+            });
+        });
+
         var typed = new Typed('#typed', {
-            strings: ['Electronics Enthusiast', 'C Programmer', 'Problem Solver'],
-            typeSpeed: 50,
-            backSpeed: 30,
+            strings: ['Electronics Engineer', 'Embedded Systems Developer', 'PCB Designer', 'C Programmer'],
+            typeSpeed: 60,
+            backSpeed: 35,
+            backDelay: 1500,
             loop: true
         });
     </script>
