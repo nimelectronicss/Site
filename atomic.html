@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electron Configuration | Atomic Shell Model</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --bg: #0a0a0a;
+            --accent: #6366f1;
+            --text: #ffffff;
+            --text-dim: rgba(255,255,255,0.6);
+            --glass: rgba(255, 255, 255, 0.05);
+        }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: repeating-linear-gradient(45deg, rgba(99,102,241,0.02) 0px, rgba(99,102,241,0.02) 2px, transparent 2px, transparent 8px);
+            pointer-events: none;
+            z-index: 0;
+        }
+        nav {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(10,10,10,0.8);
+            backdrop-filter: blur(25px);
+            padding: 12px 24px;
+            border-radius: 60px;
+            border: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 90%;
+            max-width: 800px;
+            z-index: 1000;
+        }
+        .logo {
+            font-weight: bold;
+            font-size: 1.2rem;
+            background: linear-gradient(135deg, #fff, var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .menu-items {
+            display: flex;
+            gap: 30px;
+        }
+        .menu-items a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .menu-items a:hover { color: var(--accent); }
+        .hamburger {
+            display: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+        .project-container {
+            position: relative;
+            z-index: 1;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 120px 20px 60px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 30px;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fff, var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .glass-card {
+            background: var(--glass);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+        }
+        .input-area {
+            margin: 20px 0;
+        }
+        .input-area input {
+            width: 100%;
+            padding: 14px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid var(--accent);
+            border-radius: 16px;
+            color: white;
+            font-size: 1.1rem;
+        }
+        .button {
+            background: var(--accent);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 40px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            width: 100%;
+        }
+        .result-box {
+            background: #1e1e1e;
+            border-radius: 20px;
+            padding: 20px;
+            margin-top: 25px;
+            border-left: 5px solid var(--accent);
+        }
+        .config {
+            font-family: monospace;
+            font-size: 1.3rem;
+            word-break: break-word;
+            color: #aaffdd;
+        }
+        .element-name {
+            color: var(--accent);
+            font-weight: bold;
+        }
+        hr {
+            border-color: rgba(255,255,255,0.1);
+            margin: 20px 0;
+        }
+        @media (max-width: 768px) {
+            .hamburger { display: block; }
+            .menu-items {
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background: rgba(10,10,10,0.95);
+                flex-direction: column;
+                align-items: center;
+                padding: 30px 0;
+                border-radius: 20px;
+            }
+            .menu-items.active { display: flex; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">NIMA.DEV</div>
+        <div class="menu-items" id="menu">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="projects.html">Projects</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+    </nav>
+
+    <div class="project-container">
+        <a href="projects.html" class="back-link">← Back to Projects</a>
+        <h1>⚛️ Electron Configuration</h1>
+        <div class="glass-card">
+            <p>Enter an atomic number (1 to 118) to get the electron configuration of that element.</p>
+            <div class="input-area">
+                <input type="number" id="atomicNumber" placeholder="e.g., 29 (Copper)" min="1" max="118">
+            </div>
+            <button class="button" onclick="getConfiguration()">🔬 Show Configuration</button>
+            <div class="result-box" id="result">
+                <span style="color: var(--text-dim);">Result will appear here...</span>
+            </div>
+            <p style="font-size: 0.8rem; margin-top: 15px;">💡 Follows Aufbau principle, Pauli exclusion, and Hund's rule.</p>
+        </div>
+    </div>
+
+    <script>
+        // Order of subshells according to Aufbau (n+l rule)
+        const subshellOrder = [
+            "1s", "2s", "2p", "3s", "3p", "4s", "3d", "4p", "5s", "4d", "5p",
+            "6s", "4f", "5d", "6p", "7s", "5f", "6d", "7p", "8s", "5g", "6f", "7d", "8p"
+        ];
+        // Maximum electrons per subshell
+        const maxElectrons = {
+            s: 2, p: 6, d: 10, f: 14, g: 18
+        };
+
+        function getConfiguration() {
+            let Z = parseInt(document.getElementById('atomicNumber').value);
+            if (isNaN(Z) || Z < 1 || Z > 118) {
+                document.getElementById('result').innerHTML = '<span style="color: #ff5555;">❌ Please enter a valid atomic number (1–118).</span>';
+                return;
+            }
+
+            let remaining = Z;
+            let config = [];
+            for (let subshell of subshellOrder) {
+                let type = subshell[1]; // 's', 'p', 'd', 'f', 'g'
+                let capacity = maxElectrons[type];
+                let fill = Math.min(remaining, capacity);
+                if (fill > 0) {
+                    config.push(`${subshell}^${fill}`);
+                }
+                remaining -= fill;
+                if (remaining <= 0) break;
+            }
+
+            // Get element name (simple mapping for first 118)
+            const elements = [
+                "Hydrogen","Helium","Lithium","Beryllium","Boron","Carbon","Nitrogen","Oxygen","Fluorine","Neon",
+                "Sodium","Magnesium","Aluminum","Silicon","Phosphorus","Sulfur","Chlorine","Argon","Potassium","Calcium",
+                "Scandium","Titanium","Vanadium","Chromium","Manganese","Iron","Cobalt","Nickel","Copper","Zinc",
+                "Gallium","Germanium","Arsenic","Selenium","Bromine","Krypton","Rubidium","Strontium","Yttrium","Zirconium",
+                "Niobium","Molybdenum","Technetium","Ruthenium","Rhodium","Palladium","Silver","Cadmium","Indium","Tin",
+                "Antimony","Tellurium","Iodine","Xenon","Cesium","Barium","Lanthanum","Cerium","Praseodymium","Neodymium",
+                "Promethium","Samarium","Europium","Gadolinium","Terbium","Dysprosium","Holmium","Erbium","Thulium","Ytterbium",
+                "Lutetium","Hafnium","Tantalum","Tungsten","Rhenium","Osmium","Iridium","Platinum","Gold","Mercury",
+                "Thallium","Lead","Bismuth","Polonium","Astatine","Radon","Francium","Radium","Actinium","Thorium",
+                "Protactinium","Uranium","Neptunium","Plutonium","Americium","Curium","Berkelium","Californium","Einsteinium","Fermium",
+                "Mendelevium","Nobelium","Lawrencium","Rutherfordium","Dubnium","Seaborgium","Bohrium","Hassium","Meitnerium","Darmstadtium",
+                "Roentgenium","Copernicium","Nihonium","Flerovium","Moscovium","Livermorium","Tennessine","Oganesson"
+            ];
+            let elementName = (Z <= 118) ? elements[Z-1] : "Unknown";
+
+            let configStr = config.join(" ");
+            document.getElementById('result').innerHTML = `
+                <div><span class="element-name">${elementName}</span> (Atomic Number ${Z})</div>
+                <hr>
+                <div class="config">${configStr}</div>
+                <div style="font-size:0.85rem; margin-top:10px;">⚛️ Electron configuration</div>
+            `;
+        }
+
+        function toggleMenu() {
+            document.getElementById('menu').classList.toggle('active');
+        }
+        document.querySelectorAll('.menu-items a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('menu').classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
