@@ -3,15 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>About Me | Nima</title>
-    <!-- اینجا باید دقیقاً همان استایل‌های فایل اصلی را کپی کنی تا ظاهر سایت حفظ شود -->
     <style>
-        /* (همان استایل‌های فایل قبلی را اینجا قرار بده) */
         :root { --bg: #0a0a0a; --accent: #6366f1; }
-        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; }
-        nav { position: fixed; top: 30px; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(25px); padding: 20px 40px; border-radius: 60px; border: 1px solid rgba(255, 255, 255, 0.1); display: flex; align-items: center; justify-content: space-between; width: 85%; max-width: 800px; z-index: 1000; }
-        .menu-items { display: flex; gap: 40px; font-size: 1.1rem; }
-        .menu-items a { color: white; text-decoration: none; }
-        #content { padding: 150px 20px; max-width: 800px; margin: 0 auto; line-height: 1.6; }
+        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; line-height: 1.6; }
+        
+        /* همان منوی شیشه‌ای برای یکپارچگی */
+        nav { 
+            position: fixed; top: 30px; left: 50%; transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(25px);
+            padding: 20px 40px; border-radius: 60px; border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex; align-items: center; justify-content: space-between;
+            width: 85%; max-width: 800px; z-index: 1000;
+        }
+        .menu-items a { color: white; text-decoration: none; margin-left: 20px; }
+
+        /* محتوای صفحه About */
+        #about-container { 
+            padding: 150px 20px; max-width: 800px; margin: 0 auto; 
+        }
+        .glass-box {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 40px; border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        h1 { font-size: 3rem; color: var(--accent); }
     </style>
 </head>
 <body>
@@ -21,15 +36,22 @@
         <div class="menu-items">
             <a href="index.html">Home</a>
             <a href="about.html">About</a>
-            <a href="projects.html">Projects</a>
+            <a href="#">Projects</a>
         </div>
     </nav>
 
-    <section id="content">
-        <h1>About Me</h1>
-        <p>من نیما هستم، هنرجوی الکترونیک با علاقه شدید به دنیای سخت‌افزار، برنامه‌نویسی C و سیستم‌های نهفته (Embedded Systems).</p>
-        <p>در این سایت تلاش می‌کنم پروژه‌هایی که با ترکیب دانشِ الکترونیک و برنامه‌نویسی انجام دادم رو به نمایش بگذارم.</p>
-        <!-- اینجا می‌تونی هر چی دوست داری اضافه کنی -->
+    <section id="about-container">
+        <div class="glass-box">
+            <h1>About Me</h1>
+            <p>سلام! من نیما هستم. علاقه‌مند به دنیای پیچیده و جذاب الکترونیک و برنامه‌نویسی.</p>
+            <p>در اینجا یاد می‌گیرم چطور ایده‌های سخت‌افزاری رو با کدهای تمیز ترکیب کنم. به جز دنیای کد و مدار، وقتم رو با مطالعه ادبیات، طراحی و انجام تمرینات یوگا برای حفظ تمرکز می‌گذرونم.</p>
+            <h3>حوزه‌های مورد علاقه:</h3>
+            <ul>
+                <li>طراحی مدارات الکترونیکی</li>
+                <li>برنامه‌نویسی به زبان C</li>
+                <li>توسعه وب و طراحی رابط کاربری</li>
+            </ul>
+        </div>
     </section>
 
 </body>
