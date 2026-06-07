@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تماس با من | نیما - مهندسی الکترونیک</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0a0a0a;
+            --accent: #6366f1;
+            --accent-glow: rgba(99, 102, 241, 0.3);
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text: #ffffff;
+            --text-dim: rgba(255, 255, 255, 0.6);
+            --card-bg: rgba(255, 255, 255, 0.03);
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', 'Inter', system-ui, sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* افکت مدارگونه پشت زمینه */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.03) 0%, transparent 50%),
+                repeating-linear-gradient(45deg, 
+                    rgba(99, 102, 241, 0.02) 0px, 
+                    rgba(99, 102, 241, 0.02) 2px,
+                    transparent 2px,
+                    transparent 8px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        nav {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(25px);
+            padding: 12px 24px;
+            border-radius: 60px;
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 90%;
+            max-width: 800px;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 1.2rem;
+            background: linear-gradient(135deg, #fff, var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .menu-items {
+            display: flex;
+            gap: 30px;
+        }
+
+        .menu-items a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .menu-items a:hover {
+            color: var(--accent);
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: white;
+        }
+
+        .contact-wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 120px 20px 60px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .page-header h1 {
+            font-size: 2.8rem;
+            background: linear-gradient(135deg, #fff, var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .page-header p {
+            color: var(--text-dim);
+            margin-top: 10px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        /* کارت‌های شیشه‌ای */
+        .glass-card {
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .glass-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* فرم تماس */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            color: var(--text);
+            font-family: inherit;
+            transition: 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .submit-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+        }
+
+        /* اطلاعات تماس */
+        .contact-info {
+            margin-bottom: 25px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .info-icon {
+            font-size: 1.8rem;
+        }
+
+        .info-content {
+            flex: 1;
+        }
+
+        .info-label {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+
+        .info-value {
+            font-size: 1rem;
+            word-break: break-all;
+        }
+
+        .copy-btn {
+            background: rgba(99, 102, 241, 0.2);
+            border: 1px solid var(--accent);
+            padding: 5px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            transition: 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: var(--accent);
+        }
+
+        /* شبکه‌های اجتماعی */
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid var(--glass-border);
+            padding: 12px;
+            border-radius: 40px;
+            text-decoration: none;
+            color: var(--text);
+            transition: 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .social-btn:hover {
+            background: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        /* ساعت کاری */
+        .working-hours {
+            margin-top: 25px;
+            padding: 15px;
+            background: rgba(99, 102, 241, 0.05);
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background: #10b981;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .menu-items {
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background: rgba(10, 10, 10, 0.95);
+                flex-direction: column;
+                align-items: center;
+                padding: 30px 0;
+                border-radius: 20px;
+            }
+
+            .menu-items.active {
+                display: flex;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">NIMA.DEV</div>
+        <div class="menu-items" id="menu">
+            <a href="index.html">🏠 صفحه اصلی</a>
+            <a href="about.html">👤 درباره من</a>
+            <a href="projects.html">📁 پروژه‌ها</a>
+            <a href="contact.html">📧 تماس</a>
+        </div>
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+    </nav>
+
+    <div class="contact-wrapper">
+        <div class="page-header">
+            <h1>📧 ارتباط با من</h1>
+            <p>مشتاق شنیدن نظرات، همکاری‌ها و ایده‌های جدید هستم</p>
+        </div>
+
+        <div class="contact-grid">
+            <!-- سمت راست: فرم تماس -->
+            <div class="glass-card">
+                <h2>✉️ ارسال پیام</h2>
+                <form id="contactForm" action="mailto:s.nima.mousavi.d@gmail.com" method="POST" enctype="text/plain">
+                    <div class="form-group">
+                        <label>نام و نام خانوادگی</label>
+                        <input type="text" name="name" required placeholder="مثال: نیما موسوی">
+                    </div>
+                    <div class="form-group">
+                        <label>آدرس ایمیل</label>
+                        <input type="email" name="email" required placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label>موضوع</label>
+                        <select name="subject">
+                            <option>همکاری پروژه</option>
+                            <option>مشاوره الکترونیک</option>
+                            <option>پیشنهاد کاری</option>
+                            <option>سایر</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>پیام شما</label>
+                        <textarea name="message" required placeholder="متن پیام خود را بنویسید..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">📤 ارسال پیام</button>
+                </form>
+                <p style="font-size: 0.75rem; color: var(--text-dim); margin-top: 15px; text-align: center;">
+                    ℹ️ با کلیک روی دکمه، ایمیل پیش‌فرض شما باز می‌شود
+                </p>
+            </div>
+
+            <!-- سمت چپ: اطلاعات تماس -->
+            <div>
+                <div class="glass-card">
+                    <h2>📬 راه‌های ارتباطی</h2>
+                    
+                    <div class="contact-info">
+                        <div class="info-item">
+                            <div class="info-icon">📧</div>
+                            <div class="info-content">
+                                <div class="info-label">ایمیل مستقیم</div>
+                                <div class="info-value" id="emailValue">s.nima.mousavi.d@gmail.com</div>
+                            </div>
+                            <button class="copy-btn" onclick="copyEmail()">📋 کپی</button>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="info-icon">💻</div>
+                            <div class="info-content">
+                                <div class="info-label">گیت‌هاب</div>
+                                <div class="info-value">github.com/nimelectronicss</div>
+                            </div>
+                            <a href="https://github.com/nimelectronicss" target="_blank" class="copy-btn" style="text-decoration: none;">🔗 بازدید</a>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="info-icon">📱</div>
+                            <div class="info-content">
+                                <div class="info-label">اینستاگرام (به زودی)</div>
+                                <div class="info-value">@nimelectronics</div>
+                            </div>
+                            <button class="copy-btn" onclick="copyInsta()">📋 کپی</button>
+                        </div>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="https://github.com/nimelectronicss" target="_blank" class="social-btn">
+                            🔗 GitHub
+                        </a>
+                        <a href="#" class="social-btn" style="opacity: 0.6;" onclick="alert('به زودی ساخته می‌شود ⚡')">
+                            📷 Instagram
+                        </a>
+                        <a href="mailto:s.nima.mousavi.d@gmail.com" class="social-btn">
+                            ✉️ Email
+                        </a>
+                    </div>
+                </div>
+
+                <!-- ساعت کاری و وضعیت -->
+                <div class="glass-card" style="margin-top: 20px;">
+                    <h2>⏰ وضعیت پاسخگویی</h2>
+                    <div class="working-hours">
+                        <div>🟢 آنلاین هستم (معمولاً)</div>
+                        <div style="font-size: 0.85rem; color: var(--text-dim); margin-top: 10px;">
+                            پاسخگویی به ایمیل‌ها: کمتر از ۴۸ ساعت
+                        </div>
+                        <div class="status-badge">
+                            ⚡ آماده همکاری
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 20px; text-align: center; padding: 15px; background: rgba(99,102,241,0.05); border-radius: 16px;">
+                        <div style="font-size: 0.9rem;">🔧 تخصص من:</div>
+                        <div style="font-size: 0.8rem; color: var(--text-dim);">
+                            طراحی PCB | برنامه‌نویسی Embedded | سخت‌افزار STM32
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('menu').classList.toggle('active');
+        }
+
+        document.querySelectorAll('.menu-items a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('menu').classList.remove('active');
+            });
+        });
+
+        function copyEmail() {
+            const email = "s.nima.mousavi.d@gmail.com";
+            navigator.clipboard.writeText(email);
+            alert("✅ ایمیل کپی شد: " + email);
+        }
+
+        function copyInsta() {
+            const insta = "@nimelectronics";
+            navigator.clipboard.writeText(insta);
+            alert("✅ آیدی اینستاگرام کپی شد: " + insta);
+        }
+
+        // نمایش پیام موفقیت برای فرم (اختیاری)
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            // اجازه میدیم فرم به mailto بره
+            setTimeout(() => {
+                alert("📨 در حال باز شدن ایمیل...\nبعد از ارسال، پیامتون رو دریافت میکنم.");
+            }, 100);
+        });
+    </script>
+</body>
+  </html>
