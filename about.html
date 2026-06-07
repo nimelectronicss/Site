@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Nima | Electronics Engineer</title>
+    <title>About | Nima - Electronics Engineer</title>
     <style>
         * {
             margin: 0;
@@ -30,7 +30,6 @@
             line-height: 1.6;
         }
 
-        /* افکت مدارگونه پشت زمینه */
         body::before {
             content: "";
             position: fixed;
@@ -49,7 +48,6 @@
             z-index: 0;
         }
 
-        /* نویز استاتیک ملایم (حس الکترونیک!) */
         body::after {
             content: "";
             position: fixed;
@@ -114,7 +112,6 @@
             color: white;
         }
 
-        /* محتوای اصلی About */
         .about-wrapper {
             position: relative;
             z-index: 1;
@@ -123,7 +120,6 @@
             padding: 120px 20px 60px;
         }
 
-        /* هدر با آواتار */
         .profile-header {
             text-align: center;
             margin-bottom: 50px;
@@ -166,7 +162,6 @@
             margin-top: 15px;
         }
 
-        /* گرید دو ستونه برای محتوا */
         .about-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -174,7 +169,6 @@
             margin-top: 40px;
         }
 
-        /* کارت‌های شیشه‌ای */
         .glass-card {
             background: var(--card-bg);
             border: 1px solid var(--glass-border);
@@ -209,7 +203,6 @@
             margin-bottom: 15px;
         }
 
-        /* لیست مهارت‌ها با دایره */
         .skills-list {
             display: flex;
             flex-wrap: wrap;
@@ -231,7 +224,6 @@
             transform: translateY(-2px);
         }
 
-        /* تایم‌لاین (برای مسیر تحصیلی/شغلی) */
         .timeline {
             margin-top: 20px;
         }
@@ -263,7 +255,6 @@
             margin: 5px 0;
         }
 
-        /* علایق و سرگرمی‌ها */
         .interests-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -290,7 +281,6 @@
             margin-bottom: 8px;
         }
 
-        /* نقل قول */
         .quote-section {
             margin-top: 40px;
             text-align: center;
@@ -311,7 +301,6 @@
             color: var(--accent);
         }
 
-        /* ریسپانسیو */
         @media (max-width: 768px) {
             .about-grid {
                 grid-template-columns: 1fr;
@@ -361,7 +350,7 @@
             <a href="index.html">🏠 Home</a>
             <a href="about.html">👤 About</a>
             <a href="projects.html">📁 Projects</a>
-            <a href="#">📧 Contact</a>
+            <a href="contact.html">📧 Contact</a>
         </div>
         <div class="hamburger" onclick="toggleMenu()">☰</div>
     </nav>
@@ -376,18 +365,18 @@
         </div>
 
         <div class="about-grid">
-            <!-- ستون چپ: بیوگرافی و داستان -->
+            <!-- Left Column: Biography & Story -->
             <div class="glass-card">
                 <h2>📖 My Story</h2>
-                <p>سلام! من نیما هستم، دانشجوی مهندسی الکترونیک با عشق بی‌پایان به دنیای سخت‌افزار و نرم‌افزار. از وقتی یادم میاد همیشه مجذوب این بودم که چطور جریان الکترون می‌تونه باعث بشه یک دستگاه زنده بشه و کار کنه.</p>
-                <p>الان چند سالیه که دارم عمیق‌تر توی <strong>سیستم‌های نهفته (Embedded Systems)</strong> و <strong>برنامه‌نویسی C</strong> غرق میشم. برام جالبه که مرز بین سخت‌افزار و نرم‌افزار هر روز داره کمرنگ‌تر میشه و من عاشق این چالش هستم.</p>
-                <p>هدف من اینه که محصولاتی بسازم که هم از نظر فنی قوی باشن، هم تجربه کاربری خوبی داشته باشن. به همین دلیل تصمیم گرفتم یه پورتفولیوی آنلاین داشته باشم تا بتونم کارهام رو به دنیا نشون بدم.</p>
+                <p>Hi! I'm Nima, an Electronics Engineering student with a deep passion for both hardware and software. Ever since I can remember, I've been fascinated by how the flow of electrons can bring a device to life and make it work.</p>
+                <p>For the past few years, I've been diving deep into <strong>Embedded Systems</strong> and <strong>C programming</strong>. I find it incredibly exciting how the line between hardware and software is getting blurrier every day — and I love that challenge.</p>
+                <p>My goal is to build products that are not only technically strong but also deliver a great user experience. That's why I decided to create an online portfolio — to showcase my work to the world.</p>
                 
                 <h3>🎯 What Drives Me</h3>
-                <p>باور دارم که تکنولوژی باید در خدمت انسان باشه. دوست دارم روی پروژه‌هایی کار کنم که واقعاً تفاوتی در زندگی مردم ایجاد کنن - چه یه دستگاه پزشکی باشه، چه یه کنترلر صنعتی هوشمند.</p>
+                <p>I believe technology should serve humanity. I want to work on projects that truly make a difference in people's lives — whether it's a medical device or an intelligent industrial controller.</p>
             </div>
 
-            <!-- ستون راست: مهارت‌ها و مسیر -->
+            <!-- Right Column: Skills & Path -->
             <div class="glass-card">
                 <h2>🛠️ Technical Arsenal</h2>
                 
@@ -414,26 +403,26 @@
                     <div class="timeline-item">
                         <div class="timeline-year">2023 - Present</div>
                         <div class="timeline-title">BSc in Electronics Engineering</div>
-                        <div style="font-size: 0.9rem; color: var(--text-dim);">دانشگاه ... (تمرکز روی Embedded Systems)</div>
+                        <div style="font-size: 0.9rem; color: var(--text-dim);">University ... (Focus on Embedded Systems)</div>
                     </div>
                     <div class="timeline-item">
                         <div class="timeline-year">2024</div>
                         <div class="timeline-title">STM32 Microcontroller Course</div>
-                        <div style="font-size: 0.9rem; color: var(--text-dim);">آموزش حرفه‌ای ARM Cortex-M</div>
+                        <div style="font-size: 0.9rem; color: var(--text-dim);">Professional ARM Cortex-M Training</div>
                     </div>
                     <div class="timeline-item">
                         <div class="timeline-year">2025</div>
                         <div class="timeline-title">PCB Design Workshop</div>
-                        <div style="font-size: 0.9rem; color: var(--text-dim);">طراحی بردهای چندلایه</div>
+                        <div style="font-size: 0.9rem; color: var(--text-dim);">Multi-layer Board Design</div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- بخش دوم: علایق شخصی -->
+        <!-- Interests Section -->
         <div class="glass-card" style="margin-top: 30px;">
             <h2>🌟 Beyond Engineering</h2>
-            <p>زندگی فقط مدار و کد نیست! وقتی پشت میزم نیستم، این کارها رو دوست دارم:</p>
+            <p>Life is not just circuits and code! When I'm not at my desk, I enjoy:</p>
             <div class="interests-grid">
                 <div class="interest-card">
                     <span class="interest-icon">📚</span>
@@ -462,7 +451,7 @@
             </div>
         </div>
 
-        <!-- نقل قول الهام‌بخش -->
+        <!-- Inspirational Quote -->
         <div class="quote-section">
             <div class="quote-text">
                 "The most important thing is to never stop questioning. Curiosity has its own reason for existing."
@@ -476,14 +465,12 @@
             document.getElementById('menu').classList.toggle('active');
         }
 
-        // بستن منو با کلیک روی لینک
         document.querySelectorAll('.menu-items a').forEach(link => {
             link.addEventListener('click', () => {
                 document.getElementById('menu').classList.remove('active');
             });
         });
 
-        // افکت تایپ ملایم برای عنوان (اختیاری)
         console.log('About page loaded - Ready for electronics!');
     </script>
 </body>
