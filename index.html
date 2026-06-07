@@ -1,185 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Nima | Portfolio</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/scrollmagic/scrollmagic/minified/ScrollMagic.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-  <style>
-    /* اطمینان از اینکه متن‌ها روی پس‌زمینه هستند */
-    body {
-      position: relative;
-      z-index: 10;
-    }
-    /* انیمیشن‌های سفارشی */
-    .fade-in { opacity: 0; transform: translateY(20px); }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nima | Portfolio</title>
+    <style>
+        :root {
+            --bg: #0a0a0a; --accent: #6366f1; 
+            --glass: rgba(255, 255, 255, 0.05); 
+        }
+
+        body {
+    position: relative;
+    background-color: #050505;
+    margin: 0;
+    overflow-x: hidden;
+    isolation: isolate;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+        0deg,
+        rgba(255,255,255,0.03) 0,
+        rgba(255,255,255,0.03) 1px,
+        transparent 1px,
+        transparent 24px
+    );
+    pointer-events: none;
+    z-index: -1;
+}
+      
+        nav { 
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+            background: var(--glass); backdrop-filter: blur(25px);
+            padding: 15px 30px; border-radius: 50px; border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex; align-items: center; justify-content: space-between;
+            width: 90%; max-width: 800px; z-index: 1000;
+        }
+        .logo { font-weight: bold; font-size: 1.2rem; letter-spacing: 1px; }
+        .menu-items { display: flex; gap: 30px; font-size: 1rem; }
+        .menu-items a { color: rgba(255,255,255,0.8); text-decoration: none; transition: 0.3s; }
+        .menu-items a:hover { color: var(--accent); }
+        .hamburger { display: none; font-size: 1.8rem; cursor: pointer; color: white; }
+
+        #hero { 
+            height: 100vh; display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; text-align: center;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+        #hero h1 { 
+            font-size: clamp(2.5rem, 8vw, 4rem); 
+            line-height: 1.2;
+            margin: 0; 
+            letter-spacing: -1px; 
+        }
+        
+        #typed {
+            color: var(--accent);
+            display: block;
+            font-size: 0.8em;
+            margin-top: 10px;
+        }
+
+        #hero p { font-size: 1.2rem; color: rgba(255,255,255,0.6); margin-top: 10px; }
+        
+        .cta-btn {
+            margin-top: 30px; padding: 12px 30px; border-radius: 30px;
+            background: var(--accent); color: white; text-decoration: none;
+            font-weight: bold; transition: 0.3s;
+        }
+        .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(99, 102, 241, 0.4); }
+
+        #projects { padding: 80px 20px; max-width: 1000px; margin: 0 auto; position: relative; z-index: 1; }
+        .grid-container { 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 25px; margin-top: 40px; 
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 30px; border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.4s;
+        }
+        .card:hover {
+            background: rgba(99, 102, 241, 0.1);
+            border-color: var(--accent);
+            transform: translateY(-10px);
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 10px 20px; width: 95%; }
+            .hamburger { display: block; }
+            .menu-items { 
+                display: none; position: absolute; top: 70px; left: 0; 
+                width: 100%; background: rgba(10, 10, 10, 0.95); 
+                flex-direction: column; align-items: center;
+                padding: 40px 0; border-radius: 25px; border: 1px solid rgba(255,255,255,0.1);
+            }
+            .menu-items.active { display: flex; }
+            .menu-items a { padding: 15px 0; font-size: 1.3rem; width: 100%; text-align: center; }
+        }
+    </style>
 </head>
-<body class="bg-gray-900 text-white font-sans overflow-x-hidden relative z-10">
+<body>
 
-  <!-- پس‌زمینه ذرات -->
-  <div id="particles-js" class="fixed inset-0 -z-10"></div>
+    <nav>
+        <div class="logo">NIMA.DEV</div>
+        <div class="menu-items" id="menu">
+            <a href="#hero">Home</a>
+            <a href="#projects">Projects</a>
+            <a href="about.html">About</a>
+            <a href="#">Contact</a>
+        </div>
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+    </nav>
 
-  <!-- هدر -->
-  <header class="fixed top-4 inset-x-0 flex justify-center z-50">
-    <div class="bg-white bg-opacity-10 backdrop-blur-md rounded-full px-6 py-3 flex items-center space-x-6 shadow-lg max-w-7xl w-full mx-4">
-      <div class="text-xl font-bold tracking-wide">NIMA.DEV</div>
-      <nav class="hidden md:flex space-x-8 text-gray-300 font-medium">
-        <a href="#hero" class="hover:text-indigo-400 transition">Home</a>
-        <a href="#about" class="hover:text-indigo-400 transition">About</a>
-        <a href="#skills" class="hover:text-indigo-400 transition">Skills</a>
-        <a href="#projects" class="hover:text-indigo-400 transition">Projects</a>
-        <a href="#contact" class="hover:text-indigo-400 transition">Contact</a>
-      </nav>
-      <div class="md:hidden">
-        <button id="menu-toggle" class="focus:outline-none">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
-          </svg>
-        </button>
-      </div>
-    </div>
-  </header>
+    <section id="hero">
+        <h1>
+            Hi, I'm Nima<br>
+            <span id="typed"></span>
+        </h1>
+        <p>Bridging Hardware & Software</p>
+        <a href="#projects" class="cta-btn">Explore My Work</a>
+    </section>
 
-  <!-- منوی موبایل -->
-  <div id="mobile-menu" class="hidden fixed top-16 inset-x-0 bg-gray-900 bg-opacity-80 backdrop-blur-md py-4 flex flex-col items-center space-y-4 z-40">
-    <a href="#hero" class="text-lg hover:text-indigo-400 transition">Home</a>
-    <a href="#about" class="text-lg hover:text-indigo-400 transition">About</a>
-    <a href="#skills" class="text-lg hover:text-indigo-400 transition">Skills</a>
-    <a href="#projects" class="text-lg hover:text-indigo-400 transition">Projects</a>
-    <a href="#contact" class="text-lg hover:text-indigo-400 transition">Contact</a>
-  </div>
+    <section id="projects">
+        <h2 style="text-align: center; font-size: 2.5rem;">My Projects</h2>
+        <div class="grid-container">
+            <div class="card"><h3>Project One</h3><p>Electronic Circuit Design</p></div>
+            <div class="card"><h3>Project Two</h3><p>C Robotics Controller</p></div>
+            <div class="card"><h3>Project Three</h3><p>Web Development</p></div>
+        </div>
+    </section>
 
-  <!-- بخش قهرمان (Hero) -->
-  <section id="hero" class="relative flex items-center justify-center min-h-screen px-6 text-center z-10">
-    <div class="max-w-2xl text-white">
-      <h1 class="text-5xl md:text-6xl font-bold mb-4 fade-in" style="z-index: 20;">Hi, I'm Nima</h1>
-      <div class="text-2xl md:text-3xl mb-6 text-indigo-400 font-semibold relative fade-in" id="typed" style="z-index: 20;"></div>
-      <p class="text-gray-400 mb-8">Bridging Hardware & Software with Innovation</p>
-      <a href="#projects" class="bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition duration-300 fade-in" style="z-index: 20;">Explore My Work</a>
-    </div>
-  </section>
-
-  <!-- درباره (About) -->
-  <section id="about" class="py-20 px-6 max-w-4xl mx-auto text-center text-white z-10 relative">
-    <h2 class="text-4xl font-bold mb-6">About Me</h2>
-    <p class="text-gray-300 mb-4">I'm Nima, passionate about electronics, programming, and solving complex problems. I love creating innovative solutions that bridge hardware and software. With a background in embedded systems and web development, I aim to build projects that make a difference.</p>
-    <img src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d" alt="Nima" class="mx-auto rounded-full w-40 h-40 object-cover shadow-lg mb-4 border-4 border-white"/>
-    <p class="text-gray-400">Let's connect and create something amazing together!</p>
-  </section>
-
-  <!-- مهارت‌ها (Skills) -->
-  <section id="skills" class="py-20 bg-gray-800" >
-    <h2 class="text-4xl font-bold mb-12 text-center">My Skills</h2>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-6xl mx-auto text-center">
-      <div class="bg-gray-700 p-6 rounded-lg hover:scale-105 transform transition duration-300">
-        <svg class="mx-auto mb-4 w-12 h-12 text-indigo-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z"/><path d="M6 20c0-3.31 2.69-6 6-6s6 2.69 6 6H6z"/></svg>
-        <h3 class="text-xl font-semibold mb-2">Electronics</h3>
-        <p class="text-gray-400">Design and build electronic circuits and embedded systems.</p>
-      </div>
-      <div class="bg-gray-700 p-6 rounded-lg hover:scale-105 transform transition duration-300">
-        <svg class="mx-auto mb-4 w-12 h-12 text-indigo-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 16h8M8 12h8M8 8h8"/><path d="M12 20c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8z"/></svg>
-        <h3 class="text-xl font-semibold mb-2">Programming</h3>
-        <p class="text-gray-400">Proficient in C, C++, JavaScript, and Python for various projects.</p>
-      </div>
-      <div class="bg-gray-700 p-6 rounded-lg hover:scale-105 transform transition duration-300">
-        <svg class="mx-auto mb-4 w-12 h-12 text-indigo-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 4v16m8-8H4"/></svg>
-        <h3 class="text-xl font-semibold mb-2">Web Dev</h3>
-        <p class="text-gray-400">Skilled in HTML, CSS, JavaScript, and modern frameworks like React.</p>
-      </div>
-      <div class="bg-gray-700 p-6 rounded-lg hover:scale-105 transform transition duration-300">
-        <svg class="mx-auto mb-4 w-12 h-12 text-indigo-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M14 8l-4 4 4 4"/></svg>
-        <h3 class="text-xl font-semibold mb-2">Problem Solving</h3>
-        <p class="text-gray-400">Enjoy tackling complex problems with creative solutions.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- پروژه‌ها (Projects) -->
-  <section id="projects" class="py-20 max-w-7xl mx-auto px-6">
-    <h2 class="text-4xl font-bold mb-12 text-center">My Projects</h2>
-    <div class="grid md:grid-cols-3 gap-8">
-      <!-- کارت پروژه -->
-      <div class="bg-gray-800 rounded-lg p-6 transform hover:scale-105 transition duration-300 shadow-lg">
-        <h3 class="text-2xl font-semibold mb-4">Project One</h3>
-        <p class="text-gray-400 mb-4">Electronic Circuit Design for automation systems.</p>
-        <a href="#" class="text-indigo-400 hover:underline">See Details</a>
-      </div>
-      <div class="bg-gray-800 rounded-lg p-6 transform hover:scale-105 transition duration-300 shadow-lg">
-        <h3 class="text-2xl font-semibold mb-4">Project Two</h3>
-        <p class="text-gray-400 mb-4">C Robotics Controller for embedded applications.</p>
-        <a href="#" class="text-indigo-400 hover:underline">See Details</a>
-      </div>
-      <div class="bg-gray-800 rounded-lg p-6 transform hover:scale-105 transition duration-300 shadow-lg">
-        <h3 class="text-2xl font-semibold mb-4">Web Development</h3>
-        <p class="text-gray-400 mb-4">Responsive websites using modern JS frameworks.</p>
-        <a href="#" class="text-indigo-400 hover:underline">See Details</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- تماس (Contact) -->
-  <section id="contact" class="py-20 bg-gray-900 px-6 max-w-3xl mx-auto relative z-10">
-    <h2 class="text-4xl font-bold mb-8 text-center">Get in Touch</h2>
-    <form class="flex flex-col space-y-4" onsubmit="event.preventDefault(); alert('Thanks for reaching out!');">
-      <input type="text" placeholder="Your Name" class="p-3 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"/>
-      <input type="email" placeholder="Your Email" class="p-3 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"/>
-      <textarea placeholder="Your Message" rows="5" class="p-3 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
-      <button type="submit" class="bg-indigo-500 hover:bg-indigo-600 text-white py-3 px-6 rounded-full font-semibold transition duration-300">Send Message</button>
-    </form>
-  </section>
-
-  <!-- اسکریپت‌ها -->
-  <script>
-    // منوی موبایل
-    document.getElementById('menu-toggle').addEventListener('click', () => {
-      document.getElementById('mobile-menu').classList.toggle('hidden');
-    });
-
-    // تایپ‌افکت
-    const typed = new Typed('#typed', {
-      strings: ['Electronics Enthusiast', 'C Programmer', 'Problem Solver', 'Web Developer', 'Innovator'],
-      typeSpeed: 70,
-      backSpeed: 50,
-      loop: true,
-      backDelay: 1500,
-    });
-
-    // انیمیشن‌های اسکرول GSAP
-    gsap.utils.toArray('.fade-in').forEach(el => {
-      gsap.to(el, {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: el,
-          start: 'top 80%',
+    <!-- حتماً این بخش را برای کارکردن تایپ‌افکت اضافه کن -->
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <script>
+        // تابع منو برای موبایل
+        function toggleMenu() {
+            document.getElementById('menu').classList.toggle('active');
         }
-      });
-    });
 
-    // پارتیکل‌ها
-    particlesJS.load('particles-js', {
-      particles: {
-        number: { value: 50, density: { enable: true, value_area: 800 } },
-        color: { value: '#6366f1' },
-        shape: { type: 'circle' },
-        opacity: { value: 0.3, random: true },
-        size: { value: 4, random: true },
-        move: {
-          enable: true,
-          speed: 1,
-          direction: 'none',
-          random: true,
-          straight: false,
-          out_mode: 'out',
-        }
-      }
-    });
-  </script>
+        // اسکریپت تایپ‌افکت
+        var typed = new Typed('#typed', {
+            strings: ['Electronics Enthusiast', 'C Programmer', 'Problem Solver'],
+            typeSpeed: 50,
+            backSpeed: 30,
+            loop: true
+        });
+    </script>
 </body>
 </html>
