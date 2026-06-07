@@ -11,33 +11,43 @@
         /* این کد رو جایگزین استایل قبلی nav کن */
 nav { 
     position: fixed; 
-    top: 25px; 
+    top: 20px; 
     left: 50%; 
     transform: translateX(-50%);
-    background: rgba(255, 255, 255, 0.08); /* کمی شفاف‌تر */
-    backdrop-filter: blur(20px); /* محوی بیشتر */
-    padding: 18px 45px; /* بزرگ‌تر کردن فضای داخلی منو */
-    border-radius: 60px; 
+    background: rgba(255, 255, 255, 0.08); 
+    backdrop-filter: blur(20px); 
+    padding: 12px 25px; /* کمی جمع‌تر برای موبایل */
+    border-radius: 50px; 
     border: 1px solid rgba(255, 255, 255, 0.15);
     display: flex; 
-    gap: 40px; /* فاصله بیشتر بین گزینه‌ها */
+    gap: 20px; 
     z-index: 1000;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3); /* سایه ملایم برای عمق دادن */
 }
 
 nav a { 
     color: white; 
     text-decoration: none; 
-    font-size: 1.1rem; /* بزرگ‌تر کردن متن لینک‌ها */
+    font-size: 0.9rem; /* مناسب برای موبایل */
     font-weight: 500;
-    letter-spacing: 0.5px;
-    transition: 0.3s ease; 
+    transition: 0.3s; 
 }
 
-nav a:hover { 
-    color: var(--accent); 
-    transform: translateY(-2px); /* حرکت ریز موقع هاور */
-    }
+/* استایل برای دسکتاپ (صفحه‌های بزرگتر) */
+@media (min-width: 768px) {
+    nav { padding: 18px 45px; gap: 40px; }
+    nav a { font-size: 1.1rem; }
+}
+
+/* فاصله دادن به متن H1 برای اینکه زیر منو نره */
+#hero { 
+    margin-top: 80px; /* فضای خالی در بالا برای دیده شدن متن */
+    height: calc(100vh - 80px);
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+}
+    
         
     </style>
 </head>
