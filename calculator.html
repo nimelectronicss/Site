@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project: Calculator in C | Nima</title>
+    <title>Calculator in C | Live Demo</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         :root {
             --bg: #0a0a0a;
             --accent: #6366f1;
@@ -18,15 +17,12 @@
             --text-dim: rgba(255,255,255,0.6);
             --glass: rgba(255, 255, 255, 0.05);
         }
-
         body {
             background: var(--bg);
             color: var(--text);
             font-family: 'Segoe UI', system-ui, sans-serif;
             line-height: 1.6;
         }
-
-        /* افکت خطوط پشت زمینه */
         body::before {
             content: "";
             position: fixed;
@@ -38,7 +34,6 @@
             pointer-events: none;
             z-index: 0;
         }
-
         nav {
             position: fixed;
             top: 20px;
@@ -56,7 +51,6 @@
             max-width: 800px;
             z-index: 1000;
         }
-
         .logo {
             font-weight: bold;
             font-size: 1.2rem;
@@ -65,28 +59,21 @@
             background-clip: text;
             color: transparent;
         }
-
         .menu-items {
             display: flex;
             gap: 30px;
         }
-
         .menu-items a {
             color: rgba(255,255,255,0.8);
             text-decoration: none;
             transition: 0.3s;
         }
-
-        .menu-items a:hover {
-            color: var(--accent);
-        }
-
+        .menu-items a:hover { color: var(--accent); }
         .hamburger {
             display: none;
             font-size: 1.8rem;
             cursor: pointer;
         }
-
         .project-container {
             position: relative;
             z-index: 1;
@@ -94,7 +81,6 @@
             margin: 0 auto;
             padding: 120px 20px 60px;
         }
-
         .back-link {
             display: inline-block;
             margin-bottom: 30px;
@@ -102,11 +88,6 @@
             text-decoration: none;
             font-weight: bold;
         }
-
-        .back-link:hover {
-            text-decoration: underline;
-        }
-
         h1 {
             font-size: 2.5rem;
             margin-bottom: 20px;
@@ -115,55 +96,25 @@
             background-clip: text;
             color: transparent;
         }
-
         .project-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 30px;
             margin-top: 30px;
         }
-
-        /* بخش توضیحات */
-        .description-panel {
+        .description-panel, .compiler-panel {
             background: var(--glass);
             border: 1px solid rgba(255,255,255,0.1);
             border-radius: 24px;
             padding: 30px;
             backdrop-filter: blur(10px);
         }
-
-        .description-panel h2 {
+        .description-panel h2, .compiler-panel h3 {
             color: var(--accent);
             margin: 20px 0 10px;
-            font-size: 1.5rem;
         }
-
-        .description-panel h2:first-of-type {
-            margin-top: 0;
-        }
-
-        .description-panel p {
-            color: var(--text-dim);
-            margin-bottom: 15px;
-        }
-
-        .flowchart {
-            background: rgba(0,0,0,0.3);
-            padding: 20px;
-            border-radius: 16px;
-            margin: 20px 0;
-            text-align: center;
-            border: 1px solid rgba(99,102,241,0.3);
-        }
-
-        .flowchart pre {
-            font-family: monospace;
-            color: var(--accent);
-            font-size: 0.9rem;
-            text-align: left;
-            display: inline-block;
-        }
-
+        .description-panel h2:first-of-type { margin-top: 0; }
+        .description-panel p { color: var(--text-dim); margin-bottom: 15px; }
         .code-block {
             background: #1e1e1e;
             border-radius: 12px;
@@ -171,39 +122,52 @@
             overflow-x: auto;
             margin: 15px 0;
         }
-
         .code-block pre {
             font-family: 'Courier New', monospace;
             font-size: 0.85rem;
             color: #d4d4d4;
         }
-
-        /* بخش کامپایلر */
-        .compiler-panel {
-            background: var(--glass);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 24px;
+        .simulator {
+            background: rgba(0,0,0,0.4);
+            border-radius: 20px;
             padding: 20px;
-            backdrop-filter: blur(10px);
+            margin-top: 15px;
         }
-
-        .compiler-panel h3 {
+        .input-group {
             margin-bottom: 15px;
-            color: var(--accent);
         }
-
-        iframe {
-            border-radius: 16px;
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid var(--accent);
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+        }
+        .run-btn {
+            background: var(--accent);
+            color: white;
             border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
         }
-
+        .result {
+            background: #1e1e1e;
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 20px;
+            font-family: monospace;
+            font-size: 1.2rem;
+            text-align: center;
+            border-left: 4px solid var(--accent);
+        }
         @media (max-width: 768px) {
-            .project-grid {
-                grid-template-columns: 1fr;
-            }
-            .hamburger {
-                display: block;
-            }
+            .project-grid { grid-template-columns: 1fr; }
+            .hamburger { display: block; }
             .menu-items {
                 display: none;
                 position: absolute;
@@ -216,153 +180,115 @@
                 padding: 30px 0;
                 border-radius: 20px;
             }
-            .menu-items.active {
-                display: flex;
-            }
-            h1 {
-                font-size: 1.8rem;
-            }
+            .menu-items.active { display: flex; }
         }
     </style>
 </head>
 <body>
-
     <nav>
         <div class="logo">NIMA.DEV</div>
         <div class="menu-items" id="menu">
             <a href="index.html">Home</a>
             <a href="about.html">About</a>
             <a href="projects.html">Projects</a>
-            <a href="#">Contact</a>
+            <a href="contact.html">Contact</a>
         </div>
         <div class="hamburger" onclick="toggleMenu()">☰</div>
     </nav>
 
     <div class="project-container">
         <a href="projects.html" class="back-link">← Back to Projects</a>
-        
         <h1>📟 Simple Calculator in C</h1>
-
         <div class="project-grid">
-            <!-- سمت چپ: توضیحات -->
             <div class="description-panel">
-                <h2>📖 About The Project</h2>
-                <p>این یه ماشین حساب خط فرمان ساده است که با زبان C نوشته شده. کاربر دو عدد و یک عملگر (+, -, *, /) رو وارد می‌کنه و برنامه نتیجه رو محاسبه می‌کنه.</p>
-                <p>این پروژه اولین قدم من در یادگیری برنامه‌نویسی C بود و مفاهیم پایه‌ای مثل <strong>متغیرها، شرط‌ها (switch-case)، ورودی/خروجی و حلقه</strong> رو پوشش می‌ده.</p>
-
-                <h2>🧠 Algorithm & Flowchart</h2>
-                <div class="flowchart">
-                    <pre>
-┌─────────────────┐
-│   Start Program  │
-└────────┬────────┘
-         ▼
-┌─────────────────┐
-│  Get num1, op,  │
-│     num2        │
-└────────┬────────┘
-         ▼
-┌─────────────────┐
-│  switch(op)     │
-└────────┬────────┘
-    ┌────┼────┬────┐
-    ▼    ▼    ▼    ▼
-   +    -    *    /
-    │    │    │    │
-    ▼    ▼    ▼    ▼
-┌─────────────────┐
-│  Print result   │
-└────────┬────────┘
-         ▼
-┌─────────────────┐
-│      End        │
-└─────────────────┘
-                    </pre>
-                </div>
-
-                <h2>💻 Full Source Code</h2>
+                <h2>📖 About</h2>
+                <p>This is a simple command-line calculator written in C. The user enters two numbers and an operator (+, -, *, /), and the program displays the result.</p>
+                <h2>💻 Source Code</h2>
                 <div class="code-block">
-                    <pre>
-#include &lt;stdio.h&gt;
+                    <pre>#include &lt;stdio.h&gt;
 
 int main() {
     char op;
     double num1, num2, result;
-
     printf("Enter operator (+, -, *, /): ");
     scanf("%c", &op);
     printf("Enter two numbers: ");
     scanf("%lf %lf", &num1, &num2);
-
     switch(op) {
-        case '+':
-            result = num1 + num2;
+        case '+': result = num1 + num2; break;
+        case '-': result = num1 - num2; break;
+        case '*': result = num1 * num2; break;
+        case '/': 
+            if(num2 != 0) result = num1 / num2;
+            else { printf("Error: Division by zero!\n"); return 1; }
             break;
-        case '-':
-            result = num1 - num2;
-            break;
-        case '*':
-            result = num1 * num2;
-            break;
-        case '/':
-            if(num2 != 0)
-                result = num1 / num2;
-            else {
-                printf("Error: Division by zero!\n");
-                return 1;
-            }
-            break;
-        default:
-            printf("Invalid operator!\n");
-            return 1;
+        default: printf("Invalid operator!\n"); return 1;
     }
     printf("Result: %.2lf\n", result);
     return 0;
-}
-                    </pre>
+}</pre>
                 </div>
-
-                <h2>🔧 Key Concepts Learned</h2>
-                <ul style="color: var(--text-dim); margin-left: 20px;">
-                    <li>متغیرها و نوع داده (double, char)</li>
-                    <li>گرفتن ورودی از کاربر با scanf</li>
-                    <li>ساختار شرطی switch-case</li>
-                    <li>مدیریت خطا (مثل تقسیم بر صفر)</li>
-                    <li>خروجی با printf</li>
-                </ul>
             </div>
-
-            <!-- سمت راست: کامپایلر آنلاین -->
             <div class="compiler-panel">
-                <h3>⚡ Try It Yourself</h3>
-                <p style="color: var(--text-dim); margin-bottom: 15px;">کد رو می‌تونی تغییر بدی و اجرا کنی! یه مثال بزن: مثلاً <code>+ 5 3</code></p>
-                <iframe 
-                    src="https://onecompiler.com/embed/c?theme=dark&hideLanguageSelection=true&codeChangeEvent=true" 
-                    width="100%" 
-                    height="550" 
-                    frameborder="0">
-                </iframe>
-                <p style="font-size: 0.8rem; color: var(--text-dim); margin-top: 10px;">💡 نکته: اول عملگر رو وارد کن (مثلاً +) بعد دو عدد رو با فاصله.</p>
+                <h3>⚡ Try it yourself (Live Simulator)</h3>
+                <p style="color: var(--text-dim); margin-bottom: 15px;">Enter two numbers and choose an operator:</p>
+                <div class="simulator">
+                    <div class="input-group">
+                        <input type="number" id="num1" placeholder="First number">
+                    </div>
+                    <div class="input-group">
+                        <select id="operator">
+                            <option value="+">+ (Addition)</option>
+                            <option value="-">- (Subtraction)</option>
+                            <option value="*">* (Multiplication)</option>
+                            <option value="/">/ (Division)</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <input type="number" id="num2" placeholder="Second number">
+                    </div>
+                    <button class="run-btn" onclick="calculate()">▶ Run Calculation</button>
+                    <div class="result" id="resultArea">
+                        Result will appear here
+                    </div>
+                </div>
+                <p style="font-size: 0.8rem; color: var(--text-dim); margin-top: 10px;">💡 This simulates the exact logic of the C program above.</p>
             </div>
         </div>
     </div>
-
     <script>
         function toggleMenu() {
             document.getElementById('menu').classList.toggle('active');
         }
-
-        // بستن منو بعد از کلیک روی لینک
         document.querySelectorAll('.menu-items a').forEach(link => {
             link.addEventListener('click', () => {
                 document.getElementById('menu').classList.remove('active');
             });
         });
-
-        // (اختیاری) می‌تونی کد پیش‌فرض رو برای iframe تنظیم کنی
-        // متاسفانه OneCompiler اجازه set code از بیرون رو با پارامتر URL میده
-        // می‌تونی از لینک مخصوص هر پروژه استفاده کنی
-        console.log("Calculator project page loaded");
+        function calculate() {
+            let num1 = parseFloat(document.getElementById('num1').value);
+            let num2 = parseFloat(document.getElementById('num2').value);
+            let op = document.getElementById('operator').value;
+            let result;
+            if (isNaN(num1) || isNaN(num2)) {
+                document.getElementById('resultArea').innerHTML = "❌ Please enter valid numbers";
+                return;
+            }
+            switch(op) {
+                case '+': result = num1 + num2; break;
+                case '-': result = num1 - num2; break;
+                case '*': result = num1 * num2; break;
+                case '/': 
+                    if (num2 === 0) {
+                        document.getElementById('resultArea').innerHTML = "❌ Error: Division by zero!";
+                        return;
+                    }
+                    result = num1 / num2;
+                    break;
+                default: result = "Invalid operator";
+            }
+            document.getElementById('resultArea').innerHTML = `✅ Result: ${result}`;
+        }
     </script>
 </body>
 </html>
