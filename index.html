@@ -2,37 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- بسیار مهم برای موبایل -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nima | Portfolio</title>
-    <style
-    :root {
-        --bg: #0a0a0a; --accent: #6366f1; 
-        --glass: rgba(255, 255, 255, 0.05); 
-    }
+    <style>
+        :root {
+            --bg: #0a0a0a; --accent: #6366f1; 
+            --glass: rgba(255, 255, 255, 0.05); 
+        }
 
-    /* اصلاح اول: برای اینکه Glow همیشه دیده شود */
-    body { 
-        background: var(--bg); 
-        color: white; 
-        font-family: 'Inter', sans-serif; 
-        margin: 0; 
-        overflow-x: hidden; 
-        position: relative; /* مهم: برای اینکه ::before نسبت به body موقعیت بگیرد */
-    }
-body::before {
-        content: '';
-        position: fixed;
-        top: -10%;
-        left: -10%;
-        width: 600px;
-        height: 600px;
-        background: radial-gradient(circle, rgba(99, 102, 241, 0.15), transparent 70%);
-        z-index: 0; /* تغییر از -1 به 0 */
-        filter: blur(80px);
-        pointer-events: none;
-}
-        
-        /* منوی شیشه‌ای */
+        body { 
+            background: var(--bg); 
+            color: white; 
+            font-family: 'Inter', sans-serif; 
+            margin: 0; 
+            overflow-x: hidden; 
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: -10%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.15), transparent 70%);
+            z-index: 0;
+            filter: blur(80px);
+            pointer-events: none;
+        }
+
         nav { 
             position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
             background: var(--glass); backdrop-filter: blur(25px);
@@ -46,19 +45,27 @@ body::before {
         .menu-items a:hover { color: var(--accent); }
         .hamburger { display: none; font-size: 1.8rem; cursor: pointer; color: white; }
 
-        /* بخش هیرو */
         #hero { 
             height: 100vh; display: flex; flex-direction: column; 
             justify-content: center; align-items: center; text-align: center;
             padding: 0 20px;
+            position: relative;
+            z-index: 1;
         }
         #hero h1 { 
-    font-size: clamp(2.5rem, 8vw, 4rem); 
-    line-height: 1.2;
-    margin: 0; 
-    letter-spacing: -1px; 
+            font-size: clamp(2.5rem, 8vw, 4rem); 
+            line-height: 1.2;
+            margin: 0; 
+            letter-spacing: -1px; 
         }
         
+        #typed {
+            color: var(--accent);
+            display: block;
+            font-size: 0.8em;
+            margin-top: 10px;
+        }
+
         #hero p { font-size: 1.2rem; color: rgba(255,255,255,0.6); margin-top: 10px; }
         
         .cta-btn {
@@ -68,8 +75,7 @@ body::before {
         }
         .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(99, 102, 241, 0.4); }
 
-        /* بخش پروژه‌ها */
-        #projects { padding: 80px 20px; max-width: 1000px; margin: 0 auto; }
+        #projects { padding: 80px 20px; max-width: 1000px; margin: 0 auto; position: relative; z-index: 1; }
         .grid-container { 
             display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
             gap: 25px; margin-top: 40px; 
@@ -86,7 +92,6 @@ body::before {
             transform: translateY(-10px);
         }
 
-        /* ریسپانسیو موبایل */
         @media (max-width: 768px) {
             nav { padding: 10px 20px; width: 95%; }
             .hamburger { display: block; }
@@ -98,13 +103,7 @@ body::before {
             }
             .menu-items.active { display: flex; }
             .menu-items a { padding: 15px 0; font-size: 1.3rem; width: 100%; text-align: center; }
-       #typed {
-        color: var(--accent);
-        display: block;
-        font-size: 0.8em;
-        margin-top: 10px;
-       }
-            }
+        }
     </style>
 </head>
 <body>
@@ -120,15 +119,14 @@ body::before {
         <div class="hamburger" onclick="toggleMenu()">☰</div>
     </nav>
 
-        <section id="hero">
+    <section id="hero">
         <h1>
             Hi, I'm Nima<br>
             <span id="typed"></span>
         </h1>
-        <p style="margin-top: 20px;">Bridging Hardware & Software</p>
+        <p>Bridging Hardware & Software</p>
         <a href="#projects" class="cta-btn">Explore My Work</a>
-        </section>
-    
+    </section>
 
     <section id="projects">
         <h2 style="text-align: center; font-size: 2.5rem;">My Projects</h2>
@@ -139,40 +137,21 @@ body::before {
         </div>
     </section>
 
+    <!-- حتماً این بخش را برای کارکردن تایپ‌افکت اضافه کن -->
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
     <script>
+        // تابع منو برای موبایل
         function toggleMenu() {
             document.getElementById('menu').classList.toggle('active');
         }
 
-        // اصلاح تایپینگ برای جلوگیری از پرش صفحه
-        const typedText = document.getElementById('typed');
-        const phrases = ["Electronics Enthusiast", "C Programmer"];
-        let phraseIdx = 0, charIdx = 0, isDeleting = false;
-
-        function type() {
-            const currentPhrase = phrases[phraseIdx];
-            if (isDeleting) {
-                typedText.textContent = currentPhrase.substring(0, charIdx - 1);
-                charIdx--;
-            } else {
-                typedText.textContent = currentPhrase.substring(0, charIdx + 1);
-                charIdx++;
-            }
-
-            let typeSpeed = isDeleting ? 100 : 200;
-
-            if (!isDeleting && charIdx === currentPhrase.length) {
-                isDeleting = true;
-                typeSpeed = 2000; // مکث در انتهای کلمه
-            } else if (isDeleting && charIdx === 0) {
-                isDeleting = false;
-                phraseIdx = (phraseIdx + 1) % phrases.length;
-                typeSpeed = 500;
-            }
-
-            setTimeout(type, typeSpeed);
-        }
-        document.addEventListener('DOMContentLoaded', type);
+        // اسکریپت تایپ‌افکت
+        var typed = new Typed('#typed', {
+            strings: ['Electronics Enthusiast', 'C Programmer', 'Problem Solver'],
+            typeSpeed: 50,
+            backSpeed: 30,
+            loop: true
+        });
     </script>
 </body>
 </html>
