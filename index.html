@@ -8,28 +8,54 @@
         body { background: var(--bg); color: white; font-family: sans-serif; margin: 0; }
         
         /* استایل منو */
-        nav { 
-            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px);
-            padding: 15px 30px; border-radius: 50px; border: 1px solid rgba(255, 255, 255, 0.2);
-            display: flex; align-items: center; justify-content: space-between;
-            width: 90%; max-width: 600px; z-index: 1000;
-        }
-        .menu-items { display: flex; gap: 20px; }
-        .menu-items a { color: white; text-decoration: none; }
-        .hamburger { display: none; font-size: 1.5rem; cursor: pointer; }
+    <style>
+    :root { --bg: #0a0a0a; --accent: #6366f1; }
+    body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; height: 100vh; overflow: hidden; }
+    
+    /* منوی شیشه‌ایِ پهن‌تر و بزرگ‌تر */
+    nav { 
+        position: fixed; top: 30px; left: 50%; transform: translateX(-50%);
+        background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(25px);
+        padding: 20px 40px; /* افزایش پدینگ برای بزرگتر شدن */
+        border-radius: 60px; border: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex; align-items: center; justify-content: space-between;
+        width: 85%; max-width: 800px; z-index: 1000;
+    }
+    .menu-items { display: flex; gap: 40px; font-size: 1.1rem; }
+    .menu-items a { color: white; text-decoration: none; transition: 0.3s; }
+    .menu-items a:hover { color: var(--accent); }
+    .hamburger { display: none; font-size: 1.8rem; cursor: pointer; }
 
-        @media (max-width: 768px) {
-            .menu-items { 
-                display: none; position: absolute; top: 70px; left: 0; width: 100%;
-                background: rgba(0,0,0,0.9); flex-direction: column;
-                align-items: center; padding: 20px 0; border-radius: 20px;
-            }
-            .menu-items.active { display: flex; }
-            .hamburger { display: block; }
-        }
+    /* وسط‌چین کردن کاملِ تایتل */
+    #hero { 
+        height: 100vh; 
+        display: flex; 
+        flex-direction: column; 
+        justify-content: center; /* کاملاً وسط صفحه */
+        align-items: center; 
+        text-align: center;
+    }
+    
+    #hero h1 { 
+        font-size: 4rem; /* بزرگتر کردن تایتل */
+        margin: 0; 
+        letter-spacing: -2px;
+    }
 
-        #hero { margin-top: 150px; text-align: center; }
+    @media (max-width: 768px) {
+        nav { width: 92%; padding: 15px 25px; }
+        #hero h1 { font-size: 2.5rem; } /* کمی کوچک‌تر برای موبایل که نشکند */
+        .menu-items { 
+            display: none; position: absolute; top: 80px; left: 50%; 
+            transform: translateX(-50%); width: 90%;
+            background: rgba(20, 20, 20, 0.95); flex-direction: column;
+            padding: 30px 0; border-radius: 30px; border: 1px solid #333;
+        }
+        .menu-items.active { display: flex; }
+        .hamburger { display: block; }
+    }
+</style>
+    
     </style>
 </head>
 <body>
