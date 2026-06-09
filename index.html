@@ -281,6 +281,8 @@
             <a href="#skills">Skills</a>
             <a href="about.html">About</a>
             <a href="contact.html"</a>
+            <button onclick="toggleLanguage()" style="background: rgba(99,102,241,0.3);
+            border: 1px solid var(--accent);border-radius: 30px; padding: 5px 15px; cursor: pointer; color: white; font-size:0.9rem;">🌐 EN/FA</button>
         </div>
         <div class="hamburger" onclick="toggleMenu()">☰</div>
     </nav>
@@ -290,20 +292,20 @@
             Hi, I'm Nima<br>
             <span id="typed"></span>
         </h1>
-        <p>Bridging Hardware & Software | Electronics Engineering Student</p>
+        <p>data-i18n="hero.subtitle">Bridging Hardware & Software | Electronics Engineering Student</p>
         <a href="#projects" class="cta-btn">Explore My Work</a>
     </section>
 
     <section id="projects">
-        <h2>⚡ My Projects</h2>
+        <h2>⚡data-i18n="projects.title"> My Projects</h2>
         <div class="grid-container">
             <div class="card">
-                <h3>🔌 PCB Design</h3>
-                <p>Custom circuit board design for embedded systems using Altium and KiCad</p>
+                <h3 data-i18n="projects.pcb">🔌 PCB Design</h3>
+                <p data-i18n="projects.pcbDesc">Custom circuit board design for embedded systems using Altium and KiCad</p>
             </div>
             <div class="card">
-                <h3>🤖 Robotics Controller</h3>
-                <p>PID controller implementation for line-following robot using STM32 microcontroller</p>
+                <h3 data-i18n="projects.robot">🤖 Robotics Controller</h3>
+                <p>data-i18n="projects.robotDesc">PID controller implementation for line-following robot using STM32 microcontroller</p>
             </div>
             <div class="card">
                 <h3>🌐 Portfolio Website</h3>
@@ -337,6 +339,7 @@
 
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
     <script>
+        https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js
         function toggleMenu() {
             document.getElementById('menu').classList.toggle('active');
         }
