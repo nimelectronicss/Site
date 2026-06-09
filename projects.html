@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects | Nima - Electronics Engineer</title>
+    <title data-i18n="projects.pageTitle">Projects | Nima - Electronics Engineer</title>
     <style>
         * {
             margin: 0;
@@ -66,7 +66,8 @@
 
         .menu-items {
             display: flex;
-            gap: 30px;
+            gap: 20px;
+            align-items: center;
         }
 
         .menu-items a {
@@ -77,6 +78,15 @@
 
         .menu-items a:hover {
             color: var(--accent);
+        }
+
+        .lang-btn {
+            background: rgba(99,102,241,0.3);
+            border: 1px solid var(--accent);
+            border-radius: 30px;
+            padding: 5px 15px;
+            cursor: pointer;
+            color: white;
         }
 
         .hamburger {
@@ -204,26 +214,27 @@
     <nav>
         <div class="logo">NIMA.DEV</div>
         <div class="menu-items" id="menu">
-            <a href="index.html">🏠 Home</a>
-            <a href="about.html">👤 About</a>
-            <a href="projects.html">📁 Projects</a>
-            <a href="contact.html">📧 Contact</a>
+            <a href="index.html" data-i18n="nav.home">🏠 Home</a>
+            <a href="about.html" data-i18n="nav.about">👤 About</a>
+            <a href="projects.html" data-i18n="nav.projects">📁 Projects</a>
+            <a href="contact.html" data-i18n="nav.contact">📧 Contact</a>
+            <button class="lang-btn" onclick="toggleLanguage()">🌐 EN/FA</button>
         </div>
         <div class="hamburger" onclick="toggleMenu()">☰</div>
     </nav>
 
     <div class="projects-wrapper">
-        <h1>📁 My Projects</h1>
-        <p class="subtitle">Where hardware meets code — each project has its own story</p>
+        <h1 data-i18n="projects.title">📁 My Projects</h1>
+        <p class="subtitle" data-i18n="projects.subtitle">Where hardware meets code — each project has its own story</p>
 
         <!-- Programming (C) Section -->
         <div class="category">
-            <h2>💻 Programming (C)</h2>
+            <h2 data-i18n="projects.progCategory">💻 Programming (C)</h2>
             <div class="project-grid">
                 <a href="calculator.html" class="project-card">
                     <div class="project-icon">🧮</div>
-                    <h3>Simple Calculator</h3>
-                    <p>Command-line calculator with addition, subtraction, multiplication, division. Great exercise for switch-case and I/O.</p>
+                    <h3 data-i18n="projects.calcTitle">Simple Calculator</h3>
+                    <p data-i18n="projects.calcDesc">Command-line calculator with addition, subtraction, multiplication, division. Great exercise for switch-case and I/O.</p>
                     <div class="tech-tags">
                         <span class="tech-tag">C</span>
                         <span class="tech-tag">CLI</span>
@@ -231,8 +242,8 @@
                 </a>
                 <a href="atomic.html" class="project-card">
                     <div class="project-icon">⚗️</div>
-                    <h3>Atomic Configuration</h3>
-                    <p>By importing Z(atomic number) you'll get the atomic configuration!</p>
+                    <h3 data-i18n="projects.atomicTitle">Electron Configuration</h3>
+                    <p data-i18n="projects.atomicDesc">Enter atomic number (Z) and get the full electron configuration with Aufbau principle and exceptions.</p>
                     <div class="tech-tags">
                         <span class="tech-tag">C</span>
                         <span class="tech-tag">Algorithms</span>
@@ -240,8 +251,8 @@
                 </a>
                 <a href="#" class="project-card">
                     <div class="project-icon">📊</div>
-                    <h3>Student Grade Manager</h3>
-                    <p>Manage student grades using structs and file handling (coming soon)</p>
+                    <h3 data-i18n="projects.gradeTitle">Student Grade Manager</h3>
+                    <p data-i18n="projects.gradeDesc">Manage student grades using structs and file handling (coming soon)</p>
                     <div class="tech-tags">
                         <span class="tech-tag">C</span>
                         <span class="tech-tag">File I/O</span>
@@ -252,12 +263,12 @@
 
         <!-- Electronics Section -->
         <div class="category">
-            <h2>⚡ Electronics</h2>
+            <h2 data-i18n="projects.elecCategory">⚡ Electronics</h2>
             <div class="project-grid">
                 <a href="#" class="project-card">
                     <div class="project-icon">🔌</div>
-                    <h3>PCB Design - Power Supply</h3>
-                    <p>5V and 12V power supply board design using Altium Designer. Includes schematic and final layout.</p>
+                    <h3 data-i18n="projects.pcbTitle">PCB Design - Power Supply</h3>
+                    <p data-i18n="projects.pcbDesc">5V and 12V power supply board design using Altium Designer. Includes schematic and final layout.</p>
                     <div class="tech-tags">
                         <span class="tech-tag">Altium</span>
                         <span class="tech-tag">Power Electronics</span>
@@ -265,8 +276,8 @@
                 </a>
                 <a href="#" class="project-card">
                     <div class="project-icon">🤖</div>
-                    <h3>Line Follower Robot</h3>
-                    <p>Line-following robot with IR sensors and PID controller on STM32 (coming soon)</p>
+                    <h3 data-i18n="projects.robotTitle">Line Follower Robot</h3>
+                    <p data-i18n="projects.robotDesc">Line-following robot with IR sensors and PID controller on STM32 (coming soon)</p>
                     <div class="tech-tags">
                         <span class="tech-tag">STM32</span>
                         <span class="tech-tag">PID</span>
@@ -275,8 +286,8 @@
                 </a>
                 <a href="#" class="project-card">
                     <div class="project-icon">📡</div>
-                    <h3>ECG Signal Filter</h3>
-                    <p>Digital filter design for noise removal from ECG signals using MATLAB (coming soon)</p>
+                    <h3 data-i18n="projects.ecgTitle">ECG Signal Filter</h3>
+                    <p data-i18n="projects.ecgDesc">Digital filter design for noise removal from ECG signals using MATLAB (coming soon)</p>
                     <div class="tech-tags">
                         <span class="tech-tag">MATLAB</span>
                         <span class="tech-tag">Signal Processing</span>
@@ -286,6 +297,7 @@
         </div>
     </div>
 
+    <script src="lang.js"></script>
     <script>
         function toggleMenu() {
             document.getElementById('menu').classList.toggle('active');
@@ -296,6 +308,13 @@
                 document.getElementById('menu').classList.remove('active');
             });
         });
+
+        function toggleLanguage() {
+            if (typeof currentLang !== 'undefined' && typeof setLanguage !== 'undefined') {
+                const newLang = currentLang === 'en' ? 'fa' : 'en';
+                setLanguage(newLang);
+            }
+        }
     </script>
 </body>
-</html>
+    </html>
