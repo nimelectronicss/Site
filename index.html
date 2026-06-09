@@ -26,7 +26,6 @@
             overflow-x: hidden;
         }
 
-        /* گرید خطوط پشت زمینه */
         body::before {
             content: "";
             position: fixed;
@@ -49,8 +48,8 @@
             transform: translateX(-50%);
             background: rgba(10, 10, 10, 0.8);
             backdrop-filter: blur(25px);
-            padding: 15px 30px;
-            border-radius: 50px;
+            padding: 12px 24px;
+            border-radius: 60px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             align-items: center;
@@ -72,18 +71,35 @@
 
         .menu-items {
             display: flex;
-            gap: 30px;
-            font-size: 1rem;
+            gap: 20px;
+            align-items: center;
         }
 
         .menu-items a {
             color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
             transition: 0.3s;
+            font-size: 0.95rem;
         }
 
         .menu-items a:hover {
             color: var(--accent);
+        }
+
+        .lang-btn {
+            background: rgba(99, 102, 241, 0.3);
+            border: 1px solid var(--accent);
+            border-radius: 30px;
+            padding: 5px 15px;
+            cursor: pointer;
+            color: white;
+            font-size: 0.85rem;
+            transition: 0.3s;
+        }
+
+        .lang-btn:hover {
+            background: var(--accent);
+            transform: scale(1.05);
         }
 
         .hamburger {
@@ -119,7 +135,7 @@
             margin-top: 10px;
         }
 
-        #hero p {
+        .hero-subtitle {
             font-size: 1.2rem;
             color: var(--text-dim);
             margin-top: 20px;
@@ -188,7 +204,6 @@
             line-height: 1.5;
         }
 
-        /* بخش مهارت‌ها - مخصوص رشته الکترونیک */
         #skills {
             padding: 60px 20px;
             max-width: 1000px;
@@ -276,28 +291,27 @@
     <nav>
         <div class="logo">NIMA.DEV</div>
         <div class="menu-items" id="menu">
-            <a href="#hero">Home</a>
-            <a href="#projects">Projects</a>
-            <a href="#skills">Skills</a>
-            <a href="about.html">About</a>
-            <a href="contact.html"</a>
-            <button onclick="toggleLanguage()" style="background: rgba(99,102,241,0.3);
-            border: 1px solid var(--accent);border-radius: 30px; padding: 5px 15px; cursor: pointer; color: white; font-size:0.9rem;">🌐 EN/FA</button>
+            <a href="#hero" data-i18n="nav.home">Home</a>
+            <a href="#projects" data-i18n="nav.projects">Projects</a>
+            <a href="#skills" data-i18n="nav.skills">Skills</a>
+            <a href="about.html" data-i18n="nav.about">About</a>
+            <a href="contact.html" data-i18n="nav.contact">Contact</a>
+            <button class="lang-btn" onclick="toggleLanguage()">🌐 EN/FA</button>
         </div>
         <div class="hamburger" onclick="toggleMenu()">☰</div>
     </nav>
 
     <section id="hero">
         <h1>
-            Hi, I'm Nima<br>
+            <span data-i18n="hero.title">Hi, I'm Nima</span><br>
             <span id="typed"></span>
         </h1>
-        <p>data-i18n="hero.subtitle">Bridging Hardware & Software | Electronics Engineering Student</p>
-        <a href="#projects" class="cta-btn">Explore My Work</a>
+        <p class="hero-subtitle" data-i18n="hero.subtitle">Bridging Hardware & Software | Electronics Engineering Student</p>
+        <a href="#projects" class="cta-btn" data-i18n="hero.cta">Explore My Work</a>
     </section>
 
     <section id="projects">
-        <h2>⚡data-i18n="projects.title"> My Projects</h2>
+        <h2 data-i18n="projects.title">⚡ My Projects</h2>
         <div class="grid-container">
             <div class="card">
                 <h3 data-i18n="projects.pcb">🔌 PCB Design</h3>
@@ -305,52 +319,52 @@
             </div>
             <div class="card">
                 <h3 data-i18n="projects.robot">🤖 Robotics Controller</h3>
-                <p>data-i18n="projects.robotDesc">PID controller implementation for line-following robot using STM32 microcontroller</p>
+                <p data-i18n="projects.robotDesc">PID controller implementation for line-following robot using STM32 microcontroller</p>
             </div>
             <div class="card">
-                <h3>🌐 Portfolio Website</h3>
-                <p>This responsive website - my first step into web development</p>
+                <h3 data-i18n="projects.website">🌐 Portfolio Website</h3>
+                <p data-i18n="projects.websiteDesc">This responsive website - my first step into web development</p>
             </div>
             <div class="card">
-                <h3>📡 Signal Processing</h3>
-                <p>Digital filter design for ECG signal noise reduction using MATLAB</p>
+                <h3 data-i18n="projects.signal">📡 Signal Processing</h3>
+                <p data-i18n="projects.signalDesc">Digital filter design for ECG signal noise reduction using MATLAB</p>
             </div>
         </div>
     </section>
 
     <section id="skills">
-        <h2>🛠️ Technical Skills</h2>
+        <h2 data-i18n="skills.title">🛠️ Technical Skills</h2>
         <div class="skills-container">
-            <span class="skill-badge">C Programming</span>
-            <span class="skill-badge">Embedded Systems</span>
-            <span class="skill-badge">PCB Design</span>
-            <span class="skill-badge">Arduino</span>
-            <span class="skill-badge">STM32</span>
-            <span class="skill-badge">MATLAB</span>
-            <span class="skill-badge">Circuit Analysis</span>
-            <span class="skill-badge">Digital Logic</span>
+            <span class="skill-badge" data-i18n="skills.item1">C Programming</span>
+            <span class="skill-badge" data-i18n="skills.item2">Embedded Systems</span>
+            <span class="skill-badge" data-i18n="skills.item3">PCB Design</span>
+            <span class="skill-badge" data-i18n="skills.item4">Arduino</span>
+            <span class="skill-badge" data-i18n="skills.item5">STM32</span>
+            <span class="skill-badge" data-i18n="skills.item6">MATLAB</span>
+            <span class="skill-badge" data-i18n="skills.item7">Circuit Analysis</span>
+            <span class="skill-badge" data-i18n="skills.item8">Digital Logic</span>
         </div>
     </section>
 
     <footer>
-        <p>© 2026 Nima | Electronics Engineering Student</p>
-        <p style="font-size: 0.8rem; margin-top: 10px;">Built with HTML/CSS/JS | Hosted on GitHub Pages</p>
+        <p data-i18n="footer.copyright">© 2026 Nima | Electronics Engineering Student</p>
+        <p style="font-size: 0.8rem; margin-top: 10px;" data-i18n="footer.built">Built with HTML/CSS/JS | Hosted on GitHub Pages</p>
     </footer>
 
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <script src="lang.js"></script>
     <script>
-        https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js
         function toggleMenu() {
             document.getElementById('menu').classList.toggle('active');
         }
 
-        // بستن منو هنگام کلیک روی لینک (بهتر برای UX)
         document.querySelectorAll('.menu-items a').forEach(link => {
             link.addEventListener('click', () => {
                 document.getElementById('menu').classList.remove('active');
             });
         });
 
+        // Typed.js initialization
         var typed = new Typed('#typed', {
             strings: ['Electronics Engineer', 'Embedded Systems Developer', 'PCB Designer', 'C Programmer'],
             typeSpeed: 60,
@@ -358,6 +372,19 @@
             backDelay: 1500,
             loop: true
         });
+
+        // Language toggle function
+        function toggleLanguage() {
+            if (typeof currentLang !== 'undefined' && typeof setLanguage !== 'undefined') {
+                const newLang = currentLang === 'en' ? 'fa' : 'en';
+                setLanguage(newLang);
+            } else {
+                alert('lang.js not loaded properly. Please check the file.');
+            }
+        }
+
+        // Save typed instance for language change
+        window.typed = typed;
     </script>
 </body>
 </html>
