@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Electron Configuration | Atomic Shell Model</title>
+    <title data-i18n="atomic.title">Electron Configuration | Atomic Shell Model</title>
     <style>
         * {
             margin: 0;
@@ -60,7 +60,8 @@
         }
         .menu-items {
             display: flex;
-            gap: 30px;
+            gap: 20px;
+            align-items: center;
         }
         .menu-items a {
             color: rgba(255,255,255,0.8);
@@ -68,6 +69,14 @@
             transition: 0.3s;
         }
         .menu-items a:hover { color: var(--accent); }
+        .lang-btn {
+            background: rgba(99,102,241,0.3);
+            border: 1px solid var(--accent);
+            border-radius: 30px;
+            padding: 5px 15px;
+            cursor: pointer;
+            color: white;
+        }
         .hamburger {
             display: none;
             font-size: 1.8rem;
@@ -168,30 +177,32 @@
     <nav>
         <div class="logo">NIMA.DEV</div>
         <div class="menu-items" id="menu">
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="projects.html">Projects</a>
-            <a href="contact.html">Contact</a>
+            <a href="index.html" data-i18n="nav.home">Home</a>
+            <a href="about.html" data-i18n="nav.about">About</a>
+            <a href="projects.html" data-i18n="nav.projects">Projects</a>
+            <a href="contact.html" data-i18n="nav.contact">Contact</a>
+            <button class="lang-btn" onclick="toggleLanguage()">🌐 EN/FA</button>
         </div>
         <div class="hamburger" onclick="toggleMenu()">☰</div>
     </nav>
 
     <div class="project-container">
-        <a href="projects.html" class="back-link">← Back to Projects</a>
-        <h1>⚛️ Electron Configuration</h1>
+        <a href="projects.html" class="back-link" data-i18n="atomic.back">← Back to Projects</a>
+        <h1 data-i18n="atomic.title">⚛️ Electron Configuration</h1>
         <div class="glass-card">
-            <p>Enter an atomic number (1 to 118) to get the electron configuration of that element.</p>
+            <p data-i18n="atomic.subtitle">Enter an atomic number (1 to 118) to get the electron configuration of that element.</p>
             <div class="input-area">
-                <input type="number" id="atomicNumber" placeholder="e.g., 29 (Copper)" min="1" max="118">
+                <input type="number" id="atomicNumber" data-i18n="atomic.placeholder" placeholder="e.g., 29 (Copper)" min="1" max="118">
             </div>
-            <button class="button" onclick="getConfiguration()">🔬 Show Configuration</button>
+            <button class="button" onclick="getConfiguration()" data-i18n="atomic.showBtn">🔬 Show Configuration</button>
             <div class="result-box" id="result">
-                <span style="color: var(--text-dim);">Result will appear here...</span>
+                <span style="color: var(--text-dim);" data-i18n="atomic.resultText">Result will appear here...</span>
             </div>
-            <p style="font-size: 0.8rem; margin-top: 15px;">💡 Follows Aufbau principle, Pauli exclusion, and Hund's rule.</p>
+            <p style="font-size: 0.8rem; margin-top: 15px;" data-i18n="atomic.note">💡 Follows Aufbau principle, Pauli exclusion, and Hund's rule.</p>
         </div>
     </div>
 
+    <script src="lang.js"></script>
     <script>
         // Order of subshells according to Aufbau (n+l rule)
         const subshellOrder = [
@@ -206,14 +217,15 @@
         function getConfiguration() {
             let Z = parseInt(document.getElementById('atomicNumber').value);
             if (isNaN(Z) || Z < 1 || Z > 118) {
-                document.getElementById('result').innerHTML = '<span style="color: #ff5555;">❌ Please enter a valid atomic number (1–118).</span>';
+                const errorMsg = currentLang === 'en' ? "❌ Please enter a valid atomic number (1–118)." : "❌ لطفاً یک عدد اتمی معتبر (۱ تا ۱۱۸) وارد کنید.";
+                document.getElementById('result').innerHTML = `<span style="color: #ff5555;">${errorMsg}</span>`;
                 return;
             }
 
             let remaining = Z;
             let config = [];
             for (let subshell of subshellOrder) {
-                let type = subshell[1]; // 's', 'p', 'd', 'f', 'g'
+                let type = subshell[1];
                 let capacity = maxElectrons[type];
                 let fill = Math.min(remaining, capacity);
                 if (fill > 0) {
@@ -223,7 +235,6 @@
                 if (remaining <= 0) break;
             }
 
-            // Get element name (simple mapping for first 118)
             const elements = [
                 "Hydrogen","Helium","Lithium","Beryllium","Boron","Carbon","Nitrogen","Oxygen","Fluorine","Neon",
                 "Sodium","Magnesium","Aluminum","Silicon","Phosphorus","Sulfur","Chlorine","Argon","Potassium","Calcium",
@@ -239,23 +250,44 @@
                 "Roentgenium","Copernicium","Nihonium","Flerovium","Moscovium","Livermorium","Tennessine","Oganesson"
             ];
             let elementName = (Z <= 118) ? elements[Z-1] : "Unknown";
-
             let configStr = config.join(" ");
+            
+            const titleText = currentLang === 'en' ? "Electron configuration" : "آرایش الکترونی";
             document.getElementById('result').innerHTML = `
                 <div><span class="element-name">${elementName}</span> (Atomic Number ${Z})</div>
                 <hr>
                 <div class="config">${configStr}</div>
-                <div style="font-size:0.85rem; margin-top:10px;">⚛️ Electron configuration</div>
+                <div style="font-size:0.85rem; margin-top:10px;">⚛️ ${titleText}</div>
             `;
         }
 
         function toggleMenu() {
             document.getElementById('menu').classList.toggle('active');
         }
+        
+        function toggleLanguage() {
+            if (typeof currentLang !== 'undefined' && typeof setLanguage !== 'undefined') {
+                const newLang = currentLang === 'en' ? 'fa' : 'en';
+                setLanguage(newLang);
+                updatePlaceholder();
+            }
+        }
+        
+        function updatePlaceholder() {
+            const input = document.getElementById('atomicNumber');
+            if(input && translations[currentLang]) {
+                input.placeholder = translations[currentLang].atomic.placeholder;
+            }
+        }
+        
         document.querySelectorAll('.menu-items a').forEach(link => {
             link.addEventListener('click', () => {
                 document.getElementById('menu').classList.remove('active');
             });
+        });
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(updatePlaceholder, 100);
         });
     </script>
 </body>
