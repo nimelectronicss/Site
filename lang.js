@@ -175,8 +175,51 @@ function updatePageText() {
         document.querySelectorAll('[data-i18n="atomic.exceptionNote"]').forEach(el => el.textContent = t.atomic.exceptionNote);
         document.querySelectorAll('[data-i18n="atomic.back"]').forEach(el => el.textContent = t.atomic.back);
     }
-    
+
     // Projects Page (projects.html)
     if(document.querySelector('[data-i18n="projectsPage.title"]')) {
         document.querySelectorAll('[data-i18n="projectsPage.title"]').forEach(el => el.innerHTML = t.projectsPage.title);
-        document.querySelectorAll('[data-i18n="projectsPage.subtitle"]').forEach(el => el.textContent = t.projectsPage.subtitle
+        document.querySelectorAll('[data-i18n="projectsPage.subtitle"]').forEach(el => el.textContent = t.projectsPage.subtitle);
+        document.querySelectorAll('[data-i18n="projectsPage.progCategory"]').forEach(el => el.innerHTML = t.projectsPage.progCategory);
+        document.querySelectorAll('[data-i18n="projectsPage.calcTitle"]').forEach(el => el.textContent = t.projectsPage.calcTitle);
+        document.querySelectorAll('[data-i18n="projectsPage.calcDesc"]').forEach(el => el.textContent = t.projectsPage.calcDesc);
+        document.querySelectorAll('[data-i18n="projectsPage.atomicTitle"]').forEach(el => el.textContent = t.projectsPage.atomicTitle);
+        document.querySelectorAll('[data-i18n="projectsPage.atomicDesc"]').forEach(el => el.textContent = t.projectsPage.atomicDesc);
+        document.querySelectorAll('[data-i18n="projectsPage.gradeTitle"]').forEach(el => el.textContent = t.projectsPage.gradeTitle);
+        document.querySelectorAll('[data-i18n="projectsPage.gradeDesc"]').forEach(el => el.textContent = t.projectsPage.gradeDesc);
+        document.querySelectorAll('[data-i18n="projectsPage.elecCategory"]').forEach(el => el.innerHTML = t.projectsPage.elecCategory);
+        document.querySelectorAll('[data-i18n="projectsPage.pcbTitle"]').forEach(el => el.textContent = t.projectsPage.pcbTitle);
+        document.querySelectorAll('[data-i18n="projectsPage.pcbDesc"]').forEach(el => el.textContent = t.projectsPage.pcbDesc);
+        document.querySelectorAll('[data-i18n="projectsPage.robotTitle"]').forEach(el => el.textContent = t.projectsPage.robotTitle);
+        document.querySelectorAll('[data-i18n="projectsPage.robotDesc"]').forEach(el => el.textContent = t.projectsPage.robotDesc);
+        document.querySelectorAll('[data-i18n="projectsPage.ecgTitle"]').forEach(el => el.textContent = t.projectsPage.ecgTitle);
+        document.querySelectorAll('[data-i18n="projectsPage.ecgDesc"]').forEach(el => el.textContent = t.projectsPage.ecgDesc);
+    }
+    
+    // Update typed.js if exists
+    if(window.typed && document.querySelector('#typed')) {
+        window.typed.destroy();
+        window.typed = new Typed('#typed', {
+            strings: t.hero.typed,
+            typeSpeed: 60,
+            backSpeed: 35,
+            backDelay: 1500,
+            loop: true
+        });
+    }
+}
+
+// Load saved language on page load
+document.addEventListener('DOMContentLoaded', () => {
+    const savedLang = localStorage.getItem('language');
+    if(savedLang && (savedLang === 'en' || savedLang === 'fa')) {
+        currentLang = savedLang;
+    } else {
+        const browserLang = navigator.language || navigator.userLanguage;
+        currentLang = browserLang.startsWith('fa') ? 'fa' : 'en';
+    }
+    updatePageText();
+});
+
+    
+    
