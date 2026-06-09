@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculator in C | Live Demo</title>
+    <title data-i18n="calculator.title">Calculator in C | Live Demo</title>
     <style>
         * {
             margin: 0;
@@ -61,7 +61,8 @@
         }
         .menu-items {
             display: flex;
-            gap: 30px;
+            gap: 20px;
+            align-items: center;
         }
         .menu-items a {
             color: rgba(255,255,255,0.8);
@@ -69,6 +70,14 @@
             transition: 0.3s;
         }
         .menu-items a:hover { color: var(--accent); }
+        .lang-btn {
+            background: rgba(99,102,241,0.3);
+            border: 1px solid var(--accent);
+            border-radius: 30px;
+            padding: 5px 15px;
+            cursor: pointer;
+            color: white;
+        }
         .hamburger {
             display: none;
             font-size: 1.8rem;
@@ -188,22 +197,23 @@
     <nav>
         <div class="logo">NIMA.DEV</div>
         <div class="menu-items" id="menu">
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="projects.html">Projects</a>
-            <a href="contact.html">Contact</a>
+            <a href="index.html" data-i18n="nav.home">Home</a>
+            <a href="about.html" data-i18n="nav.about">About</a>
+            <a href="projects.html" data-i18n="nav.projects">Projects</a>
+            <a href="contact.html" data-i18n="nav.contact">Contact</a>
+            <button class="lang-btn" onclick="toggleLanguage()">🌐 EN/FA</button>
         </div>
         <div class="hamburger" onclick="toggleMenu()">☰</div>
     </nav>
 
     <div class="project-container">
-        <a href="projects.html" class="back-link">← Back to Projects</a>
-        <h1>📟 Simple Calculator in C</h1>
+        <a href="projects.html" class="back-link" data-i18n="calculator.back">← Back to Projects</a>
+        <h1 data-i18n="calculator.title">📟 Simple Calculator in C</h1>
         <div class="project-grid">
             <div class="description-panel">
-                <h2>📖 About</h2>
-                <p>This is a simple command-line calculator written in C. The user enters two numbers and an operator (+, -, *, /), and the program displays the result.</p>
-                <h2>💻 Source Code</h2>
+                <h2 data-i18n="calculator.about">📖 About</h2>
+                <p data-i18n="calculator.aboutText">This is a simple command-line calculator written in C. The user enters two numbers and an operator (+, -, *, /), and the program displays the result.</p>
+                <h2 data-i18n="calculator.source">💻 Source Code</h2>
                 <div class="code-block">
                     <pre>#include &lt;stdio.h&gt;
 
@@ -230,11 +240,11 @@ int main() {
                 </div>
             </div>
             <div class="compiler-panel">
-                <h3>⚡ Try it yourself (Live Simulator)</h3>
-                <p style="color: var(--text-dim); margin-bottom: 15px;">Enter two numbers and choose an operator:</p>
+                <h3 data-i18n="calculator.liveDemo">⚡ Try it yourself (Live Simulator)</h3>
+                <p style="color: var(--text-dim); margin-bottom: 15px;" data-i18n="calculator.instruction">Enter two numbers and choose an operator:</p>
                 <div class="simulator">
                     <div class="input-group">
-                        <input type="number" id="num1" placeholder="First number">
+                        <input type="number" id="num1" data-i18n="calculator.enterNum1" placeholder="First number">
                     </div>
                     <div class="input-group">
                         <select id="operator">
@@ -245,17 +255,18 @@ int main() {
                         </select>
                     </div>
                     <div class="input-group">
-                        <input type="number" id="num2" placeholder="Second number">
+                        <input type="number" id="num2" data-i18n="calculator.enterNum2" placeholder="Second number">
                     </div>
-                    <button class="run-btn" onclick="calculate()">▶ Run Calculation</button>
-                    <div class="result" id="resultArea">
+                    <button class="run-btn" onclick="calculate()" data-i18n="calculator.runBtn">▶ Run Calculation</button>
+                    <div class="result" id="resultArea" data-i18n="calculator.result">
                         Result will appear here
                     </div>
                 </div>
-                <p style="font-size: 0.8rem; color: var(--text-dim); margin-top: 10px;">💡 This simulates the exact logic of the C program above.</p>
+                <p style="font-size: 0.8rem; color: var(--text-dim); margin-top: 10px;" data-i18n="calculator.note">💡 This simulates the exact logic of the C program above.</p>
             </div>
         </div>
     </div>
+    <script src="lang.js"></script>
     <script>
         function toggleMenu() {
             document.getElementById('menu').classList.toggle('active');
@@ -265,13 +276,35 @@ int main() {
                 document.getElementById('menu').classList.remove('active');
             });
         });
+        
+        function toggleLanguage() {
+            if (typeof currentLang !== 'undefined' && typeof setLanguage !== 'undefined') {
+                const newLang = currentLang === 'en' ? 'fa' : 'en';
+                setLanguage(newLang);
+                // Update placeholder texts after language change
+                updatePlaceholders();
+            }
+        }
+        
+        function updatePlaceholders() {
+            const t = translations[currentLang];
+            const num1Input = document.getElementById('num1');
+            const num2Input = document.getElementById('num2');
+            if(num1Input) num1Input.placeholder = t.calculator.enterNum1;
+            if(num2Input) num2Input.placeholder = t.calculator.enterNum2;
+            const resultDiv = document.getElementById('resultArea');
+            if(resultDiv && resultDiv.innerHTML.includes("Result will appear here")) {
+                resultDiv.innerHTML = t.calculator.result;
+            }
+        }
+        
         function calculate() {
             let num1 = parseFloat(document.getElementById('num1').value);
             let num2 = parseFloat(document.getElementById('num2').value);
             let op = document.getElementById('operator').value;
             let result;
             if (isNaN(num1) || isNaN(num2)) {
-                document.getElementById('resultArea').innerHTML = "❌ Please enter valid numbers";
+                document.getElementById('resultArea').innerHTML = currentLang === 'en' ? "❌ Please enter valid numbers" : "❌ لطفاً اعداد معتبر وارد کنید";
                 return;
             }
             switch(op) {
@@ -280,15 +313,21 @@ int main() {
                 case '*': result = num1 * num2; break;
                 case '/': 
                     if (num2 === 0) {
-                        document.getElementById('resultArea').innerHTML = "❌ Error: Division by zero!";
+                        document.getElementById('resultArea').innerHTML = currentLang === 'en' ? "❌ Error: Division by zero!" : "❌ خطا: تقسیم بر صفر!";
                         return;
                     }
                     result = num1 / num2;
                     break;
                 default: result = "Invalid operator";
             }
-            document.getElementById('resultArea').innerHTML = `✅ Result: ${result}`;
+            const resultText = currentLang === 'en' ? `✅ Result: ${result}` : `✅ نتیجه: ${result}`;
+            document.getElementById('resultArea').innerHTML = resultText;
         }
+        
+        // Update placeholders when DOM loads
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(updatePlaceholders, 100);
+        });
     </script>
 </body>
 </html>
