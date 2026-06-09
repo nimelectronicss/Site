@@ -155,6 +155,14 @@
             border-color: rgba(255,255,255,0.1);
             margin: 20px 0;
         }
+        .exception-note {
+            background: rgba(99,102,241,0.15);
+            border-radius: 12px;
+            padding: 10px;
+            margin-top: 15px;
+            font-size: 0.8rem;
+            color: #ffaa66;
+        }
         @media (max-width: 768px) {
             .hamburger { display: block; }
             .menu-items {
@@ -199,6 +207,9 @@
                 <span style="color: var(--text-dim);" data-i18n="atomic.resultText">Result will appear here...</span>
             </div>
             <p style="font-size: 0.8rem; margin-top: 15px;" data-i18n="atomic.note">💡 Follows Aufbau principle, Pauli exclusion, and Hund's rule.</p>
+            <div class="exception-note" data-i18n="atomic.exceptionNote">
+                ⚠️ Note: Exceptions (Cr, Cu, Mo, Ag, Au) are handled correctly.
+            </div>
         </div>
     </div>
 
@@ -209,21 +220,31 @@
             "1s", "2s", "2p", "3s", "3p", "4s", "3d", "4p", "5s", "4d", "5p",
             "6s", "4f", "5d", "6p", "7s", "5f", "6d", "7p", "8s", "5g", "6f", "7d", "8p"
         ];
+        
         // Maximum electrons per subshell
         const maxElectrons = {
             s: 2, p: 6, d: 10, f: 14, g: 18
         };
 
-        function getConfiguration() {
-            let Z = parseInt(document.getElementById('atomicNumber').value);
-            if (isNaN(Z) || Z < 1 || Z > 118) {
-                const errorMsg = currentLang === 'en' ? "❌ Please enter a valid atomic number (1–118)." : "❌ لطفاً یک عدد اتمی معتبر (۱ تا ۱۱۸) وارد کنید.";
-                document.getElementById('result').innerHTML = `<span style="color: #ff5555;">${errorMsg}</span>`;
-                return;
-            }
+        // Special exceptions to Aufbau principle
+        const exceptions = {
+            24: { config: ["4s^1", "3d^5"], name: "Chromium" },      // Cr
+            29: { config: ["4s^1", "3d^10"], name: "Copper" },        // Cu
+            42: { config: ["5s^1", "4d^5"], name: "Molybdenum" },     // Mo
+            47: { config: ["5s^1", "4d^10"], name: "Silver" },        // Ag
+            79: { config: ["6s^1", "4f^14", "5d^10"], name: "Gold" }  // Au
+        };
 
-            let remaining = Z;
+        function getElectronConfiguration(atomicNumber) {
+            // Check for exceptions first
+            if (exceptions[atomicNumber]) {
+                return exceptions[atomicNumber].config;
+            }
+            
+            // Normal Aufbau filling
+            let remaining = atomicNumber;
             let config = [];
+            
             for (let subshell of subshellOrder) {
                 let type = subshell[1];
                 let capacity = maxElectrons[type];
@@ -233,6 +254,21 @@
                 }
                 remaining -= fill;
                 if (remaining <= 0) break;
+            }
+            
+            return config;
+        }
+
+        function getConfiguration() {
+            let Z = parseInt(document.getElementById('atomicNumber').value);
+            let t = translations[currentLang];
+            
+            if (isNaN(Z) || Z < 1 || Z > 118) {
+                const errorMsg = currentLang === 'en' 
+                    ? "❌ Please enter a valid atomic number (1–118)." 
+                    : "❌ لطفاً یک عدد اتمی معتبر (۱ تا ۱۱۸) وارد کنید.";
+                document.getElementById('result').innerHTML = `<span style="color: #ff5555;">${errorMsg}</span>`;
+                return;
             }
 
             const elements = [
@@ -249,16 +285,50 @@
                 "Mendelevium","Nobelium","Lawrencium","Rutherfordium","Dubnium","Seaborgium","Bohrium","Hassium","Meitnerium","Darmstadtium",
                 "Roentgenium","Copernicium","Nihonium","Flerovium","Moscovium","Livermorium","Tennessine","Oganesson"
             ];
+            
             let elementName = (Z <= 118) ? elements[Z-1] : "Unknown";
-            let configStr = config.join(" ");
+            let configArray = getElectronConfiguration(Z);
+            let configStr = configArray.join(" ");
+            
+            // Add noble gas core notation for larger elements
+            let nobleGasCore = "";
+            if (Z > 18) {
+                const nobleGases = [
+                    { Z: 2, symbol: "[He]" },
+                    { Z: 10, symbol: "[Ne]" },
+                    { Z: 18, symbol: "[Ar]" },
+                    { Z: 36, symbol: "[Kr]" },
+                    { Z: 54, symbol: "[Xe]" },
+                    { Z: 86, symbol: "[Rn]" }
+                ];
+                for (let i = nobleGases.length - 1; i >= 0; i--) {
+                    if (nobleGases[i].Z < Z) {
+                        nobleGasCore = nobleGases[i].symbol;
+                        break;
+                    }
+                }
+            }
             
             const titleText = currentLang === 'en' ? "Electron configuration" : "آرایش الکترونی";
-            document.getElementById('result').innerHTML = `
-                <div><span class="element-name">${elementName}</span> (Atomic Number ${Z})</div>
+            const isException = exceptions[Z] ? true : false;
+            const exceptionText = isException && currentLang === 'en' ? " ⚡ (Exception to Aufbau)" : (isException ? " ⚡ (استثنا از قاعده آفبا)" : "");
+            
+            let html = `
+                <div><span class="element-name">${elementName}</span> (Atomic Number ${Z})${exceptionText}</div>
                 <hr>
-                <div class="config">${configStr}</div>
+                <div class="config">${nobleGasCore ? nobleGasCore + " " : ""}${configStr}</div>
                 <div style="font-size:0.85rem; margin-top:10px;">⚛️ ${titleText}</div>
             `;
+            
+            // Add explanation for exceptions
+            if (isException && exceptions[Z]) {
+                const expText = currentLang === 'en' 
+                    ? `💡 ${exceptions[Z].name} has a half-filled/filled d-subshell for extra stability.`
+                    : `💡 ${exceptions[Z].name} برای پایداری بیشتر، آرایش نیمه‌پر یا کاملاً پر دارد.`;
+                html += `<div style="font-size:0.75rem; color:#ffaa66; margin-top:10px;">${expText}</div>`;
+            }
+            
+            document.getElementById('result').innerHTML = html;
         }
 
         function toggleMenu() {
