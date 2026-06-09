@@ -5,14 +5,16 @@ const translations = {
         hero: { title: "Hi, I'm Nima", subtitle: "Bridging Hardware & Software | Electronics Engineering Student", typed: ["Electronics Engineer", "Embedded Systems Developer", "PCB Designer", "C Programmer"], cta: "Explore My Work" },
         projects: { title: "⚡ My Projects", pcb: "🔌 PCB Design", pcbDesc: "Custom circuit board design for embedded systems using Altium and KiCad", robot: "🤖 Robotics Controller", robotDesc: "PID controller implementation for line-following robot using STM32 microcontroller", website: "🌐 Portfolio Website", websiteDesc: "This responsive website - my first step into web development", signal: "📡 Signal Processing", signalDesc: "Digital filter design for ECG signal noise reduction using MATLAB" },
         skills: { title: "🛠️ Technical Skills", item1: "C Programming", item2: "Embedded Systems", item3: "PCB Design", item4: "Arduino", item5: "STM32", item6: "MATLAB", item7: "Circuit Analysis", item8: "Digital Logic" },
-        footer: { copyright: "© 2026 Nima | Electronics Engineering Student", built: "Built with HTML/CSS/JS | Hosted on GitHub Pages" }
+        footer: { copyright: "© 2026 Nima | Electronics Engineering Student", built: "Built with HTML/CSS/JS | Hosted on GitHub Pages" },
+        contact: { title: "📧 Contact Me", subtitle: "Open for collaborations, projects, or just a technical chat", formTitle: "✉️ Send a Message", name: "Full Name", email: "Email Address", subject: "Subject", option1: "Project Collaboration", option2: "Electronics Consultation", option3: "Job Opportunity", option4: "Other", message: "Your Message", sendBtn: "📤 Send Message", detailsTitle: "📬 Contact Details", copy: "Copy" }
     },
     fa: {
         nav: { home: "خانه", about: "درباره من", projects: "پروژه‌ها", contact: "تماس", skills: "مهارت‌ها" },
         hero: { title: "سلام، من نیما هستم", subtitle: "پل بین سخت‌افزار و نرم‌افزار | دانشجوی مهندسی الکترونیک", typed: ["مهندس الکترونیک", "توسعه‌دهنده سیستم‌های نهفته", "طراح PCB", "برنامه‌نویس C"], cta: "مشاهده کارهای من" },
         projects: { title: "⚡ پروژه‌های من", pcb: "🔌 طراحی PCB", pcbDesc: "طراحی برد مدار سفارشی برای سیستم‌های نهفته با Altium و KiCad", robot: "🤖 کنترلر رباتیک", robotDesc: "پیاده‌سازی کنترلر PID برای ربات دنبال‌کننده خط با STM32", website: "🌐 سایت نمونه کار", websiteDesc: "این سایت واکنش‌گرا - اولین قدم من در توسعه وب", signal: "📡 پردازش سیگنال", signalDesc: "طراحی فیلتر دیجیتال برای کاهش نویز سیگنال ECG با MATLAB" },
         skills: { title: "🛠️ مهارت‌های فنی", item1: "برنامه‌نویسی C", item2: "سیستم‌های نهفته", item3: "طراحی PCB", item4: "آردوینو", item5: "STM32", item6: "متلب", item7: "تحلیل مدار", item8: "منطق دیجیتال" },
-        footer: { copyright: "© ۲۰۲۶ نیما | دانشجوی مهندسی الکترونیک", built: "ساخته شده با HTML/CSS/JS | میزبانی شده در گیت‌هاب" }
+        footer: { copyright: "© ۲۰۲۶ نیما | دانشجوی مهندسی الکترونیک", built: "ساخته شده با HTML/CSS/JS | میزبانی شده در گیت‌هاب" },
+        contact: { title: "📧 تماس با من", subtitle: "برای همکاری، پروژه، یا هر سوال فنی", formTitle: "✉️ ارسال پیام", name: "نام کامل", email: "آدرس ایمیل", subject: "موضوع", option1: "همکاری پروژه", option2: "مشاوره الکترونیک", option3: "فرصت شغلی", option4: "سایر", message: "پیام شما", sendBtn: "📤 ارسال پیام", detailsTitle: "📬 اطلاعات تماس", copy: "کپی" }
     }
 };
 
@@ -66,9 +68,26 @@ function updatePageText() {
     document.querySelectorAll('[data-i18n="footer.copyright"]').forEach(el => el.textContent = t.footer.copyright);
     document.querySelectorAll('[data-i18n="footer.built"]').forEach(el => el.textContent = t.footer.built);
     
+    // Contact page (if exists)
+    if(document.querySelector('[data-i18n="contact.title"]')) {
+        document.querySelectorAll('[data-i18n="contact.title"]').forEach(el => el.textContent = t.contact.title);
+        document.querySelectorAll('[data-i18n="contact.subtitle"]').forEach(el => el.textContent = t.contact.subtitle);
+        document.querySelectorAll('[data-i18n="contact.formTitle"]').forEach(el => el.textContent = t.contact.formTitle);
+        document.querySelectorAll('[data-i18n="contact.name"]').forEach(el => el.textContent = t.contact.name);
+        document.querySelectorAll('[data-i18n="contact.email"]').forEach(el => el.textContent = t.contact.email);
+        document.querySelectorAll('[data-i18n="contact.subject"]').forEach(el => el.textContent = t.contact.subject);
+        document.querySelectorAll('[data-i18n="contact.option1"]').forEach(el => el.textContent = t.contact.option1);
+        document.querySelectorAll('[data-i18n="contact.option2"]').forEach(el => el.textContent = t.contact.option2);
+        document.querySelectorAll('[data-i18n="contact.option3"]').forEach(el => el.textContent = t.contact.option3);
+        document.querySelectorAll('[data-i18n="contact.option4"]').forEach(el => el.textContent = t.contact.option4);
+        document.querySelectorAll('[data-i18n="contact.message"]').forEach(el => el.textContent = t.contact.message);
+        document.querySelectorAll('[data-i18n="contact.sendBtn"]').forEach(el => el.textContent = t.contact.sendBtn);
+        document.querySelectorAll('[data-i18n="contact.detailsTitle"]').forEach(el => el.textContent = t.contact.detailsTitle);
+        document.querySelectorAll('[data-i18n="contact.copy"]').forEach(el => el.textContent = t.contact.copy);
+    }
+    
     // Update typed.js if exists
-    if(window.typed) {
-        const currentStrings = window.typed.strings;
+    if(window.typed && document.querySelector('#typed')) {
         window.typed.destroy();
         window.typed = new Typed('#typed', {
             strings: t.hero.typed,
