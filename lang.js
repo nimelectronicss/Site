@@ -3,7 +3,25 @@ const translations = {
     en: {
         nav: { home: "Home", about: "About", projects: "Projects", contact: "Contact", skills: "Skills" },
         hero: { title: "Hi, I'm Nima", subtitle: "Bridging Hardware & Software | Electronics Engineering Student", typed: ["Electronics Engineer", "Embedded Systems Developer", "PCB Designer", "C Programmer"], cta: "Explore My Work" },
-        projects: { title: "⚡ My Projects", pcb: "🔌 PCB Design", pcbDesc: "Custom circuit board design for embedded systems using Altium and KiCad", robot: "🤖 Robotics Controller", robotDesc: "PID controller implementation for line-following robot using STM32 microcontroller", website: "🌐 Portfolio Website", websiteDesc: "This responsive website - my first step into web development", signal: "📡 Signal Processing", signalDesc: "Digital filter design for ECG signal noise reduction using MATLAB" },
+        projects: {
+    pageTitle: "Projects | Nima - Electronics Engineer",
+    title: "📁 My Projects",
+    subtitle: "Where hardware meets code — each project has its own story",
+    progCategory: "💻 Programming (C)",
+    calcTitle: "Simple Calculator",
+    calcDesc: "Command-line calculator with addition, subtraction, multiplication, division. Great exercise for switch-case and I/O.",
+    atomicTitle: "Electron Configuration",
+    atomicDesc: "Enter atomic number (Z) and get the full electron configuration with Aufbau principle and exceptions.",
+    gradeTitle: "Student Grade Manager",
+    gradeDesc: "Manage student grades using structs and file handling (coming soon)",
+    elecCategory: "⚡ Electronics",
+    pcbTitle: "PCB Design - Power Supply",
+    pcbDesc: "5V and 12V power supply board design using Altium Designer. Includes schematic and final layout.",
+    robotTitle: "Line Follower Robot",
+    robotDesc: "Line-following robot with IR sensors and PID controller on STM32 (coming soon)",
+    ecgTitle: "ECG Signal Filter",
+    ecgDesc: "Digital filter design for noise removal from ECG signals using MATLAB (coming soon)"
+        }
         skills: { title: "🛠️ Technical Skills", item1: "C Programming", item2: "Embedded Systems", item3: "PCB Design", item4: "Arduino", item5: "STM32", item6: "MATLAB", item7: "Circuit Analysis", item8: "Digital Logic" },
         footer: { copyright: "© 2026 Nima | Electronics Engineering Student", built: "Built with HTML/CSS/JS | Hosted on GitHub Pages" },
         contact: { title: "📧 Contact Me", subtitle: "Open for collaborations, projects, or just a technical chat", formTitle: "✉️ Send a Message", name: "Full Name", email: "Email Address", subject: "Subject", option1: "Project Collaboration", option2: "Electronics Consultation", option3: "Job Opportunity", option4: "Other", message: "Your Message", sendBtn: "📤 Send Message", detailsTitle: "📬 Contact Details", copy: "Copy" },
@@ -14,7 +32,25 @@ const translations = {
     fa: {
         nav: { home: "خانه", about: "درباره من", projects: "پروژه‌ها", contact: "تماس", skills: "مهارت‌ها" },
         hero: { title: "سلام، من نیما هستم", subtitle: "پل بین سخت‌افزار و نرم‌افزار | دانشجوی مهندسی الکترونیک", typed: ["مهندس الکترونیک", "توسعه‌دهنده سیستم‌های نهفته", "طراح PCB", "برنامه‌نویس C"], cta: "مشاهده کارهای من" },
-        projects: { title: "⚡ پروژه‌های من", pcb: "🔌 طراحی PCB", pcbDesc: "طراحی برد مدار سفارشی برای سیستم‌های نهفته با Altium و KiCad", robot: "🤖 کنترلر رباتیک", robotDesc: "پیاده‌سازی کنترلر PID برای ربات دنبال‌کننده خط با STM32", website: "🌐 سایت نمونه کار", websiteDesc: "این سایت واکنش‌گرا - اولین قدم من در توسعه وب", signal: "📡 پردازش سیگنال", signalDesc: "طراحی فیلتر دیجیتال برای کاهش نویز سیگنال ECG با MATLAB" },
+        projects: {
+    pageTitle: "پروژه‌ها | نیما - مهندس الکترونیک",
+    title: "📁 پروژه‌های من",
+    subtitle: "جایی که سخت‌افزار و کد به هم می‌رسند — هر پروژه داستان خودش را دارد",
+    progCategory: "💻 برنامه‌نویسی (C)",
+    calcTitle: "ماشین حساب ساده",
+    calcDesc: "ماشین حساب خط فرمان با قابلیت جمع، تفریق، ضرب و تقسیم. تمرین عالی برای حلقه‌ها و شرط‌ها.",
+    atomicTitle: "آرایش الکترونی",
+    atomicDesc: "عدد اتمی (Z) را وارد کنید تا آرایش الکترونی کامل عنصر را دریافت کنید.",
+    gradeTitle: "مدیریت نمرات دانشجو",
+    gradeDesc: "مدیریت نمرات دانشجویان با استفاده از struct و فایل‌ها (به زودی)",
+    elecCategory: "⚡ الکترونیک",
+    pcbTitle: "طراحی PCB - منبع تغذیه",
+    pcbDesc: "طراحی برد منبع تغذیه ۵ ولت و ۱۲ ولت با Altium Designer. شامل شماتیک و layout نهایی.",
+    robotTitle: "ربات دنبال‌کننده خط",
+    robotDesc: "ربات دنبال‌کننده خط با سنسورهای مادون قرمز و کنترلر PID روی STM32 (به زودی)",
+    ecgTitle: "فیلتر سیگنال ECG",
+    ecgDesc: "طراحی فیلتر دیجیتال برای حذف نویز از سیگنال‌های ECG با استفاده از MATLAB (به زودی)"
+        }
         skills: { title: "🛠️ مهارت‌های فنی", item1: "برنامه‌نویسی C", item2: "سیستم‌های نهفته", item3: "طراحی PCB", item4: "آردوینو", item5: "STM32", item6: "متلب", item7: "تحلیل مدار", item8: "منطق دیجیتال" },
         footer: { copyright: "© ۲۰۲۶ نیما | دانشجوی مهندسی الکترونیک", built: "ساخته شده با HTML/CSS/JS | میزبانی شده در گیت‌هاب" },
         contact: { title: "📧 تماس با من", subtitle: "برای همکاری، پروژه، یا هر سوال فنی", formTitle: "✉️ ارسال پیام", name: "نام کامل", email: "آدرس ایمیل", subject: "موضوع", option1: "همکاری پروژه", option2: "مشاوره الکترونیک", option3: "فرصت شغلی", option4: "سایر", message: "پیام شما", sendBtn: "📤 ارسال پیام", detailsTitle: "📬 اطلاعات تماس", copy: "کپی" },
