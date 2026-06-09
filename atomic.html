@@ -143,9 +143,18 @@
         }
         .config {
             font-family: monospace;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             word-break: break-word;
             color: #aaffdd;
+        }
+        .config-full {
+            font-family: monospace;
+            font-size: 0.85rem;
+            word-break: break-word;
+            color: var(--text-dim);
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed rgba(255,255,255,0.1);
         }
         .element-name {
             color: var(--accent);
@@ -162,6 +171,16 @@
             margin-top: 15px;
             font-size: 0.8rem;
             color: #ffaa66;
+        }
+        .toggle-btn {
+            background: transparent;
+            border: 1px solid var(--accent);
+            border-radius: 20px;
+            padding: 4px 12px;
+            margin-top: 10px;
+            cursor: pointer;
+            color: var(--accent);
+            font-size: 0.7rem;
         }
         @media (max-width: 768px) {
             .hamburger { display: block; }
@@ -226,25 +245,28 @@
             s: 2, p: 6, d: 10, f: 14, g: 18
         };
 
+        // Noble gases with their atomic numbers and full configurations
+        const nobleGases = [
+            { Z: 2, symbol: "[He]", fullConfig: "1s²" },
+            { Z: 10, symbol: "[Ne]", fullConfig: "1s² 2s² 2p⁶" },
+            { Z: 18, symbol: "[Ar]", fullConfig: "1s² 2s² 2p⁶ 3s² 3p⁶" },
+            { Z: 36, symbol: "[Kr]", fullConfig: "1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d¹⁰ 4p⁶" },
+            { Z: 54, symbol: "[Xe]", fullConfig: "1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d¹⁰ 4p⁶ 5s² 4d¹⁰ 5p⁶" },
+            { Z: 86, symbol: "[Rn]", fullConfig: "1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d¹⁰ 4p⁶ 5s² 4d¹⁰ 5p⁶ 6s² 4f¹⁴ 5d¹⁰ 6p⁶" }
+        ];
+
         // Special exceptions to Aufbau principle
         const exceptions = {
-            24: { config: ["4s^1", "3d^5"], name: "Chromium" },      // Cr
-            29: { config: ["4s^1", "3d^10"], name: "Copper" },        // Cu
-            42: { config: ["5s^1", "4d^5"], name: "Molybdenum" },     // Mo
-            47: { config: ["5s^1", "4d^10"], name: "Silver" },        // Ag
-            79: { config: ["6s^1", "4f^14", "5d^10"], name: "Gold" }  // Au
+            24: { valence: ["4s¹", "3d⁵"], name: "Chromium" },
+            29: { valence: ["4s¹", "3d¹⁰"], name: "Copper" },
+            42: { valence: ["5s¹", "4d⁵"], name: "Molybdenum" },
+            47: { valence: ["5s¹", "4d¹⁰"], name: "Silver" },
+            79: { valence: ["6s¹", "4f¹⁴", "5d¹⁰"], name: "Gold" }
         };
 
-        function getElectronConfiguration(atomicNumber) {
-            // Check for exceptions first
-            if (exceptions[atomicNumber]) {
-                return exceptions[atomicNumber].config;
-            }
-            
-            // Normal Aufbau filling
+        function getFullConfiguration(atomicNumber) {
             let remaining = atomicNumber;
             let config = [];
-            
             for (let subshell of subshellOrder) {
                 let type = subshell[1];
                 let capacity = maxElectrons[type];
@@ -255,8 +277,48 @@
                 remaining -= fill;
                 if (remaining <= 0) break;
             }
-            
             return config;
+        }
+
+        function getNobleGasCore(atomicNumber) {
+            let nobleGas = null;
+            for (let i = nobleGases.length - 1; i >= 0; i--) {
+                if (nobleGases[i].Z < atomicNumber) {
+                    nobleGas = nobleGases[i];
+                    break;
+                }
+            }
+            return nobleGas;
+        }
+
+        function getValenceConfig(atomicNumber, nobleGas) {
+            if (exceptions[atomicNumber]) {
+                return exceptions[atomicNumber].valence;
+            }
+            
+            let remaining = atomicNumber - (nobleGas ? nobleGas.Z : 0);
+            let valence = [];
+            let startIndex = nobleGas ? nobleGases.findIndex(g => g.Z === nobleGas.Z) + 1 : 0;
+            
+            for (let i = startIndex; i < subshellOrder.length; i++) {
+                let subshell = subshellOrder[i];
+                let type = subshell[1];
+                let capacity = maxElectrons[type];
+                let fill = Math.min(remaining, capacity);
+                if (fill > 0) {
+                    valence.push(`${subshell}^${fill}`);
+                }
+                remaining -= fill;
+                if (remaining <= 0) break;
+            }
+            return valence;
+        }
+
+        let showFullConfig = false;
+
+        function toggleFullConfig() {
+            showFullConfig = !showFullConfig;
+            getConfiguration(); // Refresh display
         }
 
         function getConfiguration() {
@@ -287,40 +349,47 @@
             ];
             
             let elementName = (Z <= 118) ? elements[Z-1] : "Unknown";
-            let configArray = getElectronConfiguration(Z);
-            let configStr = configArray.join(" ");
+            let nobleGas = getNobleGasCore(Z);
+            let valenceConfig = getValenceConfig(Z, nobleGas);
+            let valenceStr = valenceConfig.join(" ");
             
-            // Add noble gas core notation for larger elements
-            let nobleGasCore = "";
-            if (Z > 18) {
-                const nobleGases = [
-                    { Z: 2, symbol: "[He]" },
-                    { Z: 10, symbol: "[Ne]" },
-                    { Z: 18, symbol: "[Ar]" },
-                    { Z: 36, symbol: "[Kr]" },
-                    { Z: 54, symbol: "[Xe]" },
-                    { Z: 86, symbol: "[Rn]" }
-                ];
-                for (let i = nobleGases.length - 1; i >= 0; i--) {
-                    if (nobleGases[i].Z < Z) {
-                        nobleGasCore = nobleGases[i].symbol;
-                        break;
-                    }
-                }
-            }
+            let fullConfigArray = getFullConfiguration(Z);
+            let fullConfigStr = fullConfigArray.join(" ");
             
             const titleText = currentLang === 'en' ? "Electron configuration" : "آرایش الکترونی";
             const isException = exceptions[Z] ? true : false;
             const exceptionText = isException && currentLang === 'en' ? " ⚡ (Exception to Aufbau)" : (isException ? " ⚡ (استثنا از قاعده آفبا)" : "");
             
+            let nobleSymbol = "";
+            let fullConfigDisplay = "";
+            
+            if (nobleGas && Z > 2) {
+                nobleSymbol = nobleGas.symbol + " ";
+                if (showFullConfig) {
+                    fullConfigDisplay = `<div class="config-full">📜 ${fullConfigStr}</div>`;
+                }
+            } else if (Z <= 2) {
+                nobleSymbol = "";
+                if (showFullConfig && Z === 1) {
+                    fullConfigDisplay = `<div class="config-full">📜 1s¹</div>`;
+                } else if (showFullConfig && Z === 2) {
+                    fullConfigDisplay = `<div class="config-full">📜 1s²</div>`;
+                }
+            } else {
+                if (showFullConfig) {
+                    fullConfigDisplay = `<div class="config-full">📜 ${fullConfigStr}</div>`;
+                }
+            }
+            
             let html = `
                 <div><span class="element-name">${elementName}</span> (Atomic Number ${Z})${exceptionText}</div>
                 <hr>
-                <div class="config">${nobleGasCore ? nobleGasCore + " " : ""}${configStr}</div>
+                <div class="config">${nobleSymbol}${valenceStr}</div>
+                ${fullConfigDisplay}
                 <div style="font-size:0.85rem; margin-top:10px;">⚛️ ${titleText}</div>
+                <button class="toggle-btn" onclick="toggleFullConfig()">${showFullConfig ? (currentLang === 'en' ? '📖 Show shorthand' : '📖 نمایش خلاصه') : (currentLang === 'en' ? '📜 Show full configuration' : '📜 نمایش کامل')}</button>
             `;
             
-            // Add explanation for exceptions
             if (isException && exceptions[Z]) {
                 const expText = currentLang === 'en' 
                     ? `💡 ${exceptions[Z].name} has a half-filled/filled d-subshell for extra stability.`
@@ -340,6 +409,7 @@
                 const newLang = currentLang === 'en' ? 'fa' : 'en';
                 setLanguage(newLang);
                 updatePlaceholder();
+                setTimeout(() => getConfiguration(), 100);
             }
         }
         
@@ -361,4 +431,4 @@
         });
     </script>
 </body>
-</html>
+    </html>
